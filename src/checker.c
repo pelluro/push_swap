@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pushswap.h"git
+#include "../include/pushswap.h"
 
 int main(int argc, char **argv)
 {
+	printf("argc=%d\n",argc);
+	printf("argv=%s\n",argv[1]);
 	char buff[2001];
 	int f;
-	t_stack* stack_a;
-	t_stack* stack_b;
+	t_stack *stack_a;
+	t_stack *stack_b;
 	
 	stack_a = (t_stack*)malloc(sizeof(t_stack));
 	stack_b = (t_stack*)malloc(sizeof(t_stack));
@@ -26,18 +28,18 @@ int main(int argc, char **argv)
 	stack_b->content = NULL;
 	stack_b->size = 0;
 	f = 0;
-	if(read(0, buff, 1999))
+	if (read(0, buff, 1999))
 	{
 		buff[2000] = '\0';
 		f = 1;
 	}
-	if(!makestack(stack_a, argc, argv))
+	if (!makestack(stack_a, argc, argv))
 	{
 		printf("Error\n");
 		return (-1);
 	}
-	if(f>0)
-		return(do_cmds(stack_a, stack_b, ft_strsplit(buff, '\n')));
+	if (f > 0)
+		return (do_cmds(stack_a, stack_b, ft_strsplit(buff, '\n')));
 	else
-		return(read_cmds(stack_a, stack_b));
+		return (read_cmds(stack_a, stack_b));
 }

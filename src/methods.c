@@ -243,7 +243,7 @@ int makestack(t_stack *stack, int argc, char **argv)
 		{
 			j = ft_atoi(argv[i]);
 			if (j != 0)
-				stack->content[i-1] = j;
+				stack->content[i - 1] = j;
 			else 
 				return(0);
 		}
