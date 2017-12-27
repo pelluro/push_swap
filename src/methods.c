@@ -288,7 +288,7 @@ void printtab(t_stack* stack)
 	i = 0;
 	while (i < stack->size)
 	{
-		//printf("content=%d\n",stack->content[i]);
+		printf("content=%d\n",stack->content[i]);
 		i++;
 	}
 }
