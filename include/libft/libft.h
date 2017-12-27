@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+# include <wchar.h>
+# include <stdint.h>
 # include <ctype.h>
 # include <stdlib.h>
 # define SUCCESS 1
