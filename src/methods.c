@@ -324,7 +324,7 @@ int read_cmds(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-int do_cmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
+int do_cmds(t_stack *stack_a, t_stack *stack_b, char **cmds)
 {
 	int i;
 	stack_op op;
@@ -334,9 +334,7 @@ int do_cmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
 	{
 		op = define_hashmap(cmds[i]);
 		if (op)
-		{
 			op(stack_a,stack_b);
-		}
 		else if (!cmds[i][0])
 			break ;
 		else
