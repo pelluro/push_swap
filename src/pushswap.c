@@ -12,78 +12,78 @@
 
 #include "../include/pushswap.h"
 
-int guessmvt(t_stack* stackA, t_stack* stackB, int i)
+int guessmvt(t_stack *stack_a, t_stack *stack_b, int i)
 {
-	int firstElemA;
-	int secondElemA;
-	int lastElemA;
-	if(i>100)
+	int first_elem_a;
+	int second_elem_a;
+	int last_elem_a;
+	
+	if(i > 100)
 		return(-1);
-	if(issorted(stackA))
+	if(issorted(stack_a))
 	{
-		if(stackB->size == 0)
+		if(stack_b->size == 0)
 			return (0);
 		else
 		{
 			printf("pa\n");
-			push_a(stackA,stackB);
-			return guessmvt(stackA,stackB,i+1);
+			push_a(stack_a, stack_b);
+			return guessmvt(stack_a, stack_b, i + 1);
 		}
 	}
-	if(stackA->size> 1)
+	if(stack_a->size > 1)
 	{
-		firstElemA = stackA->content[0];
-		secondElemA = stackA->content[1];
-		lastElemA = stackA->content[stackA->size - 1];
-		if(firstElemA > secondElemA)
+		first_elem_a = stack_a->content[0];
+		second_elem_a = stack_a->content[1];
+		last_elem_a = stack_a->content[stack_a->size - 1];
+		if(first_elem_a > second_elem_a)
 		{
 				printf("sa\n");
-				swap_a(stackA,stackB);
-				return guessmvt(stackA,stackB,i+1);
+				swap_a(stack_a, stack_b);
+				return (guessmvt(stack_a, stack_b, i + 1));
 		}
-		else if(firstElemA > lastElemA)
+		else if(first_elem_a > last_elem_a)
 			{
 				printf("ra\n");
-				rotate_a(stackA,stackB);
-				return guessmvt(stackA,stackB,i+1);
+				rotate_a(stack_a, stack_b);
+				return (guessmvt(stack_a, stack_b, i + 1));
 			}
 		else
 		{
 			printf("pb\n");
-			push_b(stackA,stackB);
-			return guessmvt(stackA,stackB,i+1);
+			push_b(stack_a, stack_b);
+			return (guessmvt(stack_a, stack_b, i + 1));
 		}
 	}
 	else
 	{
 		printf("pa\n");
-		push_a(stackA,stackB);
-		return guessmvt(stackA,stackB,i+1);
+		push_a(stack_a, stack_b);
+		return (guessmvt(stack_a, stack_b, i + 1));
 	}
-	return -1;
 }
 
 int main(int argc, char** argv)
 {
-	t_stack* stackA;
-	t_stack* stackB;
+	t_stack* stack_a;
+	t_stack* stack_b;
 	
-	stackA = (t_stack*)malloc(sizeof(t_stack));
-	stackB = (t_stack*)malloc(sizeof(t_stack));
-	stackA->content = (int*)malloc(sizeof(int)* (argc-1));
-	stackA->size = argc - 1;
-	stackB->content = NULL;
-	stackB->size = 0;
-	if(!makeStack(stackA, argc, argv))
+	stack_a = (t_stack*)malloc(sizeof(t_stack));
+	stack_b = (t_stack*)malloc(sizeof(t_stack));
+	stack_a->content = (int*)malloc(sizeof(int) * (argc - 1));
+	stack_a->size = argc - 1;
+	stack_b->content = NULL;
+	stack_b->size = 0;
+	if(!makestack(stack_a, argc, argv))
 	{
 		printf("Error\n");
 		return (-1);
 	}
-	if(guessmvt(stackA, stackB,0)<0)
+	if(guessmvt(stack_a, stack_b, 0) < 0)
 	{
 		printf("Error\n");
 		return (-1);
 	}
-	return 0;
+	return (0);
 }
 

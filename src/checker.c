@@ -12,32 +12,32 @@
 
 #include "../include/pushswap.h"
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	char buff[2001];
 	int f;
-	t_stack* stackA;
-	t_stack* stackB;
+	t_stack* stack_a;
+	t_stack* stack_b;
 	
-	stackA = (t_stack*)malloc(sizeof(t_stack));
-	stackB = (t_stack*)malloc(sizeof(t_stack));
-	stackA->content = (int*)malloc(sizeof(int)* (argc-1));
-	stackA->size = argc - 1;
-	stackB->content = NULL;
-	stackB->size = 0;
+	stack_a = (t_stack*)malloc(sizeof(t_stack));
+	stack_b = (t_stack*)malloc(sizeof(t_stack));
+	stack_a->content = (int*)malloc(sizeof(int) * (argc - 1));
+	stack_a->size = argc - 1;
+	stack_b->content = NULL;
+	stack_b->size = 0;
 	f = 0;
 	if(read(0, buff, 1999))
 	{
-		buff[2000]='\0';
+		buff[2000] = '\0';
 		f = 1;
 	}
-	if(!makeStack(stackA, argc, argv))
+	if(!makestack(stack_a, argc, argv))
 	{
 		printf("Error\n");
 		return (-1);
 	}
 	if(f>0)
-		return(doCmds(stackA, stackB, ft_strsplit(buff,'\n')));
+		return(do_cmds(stack_a, stack_b, ft_strsplit(buff, '\n')));
 	else
-		return(readCmds(stackA, stackB));
+		return(read_cmds(stack_a, stack_b));
 }

@@ -45,11 +45,11 @@ t_stack* add_top(t_stack* stack, int c)
 		i = 0;
 		while(i < stack->size)
 		{
-			stack->content[1+i] = s[i];
+			stack->content[1 + i] = s[i];
 			i++;
 		}
 	}
-	stack->size = (stack->size)+1;
+	stack->size = (stack->size) + 1;
 	free(s);
 	return (stack);
 }
@@ -76,7 +76,7 @@ t_stack* remove_elem(t_stack* stack, int index)
 		}
 		i++;
 	}
-	stack->size = (stack->size)-1;
+	stack->size = (stack->size) - 1;
 	free(s);
 	return (stack);
 }
@@ -91,41 +91,41 @@ void swap(t_stack* stack)
 		stack->content[1] = c;
 	}
 }
-void swap_a(t_stack* stackA, t_stack* stackB)
+void swap_a(t_stack* stack_a, t_stack* stack_b)
 {
-	swap(stackA);
-	(void)stackB;
+	swap(stack_a);
+	(void)stack_b;
 }
 
-void swap_b(t_stack* stackA, t_stack* stackB)
+void swap_b(t_stack* stack_a, t_stack* stack_b)
 {
-	swap(stackB);
-	(void)stackA;
+	swap(stack_b);
+	(void)stack_a;
 }
 
-void swap_both(t_stack* stackA, t_stack* stackB)
+void swap_both(t_stack* stack_a, t_stack* stack_b)
 {
-	swap(stackA);
-	swap(stackB);
+	swap(stack_a);
+	swap(stack_b);
 }
 
-void push(t_stack* stackFrom, t_stack* stackTo)
+void push(t_stack* stackfrom, t_stack* stackto)
 {
-	if(stackFrom && stackFrom->size >= 1)
+	if(stackfrom && stackfrom->size >= 1)
 	{
-		stackTo = add_top(stackTo, stackFrom->content[0]);
-		stackFrom = remove_elem(stackFrom, 0);
+		stackto = add_top(stackto, stackfrom->content[0]);
+		stackfrom = remove_elem(stackfrom, 0);
 	}
 }
 
-void push_a(t_stack* stackA, t_stack* stackB)
+void push_a(t_stack* stack_a, t_stack* stack_b)
 {
-	push(stackB, stackA);
+	push(stack_b, stack_a);
 }
 
-void push_b(t_stack* stackA, t_stack* stackB)
+void push_b(t_stack* stack_a, t_stack* stack_b)
 {
-	push(stackA, stackB);
+	push(stack_a, stack_b);
 }
 
 void rotate(t_stack* stack)
@@ -146,22 +146,22 @@ void rotate(t_stack* stack)
 	}
 }
 
-void rotate_a(t_stack* stackA, t_stack* stackB)
+void rotate_a(t_stack* stack_a, t_stack* stack_b)
 {
-	rotate(stackA);
-	(void)stackB;
+	rotate(stack_a);
+	(void)stack_b;
 }
 
-void rotate_b(t_stack* stackA, t_stack* stackB)
+void rotate_b(t_stack* stack_a, t_stack* stack_b)
 {
-	rotate(stackB);
-	(void)stackA;
+	rotate(stack_b);
+	(void)stack_a;
 }
 
-void rotate_both(t_stack* stackA, t_stack* stackB)
+void rotate_both(t_stack* stack_a, t_stack* stack_b)
 {
-	rotate(stackA);
-	rotate(stackB);
+	rotate(stack_a);
+	rotate(stack_b);
 }
 
 void reverse_rotate(t_stack* stack)
@@ -182,54 +182,54 @@ void reverse_rotate(t_stack* stack)
 	}
 }
 
-void reverse_rotate_a(t_stack* stackA, t_stack* stackB)
+void reverse_rotate_a(t_stack* stack_a, t_stack* stack_b)
 {
-	reverse_rotate(stackA);
-	(void)stackB;
+	reverse_rotate(stack_a);
+	(void)stack_b;
 }
 
-void reverse_rotate_b(t_stack* stackA, t_stack* stackB)
+void reverse_rotate_b(t_stack* stack_a, t_stack* stack_b)
 {
-	reverse_rotate(stackB);
-	(void)stackA;
+	reverse_rotate(stack_b);
+	(void)stack_a;
 }
 
-void reverse_rotate_both(t_stack* stackA, t_stack* stackB)
+void reverse_rotate_both(t_stack* stack_a, t_stack* stack_b)
 {
-	reverse_rotate(stackA);
-	reverse_rotate(stackB);
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
 }
 
-stackOp define_hashmap(char * opName)
+stack_op define_hashmap(char * op_name)
 {
-	if(ft_strlen(opName) < 1 || ft_strlen(opName)> 3)
+	if(ft_strlen(op_name) < 1 || ft_strlen(op_name)> 3)
 		return(NULL);
-	if(!ft_strcmp(opName,"sa"))
-		return &swap_a;
-	if(!ft_strcmp(opName,"sb"))
-		return &swap_b;
-	if(!ft_strcmp(opName,"ss"))
-		return &swap_both;
-	if(!ft_strcmp(opName,"pa"))
-		return &push_a;
-	if(!ft_strcmp(opName,"pb"))
-		return &push_b;
-	if(!ft_strcmp(opName,"ra"))
-		return &rotate_a;
-	if(!ft_strcmp(opName,"rb"))
-		return &rotate_b;
-	if(!ft_strcmp(opName,"rr"))
-		return &rotate_both;
-	if(!ft_strcmp(opName,"rra"))
-		return &reverse_rotate_a;
-	if(!ft_strcmp(opName,"rrb"))
-		return &reverse_rotate_b;
-	if(!ft_strcmp(opName,"rrr"))
-		return &reverse_rotate_both;
+	if(!ft_strcmp(op_name,"sa"))
+		return (&swap_a);
+	if(!ft_strcmp(op_name,"sb"))
+		return (&swap_b);
+	if(!ft_strcmp(op_name,"ss"))
+		return (&swap_both);
+	if(!ft_strcmp(op_name,"pa"))
+		return (&push_a);
+	if(!ft_strcmp(op_name,"pb"))
+		return (&push_b);
+	if(!ft_strcmp(op_name,"ra"))
+		return (&rotate_a);
+	if(!ft_strcmp(op_name,"rb"))
+		return (&rotate_b);
+	if(!ft_strcmp(op_name,"rr"))
+		return (&rotate_both);
+	if(!ft_strcmp(op_name,"rra"))
+		return (&reverse_rotate_a);
+	if(!ft_strcmp(op_name,"rrb"))
+		return (&reverse_rotate_b);
+	if(!ft_strcmp(op_name,"rrr"))
+		return (&reverse_rotate_both);
 	return (NULL);
 }
 
-int makeStack(t_stack* stack, int argc, char** argv)
+int makestack(t_stack *stack, int argc, char **argv)
 {
 	int i;
 	int j;
@@ -253,7 +253,7 @@ int makeStack(t_stack* stack, int argc, char** argv)
 }
 
 
-void readCmd(char* cmd)
+void read_cmd(char* cmd)
 {
 	int i;
 	char buff[1];
@@ -293,25 +293,25 @@ void printtab(t_stack* stack)
 	}
 }
 
-int readCmds(t_stack* stackA, t_stack* stackB)
+int read_cmds(t_stack* stack_a, t_stack* stack_b)
 {
 	char* cmd;
-	stackOp op;
+	stack_op op;
 	
 	while(1)
 	{
-		printtab(stackA);
-		printtab(stackB);
-		cmd = (char*)malloc(sizeof(char)*4);
-		readCmd(cmd);
+		printtab(stack_a);
+		printtab(stack_b);
+		cmd = (char*)malloc(sizeof(char) * 4);
+		read_cmd(cmd);
 		op = define_hashmap(cmd);
 		if(op)
 		{
-			op(stackA,stackB);
+			op(stack_a,stack_b);
 		}
 		else if(!cmd[0])
 		{
-			if(issorted(stackA) && stackB && stackB->size == 0)
+			if(issorted(stack_a) && stack_b && stack_b->size == 0)
 				printf("OK\n");
 			else 
 				printf("KO\n");
@@ -327,10 +327,10 @@ int readCmds(t_stack* stackA, t_stack* stackB)
 	return(0);
 }
 
-int doCmds(t_stack* stackA, t_stack* stackB, char** cmds)
+int doCmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
 {
 	int i;
-	stackOp op;
+	stack_op op;
 	
 	i = 0;
 	while(cmds[i])
@@ -338,7 +338,7 @@ int doCmds(t_stack* stackA, t_stack* stackB, char** cmds)
 		op = define_hashmap(cmds[i]);
 		if(op)
 		{
-			op(stackA,stackB);
+			op(stack_a,stack_b);
 		}
 		else if(!cmds[i][0])
 			break;
@@ -349,7 +349,7 @@ int doCmds(t_stack* stackA, t_stack* stackB, char** cmds)
 		}
 		i++;
 	}
-	if(issorted(stackA) && stackB && stackB->size == 0)
+	if(issorted(stack_a) && stack_b && stack_b->size == 0)
 		printf("OK\n");
 	else 
 		printf("KO\n");
