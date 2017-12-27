@@ -235,14 +235,14 @@ int makestack(t_stack *stack, int argc, char **argv)
 	int j;
 	
 	i = 1;
-	while(i < argc)
+	while (i < argc)
 	{
-		if(ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
+		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
 			stack->content[i] = 0;
 		else
 		{
 			j = ft_atoi(argv[i]);
-			if(j != 0)
+			if (j != 0)
 				stack->content[i-1] = j;
 			else 
 				return(0);
@@ -253,28 +253,28 @@ int makestack(t_stack *stack, int argc, char **argv)
 }
 
 
-void read_cmd(char* cmd)
+void read_cmd(char *cmd)
 {
 	int i;
 	char buff[1];
 	
 	i = 0;
-	while(1)
+	while (1)
 	{
 		buff[0] = 0;
-		if(read(1, buff, 1))
+		if (read(1, buff, 1))
 		{
-			if(i<=2)
+			if (i <= 2)
 				cmd[i] = buff[0];
 			i++;
-			if(buff[0] == 27 || buff[0] == '\n')
-				break;
+			if (buff[0] == 27 || buff[0] == '\n')
+				break ;
 		}
 	}
 	i = 0;
-	while(i <= 2)
+	while (i <= 2)
 	{
-		if(cmd[i] == '\n')
+		if (cmd[i] == '\n')
 			cmd[i] = 0;
 		i++;
 	}
@@ -286,62 +286,59 @@ void printtab(t_stack* stack)
 	int i;
 	
 	i = 0;
-	while(i < stack->size)
+	while (i < stack->size)
 	{
-		printf("%d\n",stack->content[i]);
+		//printf("content=%d\n",stack->content[i]);
 		i++;
 	}
 }
 
-int read_cmds(t_stack* stack_a, t_stack* stack_b)
+int read_cmds(t_stack *stack_a, t_stack *stack_b)
 {
 	char* cmd;
 	stack_op op;
 	
-	while(1)
+	while (1)
 	{
 		printtab(stack_a);
 		printtab(stack_b);
-		cmd = (char*)malloc(sizeof(char) * 4);
+		cmd = (char *) malloc(sizeof(char) * 4);
 		read_cmd(cmd);
 		op = define_hashmap(cmd);
-		if(op)
+		if (op)
+			op(stack_a, stack_b);
+		else if (!cmd[0])
 		{
-			op(stack_a,stack_b);
-		}
-		else if(!cmd[0])
-		{
-			if(issorted(stack_a) && stack_b && stack_b->size == 0)
-				printf("OK\n");
-			else 
-				printf("KO\n");
-			return(0);
+			if (issorted(stack_a) && stack_b && stack_b->size == 0)
+				ft_putendl("OK");
+			else
+				ft_putendl("KO");
+			return (0);
 		}
 		else
 		{
-			printf("Error\n");
+			ft_putendl("Error");
 			return (-1);
 		}
 		free(cmd);
 	}
-	return(0);
 }
 
-int doCmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
+int do_cmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
 {
 	int i;
 	stack_op op;
 	
 	i = 0;
-	while(cmds[i])
+	while (cmds[i])
 	{
 		op = define_hashmap(cmds[i]);
-		if(op)
+		if (op)
 		{
 			op(stack_a,stack_b);
 		}
-		else if(!cmds[i][0])
-			break;
+		else if (!cmds[i][0])
+			break ;
 		else
 		{
 			printf("Error\n");
@@ -349,9 +346,9 @@ int doCmds(t_stack* stack_a, t_stack* stack_b, char** cmds)
 		}
 		i++;
 	}
-	if(issorted(stack_a) && stack_b && stack_b->size == 0)
+	if (issorted(stack_a) && stack_b && stack_b->size == 0)
 		printf("OK\n");
 	else 
 		printf("KO\n");
-	return(0);
+	return (0);
 }
