@@ -12,34 +12,81 @@
 
 #include "../include/pushswap.h"
 
+
+
+
+void read_cmd(char *cmd)
+{
+	int i;
+	char buff[1];
+	
+	i = 0;
+	while (1)
+	{
+		buff[0] = 0;
+		if (read(1, buff, 1))
+		{
+			if (i <= 2)
+				cmd[i] = buff[0];
+			i++;
+			if (buff[0] == 27 || buff[0] == '\n')
+				break ;
+		}
+	}
+	i = 0;
+	while (i <= 2)
+	{
+		if (cmd[i] == '\n')
+			cmd[i] = 0;
+		i++;
+	}
+	cmd[3] = 0;
+}
+
+int read_cmds(t_stack *stack_a, t_stack *stack_b)
+{
+	char* cmd;
+	stack_op op;
+	
+	while (1)
+	{
+		cmd = (char *) malloc(sizeof(char) * 4);
+		read_cmd(cmd);
+		op = define_hashmap(cmd);
+		if (op)
+			op(stack_a, stack_b);
+		else if (!cmd[0])
+		{
+			if (issorted(stack_a) && stack_b && stack_b->size == 0)
+				ft_putendl("OK");
+			else
+				ft_putendl("KO");
+			return (0);
+		}
+		else
+		{
+			ft_putendl("Error");
+			return (-1);
+		}
+		free(cmd);
+	}
+}
+
+
+
 int main(int argc, char **argv)
 {
-	printf("argc=%d\n",argc);
-	printf("argv=%s\n",argv[1]);
-	char buff[2001];
-	int f;
-	t_stack *stack_a;
-	t_stack *stack_b;
+	t_stack* stack_a;
+	t_stack* stack_b;
 	
 	stack_a = (t_stack*)malloc(sizeof(t_stack));
 	stack_b = (t_stack*)malloc(sizeof(t_stack));
-	stack_a->content = (int*)malloc(sizeof(int) * (argc - 1));
-	stack_a->size = argc - 1;
 	stack_b->content = NULL;
 	stack_b->size = 0;
-	f = 0;
-	if (read(0, buff, 1999))
-	{
-		buff[2000] = '\0';
-		f = 1;
-	}
-	if (!makestack(stack_a, argc, argv))
+	if(!makestack(stack_a, argc, argv))
 	{
 		printf("Error\n");
 		return (-1);
 	}
-	if (f > 0)
-		return (do_cmds(stack_a, stack_b, ft_strsplit(buff, '\n')));
-	else
-		return (read_cmds(stack_a, stack_b));
+	return(read_cmds(stack_a, stack_b));
 }

@@ -229,58 +229,117 @@ stack_op define_hashmap(char * op_name)
 	return (NULL);
 }
 
-int makestack(t_stack *stack, int argc, char **argv)
+int		ft_haschar(const char *s, int c)
 {
+	char	*src;
+	int		i;
+	
+	src = (char *)s;
+	i = 0;
+	while (src[i] && src[i] != (char)c)
+		i++;
+	if (src[i] == (char)c)
+		return (1);
+	return (0);
+	
+}
+
+t_stack* parsestack(char * str)
+{
+	t_stack* stack;
 	int i;
 	int j;
+	char** tabNb;
 	
-	i = 1;
-	while (i < argc)
+	stack = (t_stack*)malloc(sizeof(t_stack));
+	stack->content = (int*)malloc(sizeof(int)*1000);
+	tabNb = ft_split_whitespaces(str);
+	i = 0;
+	while (tabNb[i])
 	{
-		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
+		if (ft_strlen(tabNb[i]) == 1 && tabNb[i][0] == '0')
 			stack->content[i] = 0;
 		else
 		{
-			j = ft_atoi(argv[i]);
+			j = ft_atoi(tabNb[i]);
 			if (j != 0)
-				stack->content[i - 1] = j;
+				stack->content[i] = j;
 			else 
 				return(0);
 		}
 		i++;
 	}
-	return (1);
+	stack->size = i;
+	return stack;
 }
 
-
-void read_cmd(char *cmd)
+t_stack* copytabintostack(t_stack* stack, int* tab, int s)
 {
 	int i;
-	char buff[1];
 	
 	i = 0;
-	while (1)
+	stack->content = (int*)malloc(sizeof(int)*s);
+	while(i < s)
 	{
-		buff[0] = 0;
-		if (read(1, buff, 1))
-		{
-			if (i <= 2)
-				cmd[i] = buff[0];
-			i++;
-			if (buff[0] == 27 || buff[0] == '\n')
-				break ;
-		}
-	}
-	i = 0;
-	while (i <= 2)
-	{
-		if (cmd[i] == '\n')
-			cmd[i] = 0;
+		stack->content[i] = tab[i];
 		i++;
 	}
-	cmd[3] = 0;
+	stack->size = s;
+	return(stack);
 }
 
+int makestack(t_stack *stack, int argc, char **argv)
+{
+	int i;
+	int j;
+	int s;
+	int* tab;
+	t_stack* ministack;
+	
+	ministack = NULL;
+	tab = (int*)malloc(sizeof(int)*1000);
+	i = 1;
+	s = 0;
+	while (i < argc)
+	{
+		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
+		{
+			tab[s] = 0;
+			s++;
+		}
+		else if(ft_haschar(argv[i],' '))
+		{
+			ministack = parsestack(argv[i]);
+			if(!ministack)
+			{
+				j = 0;
+				while(j < ministack->size)
+				{
+					tab[s] = ministack->content[j];
+					s++;
+					j++;
+				}
+			}
+			else
+				return(0);
+		}
+		else
+		{
+			j = ft_atoi(argv[i]);
+			if (j != 0)
+			{
+				tab[s] = j;
+				s++;
+			}
+			else 
+				return(0);
+		}
+		i++;
+	}
+	stack = copytabintostack(stack,tab,s);
+	return (1);
+}
+	
 void printtab(t_stack* stack)
 {
 	int i;
@@ -291,62 +350,4 @@ void printtab(t_stack* stack)
 		printf("content=%d\n",stack->content[i]);
 		i++;
 	}
-}
-
-int read_cmds(t_stack *stack_a, t_stack *stack_b)
-{
-	char* cmd;
-	stack_op op;
-	
-	while (1)
-	{
-		printtab(stack_a);
-		printtab(stack_b);
-		cmd = (char *) malloc(sizeof(char) * 4);
-		read_cmd(cmd);
-		op = define_hashmap(cmd);
-		if (op)
-			op(stack_a, stack_b);
-		else if (!cmd[0])
-		{
-			if (issorted(stack_a) && stack_b && stack_b->size == 0)
-				ft_putendl("OK");
-			else
-				ft_putendl("KO");
-			return (0);
-		}
-		else
-		{
-			ft_putendl("Error");
-			return (-1);
-		}
-		free(cmd);
-	}
-}
-
-int do_cmds(t_stack *stack_a, t_stack *stack_b, char **cmds)
-{
-	int i;
-	stack_op op;
-	
-	i = 0;
-	while (cmds[i])
-	{
-		op = define_hashmap(cmds[i]);
-		if (op)
-			op(stack_a,stack_b);
-		else if (!cmds[i][0])
-			break ;
-		else
-		{
-			printf("Error\n");
-			return (-1);
-		}
-		i++;
-	}
-	if (issorted(stack_a) && stack_b && stack_b->size == 0)
-		printf("OK\n");
-	else 
-		printf("KO\n");
-	return (0);
 }
