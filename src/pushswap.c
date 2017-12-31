@@ -12,14 +12,12 @@
 
 #include "../include/pushswap.h"
 
-int guessmvt(t_stack *stack_a, t_stack *stack_b, int i)
+int guessmvt(t_stack *stack_a, t_stack *stack_b)
 {
 	int first_elem_a;
 	int second_elem_a;
 	int last_elem_a;
-	
-	if(i > 100)
-		return(-1);
+
 	if(issorted(stack_a))
 	{
 		if(stack_b->size == 0)
@@ -28,7 +26,7 @@ int guessmvt(t_stack *stack_a, t_stack *stack_b, int i)
 		{
 			printf("pa\n");
 			push_a(stack_a, stack_b);
-			return guessmvt(stack_a, stack_b, i + 1);
+			return guessmvt(stack_a, stack_b);
 		}
 	}
 	if(stack_a->size > 1)
@@ -40,26 +38,26 @@ int guessmvt(t_stack *stack_a, t_stack *stack_b, int i)
 		{
 				printf("sa\n");
 				swap_a(stack_a, stack_b);
-				return (guessmvt(stack_a, stack_b, i + 1));
+				return (guessmvt(stack_a, stack_b));
 		}
 		else if(first_elem_a > last_elem_a)
 			{
 				printf("ra\n");
 				rotate_a(stack_a, stack_b);
-				return (guessmvt(stack_a, stack_b, i + 1));
+				return (guessmvt(stack_a, stack_b));
 			}
 		else
 		{
 			printf("pb\n");
 			push_b(stack_a, stack_b);
-			return (guessmvt(stack_a, stack_b, i + 1));
+			return (guessmvt(stack_a, stack_b));
 		}
 	}
 	else
 	{
 		printf("pa\n");
 		push_a(stack_a, stack_b);
-		return (guessmvt(stack_a, stack_b, i + 1));
+		return (guessmvt(stack_a, stack_b));
 	}
 }
 
@@ -67,7 +65,7 @@ int main(int argc, char** argv)
 {
 	t_stack* stack_a;
 	t_stack* stack_b;
-	
+
 	stack_a = (t_stack*)malloc(sizeof(t_stack));
 	stack_b = (t_stack*)malloc(sizeof(t_stack));
 	stack_b->content = NULL;
@@ -77,7 +75,7 @@ int main(int argc, char** argv)
 		printf("Error\n");
 		return (-1);
 	}
-	if(guessmvt(stack_a, stack_b, 0) < 0)
+	if(guessmvt(stack_a, stack_b) < 0)
 	{
 		printf("Error\n");
 		return (-1);

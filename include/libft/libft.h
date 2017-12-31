@@ -69,7 +69,7 @@ void			ft_putwchar_fd(wchar_t chr, int fd);
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_strrev(char *s);
-
+void ft_sort_integer_table(int *tab, int size);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strdup(const char *src);
@@ -113,6 +113,7 @@ int				ft_toupper(int c);
 int		ft_max(int x, int y);
 int		ft_min(int x, int y);
 int				get_next_line(const int fd, char **line);
+int		ft_is_sorted(int *tab, int size);
 
 size_t			ft_strlcat(char *restrict dest, const char *restrict src,
 		size_t len);

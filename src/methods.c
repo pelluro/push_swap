@@ -132,7 +132,7 @@ void rotate(t_stack* stack)
 {
 	int i;
 	int c;
-	
+
 	if(stack && stack->size > 1)
 	{
 		i = 1;
@@ -168,7 +168,7 @@ void reverse_rotate(t_stack* stack)
 {
 	int i;
 	char c;
-	
+
 	if(stack && stack->size > 1)
 	{
 		i = stack->size - 2;
@@ -233,7 +233,7 @@ int		ft_haschar(const char *s, int c)
 {
 	char	*src;
 	int		i;
-	
+
 	src = (char *)s;
 	i = 0;
 	while (src[i] && src[i] != (char)c)
@@ -241,19 +241,19 @@ int		ft_haschar(const char *s, int c)
 	if (src[i] == (char)c)
 		return (1);
 	return (0);
-	
+
 }
 
-t_stack* parsestack(char * str)
+t_stack* parsestack(t_stack* stack, char * str)
 {
-	t_stack* stack;
 	int i;
 	int j;
 	char** tabNb;
-	
+
 	stack = (t_stack*)malloc(sizeof(t_stack));
 	stack->content = (int*)malloc(sizeof(int)*1000);
 	tabNb = ft_split_whitespaces(str);
+
 	i = 0;
 	while (tabNb[i])
 	{
@@ -264,11 +264,12 @@ t_stack* parsestack(char * str)
 			j = ft_atoi(tabNb[i]);
 			if (j != 0)
 				stack->content[i] = j;
-			else 
+			else
 				return(0);
 		}
 		i++;
 	}
+	j = 0;
 	stack->size = i;
 	return stack;
 }
@@ -276,7 +277,7 @@ t_stack* parsestack(char * str)
 t_stack* copytabintostack(t_stack* stack, int* tab, int s)
 {
 	int i;
-	
+
 	i = 0;
 	stack->content = (int*)malloc(sizeof(int)*s);
 	while(i < s)
@@ -288,6 +289,31 @@ t_stack* copytabintostack(t_stack* stack, int* tab, int s)
 	return(stack);
 }
 
+int checktab(int* tab, int s)
+{
+	int i;
+	int *tab2;
+
+	i = 0;
+	if(!(tab2 = (int*)malloc(sizeof(int) *s)))
+		return (0);
+	while (i < s)
+	{
+		tab2[i] = tab[i];
+		i++;
+	}
+	if (!ft_is_sorted(tab2, s))
+		ft_sort_integer_table(tab2, s);
+	i = 0;
+	while (i < s)
+	{
+		if (tab2[i] == tab2[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int makestack(t_stack *stack, int argc, char **argv)
 {
 	int i;
@@ -295,7 +321,7 @@ int makestack(t_stack *stack, int argc, char **argv)
 	int s;
 	int* tab;
 	t_stack* ministack;
-	
+
 	ministack = NULL;
 	tab = (int*)malloc(sizeof(int)*1000);
 	i = 1;
@@ -309,8 +335,8 @@ int makestack(t_stack *stack, int argc, char **argv)
 		}
 		else if(ft_haschar(argv[i],' '))
 		{
-			ministack = parsestack(argv[i]);
-			if(!ministack)
+			ministack = parsestack(ministack, argv[i]);
+			if(ministack)
 			{
 				j = 0;
 				while(j < ministack->size)
@@ -331,19 +357,22 @@ int makestack(t_stack *stack, int argc, char **argv)
 				tab[s] = j;
 				s++;
 			}
-			else 
+			else
 				return(0);
 		}
 		i++;
 	}
+	if(!checktab(tab,s))
+		return(0);
 	stack = copytabintostack(stack,tab,s);
+	free(tab);
 	return (1);
 }
-	
+
 void printtab(t_stack* stack)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < stack->size)
 	{

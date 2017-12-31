@@ -12,9 +12,6 @@
 
 #include "../include/pushswap.h"
 
-
-
-
 void read_cmd(char *cmd)
 {
 	int i;
@@ -45,17 +42,32 @@ void read_cmd(char *cmd)
 
 int read_cmds(t_stack *stack_a, t_stack *stack_b)
 {
-	char* cmd;
 	stack_op op;
+	char** cmdLine;
+	cmdLine = (char**)malloc(sizeof(char*));
 	
 	while (1)
 	{
-		cmd = (char *) malloc(sizeof(char) * 4);
-		read_cmd(cmd);
-		op = define_hashmap(cmd);
-		if (op)
-			op(stack_a, stack_b);
-		else if (!cmd[0])
+		if(get_next_line(0,cmdLine))
+		{
+			op = define_hashmap(*cmdLine);
+			if (op)
+				op(stack_a, stack_b);
+			else if (!(*cmdLine)[0])
+			{
+				if (issorted(stack_a) && stack_b && stack_b->size == 0)
+					ft_putendl("OK");
+				else
+					ft_putendl("KO");
+				return (0);
+			}
+			else
+			{
+				ft_putendl("Error");
+				return (-1);
+			}
+		}
+		else
 		{
 			if (issorted(stack_a) && stack_b && stack_b->size == 0)
 				ft_putendl("OK");
@@ -63,16 +75,32 @@ int read_cmds(t_stack *stack_a, t_stack *stack_b)
 				ft_putendl("KO");
 			return (0);
 		}
+	}
+}
+
+int do_cmds(t_stack *stack_a, t_stack *stack_b, char** cmds)
+{
+	int i;
+	stack_op op;
+
+	i = 0;
+	while (cmds[i])
+	{
+		op = define_hashmap(cmds[i]);
+		if (op)
+			op(stack_a, stack_b);
 		else
 		{
 			ft_putendl("Error");
 			return (-1);
 		}
-		free(cmd);
 	}
+	if (issorted(stack_a) && stack_b && stack_b->size == 0)
+		ft_putendl("OK");
+	else
+		ft_putendl("KO");
+	return (0);
 }
-
-
 
 int main(int argc, char **argv)
 {
@@ -88,5 +116,5 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		return (-1);
 	}
-	return(read_cmds(stack_a, stack_b));
+	return(read_cmds(stack_a, stack_b));	
 }
