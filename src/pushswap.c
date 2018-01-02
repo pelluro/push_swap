@@ -12,52 +12,15 @@
 
 #include "../include/pushswap.h"
 
-int guessmvt(t_stack *stack_a, t_stack *stack_b)
+void printstackops(t_stackops* ops)
 {
-	int first_elem_a;
-	int second_elem_a;
-	int last_elem_a;
+	int i;
+	i = 0;
 
-	if(issorted(stack_a))
+	while(i < ops->size)
 	{
-		if(stack_b->size == 0)
-			return (0);
-		else
-		{
-			printf("pa\n");
-			push_a(stack_a, stack_b);
-			return guessmvt(stack_a, stack_b);
-		}
-	}
-	if(stack_a->size > 1)
-	{
-		first_elem_a = stack_a->content[0];
-		second_elem_a = stack_a->content[1];
-		last_elem_a = stack_a->content[stack_a->size - 1];
-		if(first_elem_a > second_elem_a)
-		{
-				printf("sa\n");
-				swap_a(stack_a, stack_b);
-				return (guessmvt(stack_a, stack_b));
-		}
-		else if(first_elem_a > last_elem_a)
-			{
-				printf("ra\n");
-				rotate_a(stack_a, stack_b);
-				return (guessmvt(stack_a, stack_b));
-			}
-		else
-		{
-			printf("pb\n");
-			push_b(stack_a, stack_b);
-			return (guessmvt(stack_a, stack_b));
-		}
-	}
-	else
-	{
-		printf("pa\n");
-		push_a(stack_a, stack_b);
-		return (guessmvt(stack_a, stack_b));
+		ft_putendl(ops->content[i]);
+		i++;
 	}
 }
 
@@ -65,6 +28,8 @@ int main(int argc, char** argv)
 {
 	t_stack* stack_a;
 	t_stack* stack_b;
+	t_stackops* ops1;
+	t_stackops* ops2;
 
 	stack_a = (t_stack*)malloc(sizeof(t_stack));
 	stack_b = (t_stack*)malloc(sizeof(t_stack));
@@ -72,13 +37,25 @@ int main(int argc, char** argv)
 	stack_b->size = 0;
 	if(!makestack(stack_a, argc, argv))
 	{
-		printf("Error\n");
+		ft_putendl("Error");
 		return (-1);
 	}
-	if(guessmvt(stack_a, stack_b) < 0)
-	{
-		printf("Error\n");
-		return (-1);
-	}
+	if(stack_a->size <= 2)
+			return (smallresolve(stack_a, NULL));
+		else
+		{
+				ops1 = (t_stackops*)malloc(sizeof(t_stackops));
+				ops2 = (t_stackops*)malloc(sizeof(t_stackops));
+				ops1->content = (char**)malloc(sizeof(char*)*1000);
+				ops2->content = (char**)malloc(sizeof(char*)*1000);
+				ops1->size = 0;
+				ops2->size = 0;
+				ops1 = basicresolve(copystack(stack_a),copystack(stack_b),ops1);
+				ops2 = mediumresolve(copystack(stack_a),copystack(stack_b),ops2);
+				if(ops1->size > ops2->size)
+					printstackops(ops2);
+				else
+				  printstackops(ops1);
+		}
 	return (0);
 }

@@ -21,6 +21,13 @@ typedef struct stack
    int size;
 } t_stack;
 
+typedef struct stackops
+{
+   char** content;
+   int size;
+} t_stackops;
+
+
 typedef void	(*stack_op)(t_stack*, t_stack*);
 int				issorted(t_stack *stack);
 t_stack			*add_top(t_stack *stack, int c);
@@ -42,9 +49,18 @@ void			reverse_rotate_b(t_stack *stack_a, t_stack *stack_b);
 void			reverse_rotate_both(t_stack *stack_a, t_stack *stack_b);
 stack_op		define_hashmap(char *op_name);
 
+void findmin(t_stack* stack, int* value, int* index);
+void findmax(t_stack* stack, int* value, int* index);
+void shift(t_stack* stack, int pivot, t_stackops* ops);
+t_stack* copystack(t_stack* stack);
+
 void			printtab(t_stack *stack);
 int				makestack(t_stack *stack, int argc, char **argv);
-void			read_cmd(char *cmd);
-int				read_cmds(t_stack *stack_a, t_stack *stack_b);
-int				do_cmds(t_stack *stack_a, t_stack *stack_b, char **cmds);
+
+t_stackops* basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops* ops);
+int smallresolve(t_stack* stack, t_stackops* ops);
+t_stackops* mediumresolve(t_stack* stack_a, t_stack* stack_b, t_stackops* ops);
+int		ft_haschar(const char *s, int c);
+t_stack* parsestack(t_stack* stack, char * str);
+t_stackops* addop(t_stackops* ops, char* op);
 #endif
