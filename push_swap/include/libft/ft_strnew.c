@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 18:37:09 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/10 18:38:01 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-int		ft_aschar(const char *s, int c)
+char		*ft_strnew(size_t size)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	char *str;
+
+	str = (char*)malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
+		return (NULL);
+	ft_memset(str, '\0', size + 1);
+	return (str);
 }

@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/09 17:15:16 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 18:25:19 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t i;
+	size_t j;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	j = 0;
+	if (*str == 0 && *to_find != 0)
+		return (0);
+	if (*to_find == 0)
+		return ((char*)str);
+	while (str[i] && i < len)
+	{
+		j = 0;
+		while (str[i + j] == to_find[j] && to_find[j] != 0 && i + j < len)
+			j++;
+		if (to_find[j] == 0)
+			return ((char*)(str + i));
 		i++;
-	if (src[i] == (char)c)
-		return (1);
+	}
 	return (0);
-	
 }

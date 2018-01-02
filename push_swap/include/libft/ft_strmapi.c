@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 19:32:42 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/10 19:33:34 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*src;
 	int		i;
-	
-	src = (char *)s;
+	char	*str;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	if (s == NULL || f == NULL)
+		return (NULL);
+	else
+	{
+		if (!(str = (char *)malloc(sizeof(char) * (ft_strlen((char*)s) + 1))))
+			return (NULL);
+		while (s[i])
+		{
+			str[i] = f(i, s[i]);
+			i++;
+		}
+		str[i] = '\0';
+	}
+	return (str);
 }

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 19:49:35 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 17:58:20 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	int i;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
+	dest[i] = '\0';
+	return (dest);
 }

@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/07 16:35:12 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/16 17:24:51 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+int		ft_atoi(const char *str)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	int i;
+	int result;
+	int signe;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	result = 0;
+	signe = 1;
+	while (str[i] == '\t' || str[i] == '\v' || str[i] == '\n' || str[i] == ' '
+				|| str[i] == '\f' || str[i] == '\r')
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	if (str[i] == '-')
+		signe = -1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] <= '9' && str[i] >= '0')
+	{
+		result = result * 10 + (str[i] - 48);
+		i++;
+	}
+	return (result * signe);
 }

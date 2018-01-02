@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 20:04:44 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 17:47:18 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void		*ft_memcpy(void *restrict str1, const void *restrict str2, size_t n)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	char		*dest;
+	const char	*src;
+	size_t		i;
+
+	dest = str1;
+	src = str2;
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	while (i < n)
+	{
+		dest[i] = src[i];
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
+	return (str1);
 }

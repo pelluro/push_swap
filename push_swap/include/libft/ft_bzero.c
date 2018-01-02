@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/07 16:35:42 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/16 12:33:30 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void	ft_bzero(void *s, size_t n)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t	i;
+	char	*str;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	str = s;
+	while (i < n)
+	{
+		str[i] = 0;
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
 }

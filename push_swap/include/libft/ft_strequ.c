@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 19:47:49 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/13 14:34:41 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+int		ft_strequ(char const *s1, char const *s2)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	int i;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
+	if (s1 && s2)
+	{
+		while (s1[i] && s2[i] && (s1[i] == s2[i]))
+			i++;
+		if (s1[i] == '\0' && s2[i] == '\0')
+			return (1);
+		return (0);
+	}
 	return (0);
-	
 }

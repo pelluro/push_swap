@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 18:33:15 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 18:20:57 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strncat(char *restrict dest, const char *restrict src, size_t n)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t	i;
+	size_t	j;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	j = 0;
+	while (dest[i])
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	while (src[j] && j < n)
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }

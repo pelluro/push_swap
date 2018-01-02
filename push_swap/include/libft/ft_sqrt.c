@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/08/30 20:52:52 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/13 14:13:43 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+int	ft_sqrt(int nb)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
+	int i;
+
+	i = 1;
+	if (nb < 0)
+		return (0);
+	while (i <= nb && i <= 46340)
+	{
+		if (i * i == nb)
+		{
+			return (i);
+		}
 		i++;
-	if (src[i] == (char)c)
-		return (1);
+	}
 	return (0);
-	
 }

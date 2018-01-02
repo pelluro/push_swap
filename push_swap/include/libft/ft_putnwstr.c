@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_putnwstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/12/13 16:09:59 by mipham            #+#    #+#             */
+/*   Updated: 2017/12/13 16:10:32 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void	ft_putnwstr(const wchar_t *str, size_t len)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t	i;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	while (*str && i < len)
+	{
+		if (*str <= 0x7F)
+			i++;
+		else if (*str <= 0x7FF)
+			i += 2;
+		else if (*str <= 0xFFFF)
+			i += 3;
+		else if (*str <= 0x10FFFF)
+			i += 4;
+		if (i <= len)
+			ft_putwchar(*str++);
+	}
 }

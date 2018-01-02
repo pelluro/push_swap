@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strlen_skip_white.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/13 11:58:09 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 16:32:25 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+size_t		ft_strlen_skip_white(const char *s)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t i;
+	size_t j;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	if (!s)
+		return (0);
+	j = ft_strlen(s) - 1;
+	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	if (s[i] == '\0')
+		return (0);
+	while (s[j] == ' ' || s[j] == '\t' || s[j] == '\n')
+		j--;
+	return (j - i);
 }

@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 20:01:08 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/10 20:01:39 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void	ft_putendl(char const *s)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	int i;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	while (s[i])
+	{
+		write(1, &s[i], 1);
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
+	write(1, "\n", 1);
 }

@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/13 13:36:21 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/13 13:42:19 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void	*ft_memmove(void *d, const void *s, size_t n)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	char		*dest;
+	const char	*src;
+
+	dest = d;
+	src = s;
+	if (src == dest)
+		return (dest);
+	if (src < dest)
+	{
+		src = src + n - 1;
+		dest = dest + n - 1;
+		while (n > 0)
+		{
+			*dest-- = *src--;
+			n--;
+		}
+	}
+	else
+	{
+		while (n--)
+			*dest++ = *src++;
+	}
+	return (d);
 }

@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/09/05 21:37:02 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 17:53:50 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strdup(const char *src)
 {
-	char	*src;
+	char	*dest;
+	int		size;
 	int		i;
-	
-	src = (char *)s;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	size = ft_strlen(src);
+	if (!(dest = (char*)(malloc(sizeof(char) * size + 1))))
+		return (0);
+	while (src[i])
+	{
+		dest[i] = src[i];
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
+	dest[i] = '\0';
+	return (dest);
 }

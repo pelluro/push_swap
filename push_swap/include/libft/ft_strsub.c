@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 18:30:31 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 15:50:42 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t	i;
+	char	*dest;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (NULL);
+	if (!(dest = (char*)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (i < len && s[start])
+	{
+		dest[i] = s[start];
+		start++;
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	}
+	dest[i] = '\0';
+	return (dest);
 }

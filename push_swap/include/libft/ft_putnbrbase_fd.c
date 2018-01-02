@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_putnbrbase_fd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/12/13 16:08:33 by mipham            #+#    #+#             */
+/*   Updated: 2017/12/13 16:08:44 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+static void	ft_putnbrbase_fd_inner(uintmax_t nbr, char *base, size_t baselen,
+				int fd)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	if (nbr >= baselen)
+	{
+		ft_putnbrbase_fd_inner(nbr / baselen, base, baselen, fd);
+		ft_putnbrbase_fd_inner(nbr % baselen, base, baselen, fd);
+	}
+	else
+		ft_putchar_fd(base[nbr], fd);
+}
+
+void		ft_putnbrbase_fd(uintmax_t nbr, char *base, int fd)
+{
+	ft_putnbrbase_fd_inner(nbr, base, ft_strlen(base), fd);
 }

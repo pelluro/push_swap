@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_putwchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/12/13 16:11:10 by mipham            #+#    #+#             */
+/*   Updated: 2017/12/13 16:11:15 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <wchar.h>
+#include <unistd.h>
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+void	ft_putwchar(wchar_t chr)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	ft_putwchar_fd(chr, STDOUT_FILENO);
 }

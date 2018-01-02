@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_nstrlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/12/13 16:05:34 by mipham            #+#    #+#             */
+/*   Updated: 2017/12/13 16:06:52 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+size_t		ft_nstrlen(const char *str, size_t maxlen)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	size_t	i;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
+	while (*str++ && i < maxlen)
 		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	return (i);
 }

@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 19:35:31 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 16:06:51 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char		*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*src;
+	int		size;
+	char	*res;
 	int		i;
-	
-	src = (char *)s;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
+	if (s1 && s2)
+	{
+		size = ft_strlen((char*)s1) + ft_strlen((char*)s2);
+		if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
+			return (NULL);
+		while (*s1)
+			res[i++] = *s1++;
+		while (*s2)
+			res[i++] = *s2++;
+		res[i] = '\0';
+		return (res);
+	}
 	return (0);
-	
 }

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/08 16:47:24 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/10 17:51:09 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+size_t		ft_strlcat(char *dst, const char *src, size_t len)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	size_t	i;
+	char	*s1;
+	char	*s2;
+
+	s1 = (char*)ft_memchr(dst, '\0', len);
+	if (!s1)
+		return (len + ft_strlen((char*)src));
+	s2 = (char*)src;
+	i = ft_strlen((char*)dst) + ft_strlen((char*)src);
+	while ((size_t)(s1 - dst) < len - 1 && *s2)
+		*(s1++) = *(s2++);
+	*s1 = '\0';
+	return (i);
 }

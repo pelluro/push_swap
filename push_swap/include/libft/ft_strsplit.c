@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aschar.c                                        :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/02 18:11:37 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:12:29 by mipham           ###   ########.fr       */
+/*   Created: 2017/11/10 18:17:33 by mipham            #+#    #+#             */
+/*   Updated: 2017/11/14 16:29:03 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_aschar(const char *s, int c)
+char	**ft_strsplit(const char *s, char c)
 {
-	char	*src;
-	int		i;
-	
-	src = (char *)s;
+	char			**res;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	size;
+
 	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-	
+	j = 0;
+	if (!s || !c ||
+			!(res = (char **)malloc(sizeof(char*) * (ft_strlen(s) + 1))))
+		return (NULL);
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			size = 0;
+			while (s[i + size] && (s[i + size] != c))
+				size++;
+			res[j++] = ft_strsub(s, i, size);
+			i = i + size;
+		}
+	}
+	res[j] = 0;
+	return (res);
 }
