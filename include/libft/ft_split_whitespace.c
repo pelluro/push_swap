@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 19:37:31 by mipham            #+#    #+#             */
-/*   Updated: 2017/12/01 19:37:35 by mipham           ###   ########.fr       */
+/*   Updated: 2018/01/02 18:49:11 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char			**ft_split_whitespaces(char *str)
 	char	**result;
 	int		i;
 	int		j;
-	int	  k;
+	int		k;
 
 	i = ft_count_words(str);
 	if (!(result = (char **)malloc((i + 1) * sizeof(char *))))
@@ -54,7 +54,7 @@ char			**ft_split_whitespaces(char *str)
 			j = i;
 			while (str[i] && str[i] != '\t' && str[i] != ' ' && str[i] != '\n')
 				i++;
-			 result[k++] = ft_strsub(str,j,i-j);
+			result[k++] = ft_strsub(str, j, i - j);
 		}
 	}
 	return (result);

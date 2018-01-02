@@ -12,7 +12,7 @@
 
 #include "../include/pushswap.h"
 
-void findmin(t_stack* stack, int* value, int* index)
+void findmin(t_stack *stack, int* value, int* index)
 {
 	int i;
 	int v;
@@ -33,7 +33,7 @@ void findmin(t_stack* stack, int* value, int* index)
 	*index = idx;
 }
 
-void findmax(t_stack* stack, int* value, int* index)
+void findmax(t_stack *stack, int* value, int* index)
 {
 	int i;
 	int v;
@@ -54,7 +54,7 @@ void findmax(t_stack* stack, int* value, int* index)
 	*index = idx;
 }
 
-void shift(t_stack* stack, int pivot, t_stackops* ops)
+void shift(t_stack *stack, int pivot, t_stackops* ops)
 {
 	if(pivot>stack->size/2)
 	{
@@ -69,9 +69,9 @@ void shift(t_stack* stack, int pivot, t_stackops* ops)
 }
 
 
-t_stack* copystack(t_stack* stack)
+t_stack *copystack(t_stack *stack)
 {
-		t_stack* stack_copy;
+		t_stack *stack_copy;
 		int i;
 		stack_copy = (t_stack*)malloc(sizeof(t_stack));
 		stack_copy->content=(int*)malloc(sizeof(int) * stack->size);

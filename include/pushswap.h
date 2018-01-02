@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 18:22:18 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 18:44:55 by mipham           ###   ########.fr       */
+/*   Updated: 2018/01/02 19:05:35 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			reverse_rotate_a(t_stack *stack_a, t_stack *stack_b);
 void			reverse_rotate_b(t_stack *stack_a, t_stack *stack_b);
 void			reverse_rotate_both(t_stack *stack_a, t_stack *stack_b);
 
-typedef void	(*stack_op)(t_stack*, t_stack*);
+typedef	void	(*stack_op)(t_stack*, t_stack*);
 stack_op		define_hashmap(char *op_name);
 
 void			findmin(t_stack *stack, int *value, int *index);

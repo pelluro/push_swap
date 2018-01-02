@@ -26,8 +26,8 @@ void printstackops(t_stackops* ops)
 
 int main(int argc, char** argv)
 {
-	t_stack* stack_a;
-	t_stack* stack_b;
+	t_stack *stack_a;
+	t_stack *stack_b;
 	t_stackops* ops1;
 	t_stackops* ops2;
 

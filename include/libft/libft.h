@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 15:06:42 by mipham            #+#    #+#             */
-/*   Updated: 2017/12/13 16:53:27 by mipham           ###   ########.fr       */
+/*   Updated: 2018/01/02 18:51:06 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void			ft_putwchar_fd(wchar_t chr, int fd);
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_strrev(char *s);
-void ft_sort_integer_table(int *tab, int size);
+void			ft_sort_integer_table(int *tab, int size);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strdup(const char *src);
@@ -95,7 +95,7 @@ char			*gnl_read(char **buff, int fd, char *str);
 
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 int				ft_atoi(const char *str);
-int		ft_atoi_base(char *str, char *base);
+int				ft_atoi_base(char *str, char *base);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_strequ(char const *s1, char const *s2);
@@ -110,15 +110,15 @@ int				ft_isprint(int c);
 int				ft_isascii(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
-int		ft_max(int x, int y);
-int		ft_min(int x, int y);
+int				ft_max(int x, int y);
+int				ft_min(int x, int y);
 int				get_next_line(const int fd, char **line);
-int		ft_is_sorted(int *tab, int size);
+int				ft_is_sorted(int *tab, int size);
 
 size_t			ft_strlcat(char *restrict dest, const char *restrict src,
 		size_t len);
 size_t			ft_strlen_skip_white(const char *s);
 size_t			ft_strlen(const char *s);
-size_t		ft_nstrlen(const char *str, size_t maxlen);
+size_t			ft_nstrlen(const char *str, size_t maxlen);
 
 #endif
