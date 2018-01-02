@@ -12,12 +12,37 @@
 
 #include "../include/pushswap.h"
 
-t_stackops* basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops* ops)
+void basicresolve2(t_stack *stack_a, t_stack *stack_b, t_stackops* ops)
 {
 	int first_elem_a;
 	int second_elem_a;
 	int last_elem_a;
 
+	first_elem_a = stack_a->content[0];
+	second_elem_a = stack_a->content[1];
+	last_elem_a = stack_a->content[stack_a->size - 1];
+	if(first_elem_a > second_elem_a)
+	{
+		ops = addop(ops,"sa");
+		swap_a(stack_a, stack_b);
+		return (basicresolve(stack_a, stack_b, ops));
+	}
+	else if(first_elem_a > last_elem_a)
+		{
+			ops = addop(ops,"ra");
+			rotate_a(stack_a, stack_b);
+			return (basicresolve(stack_a, stack_b, ops));
+		}
+	else
+	{
+		ops = addop(ops,"pb");
+		push_b(stack_a, stack_b);
+		return (basicresolve(stack_a, stack_b, ops));
+	}
+}
+
+t_stackops* basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops* ops)
+{
 	if(issorted(stack_a))
 	{
 		if(stack_b->size == 0)
@@ -30,29 +55,7 @@ t_stackops* basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops* ops)
 		}
 	}
 	if(stack_a->size > 1)
-	{
-		first_elem_a = stack_a->content[0];
-		second_elem_a = stack_a->content[1];
-		last_elem_a = stack_a->content[stack_a->size - 1];
-		if(first_elem_a > second_elem_a)
-		{
-			ops = addop(ops,"sa");
-			swap_a(stack_a, stack_b);
-				return (basicresolve(stack_a, stack_b, ops));
-		}
-		else if(first_elem_a > last_elem_a)
-			{
-				ops = addop(ops,"ra");
-				rotate_a(stack_a, stack_b);
-				return (basicresolve(stack_a, stack_b, ops));
-			}
-		else
-		{
-			ops = addop(ops,"pb");
-			push_b(stack_a, stack_b);
-			return (basicresolve(stack_a, stack_b, ops));
-		}
-	}
+			return basicresolve2(stack_a,stack_b, ops);
 	else
 	{
 		ops = addop(ops,"pa");

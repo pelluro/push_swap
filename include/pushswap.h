@@ -56,7 +56,8 @@ t_stack* copystack(t_stack* stack);
 
 void			printtab(t_stack *stack);
 int				makestack(t_stack *stack, int argc, char **argv);
-
+int*      maketab(int* tab, int* s, int argc, char** argv);
+int*      handleministack(int* tab, int* s, char* str);
 t_stackops* basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops* ops);
 int smallresolve(t_stack* stack, t_stackops* ops);
 t_stackops* mediumresolve(t_stack* stack_a, t_stack* stack_b, t_stackops* ops);

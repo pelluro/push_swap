@@ -16,7 +16,7 @@ void read_cmd(char *cmd)
 {
 	int i;
 	char buff[1];
-	
+
 	i = 0;
 	while (1)
 	{
@@ -40,12 +40,21 @@ void read_cmd(char *cmd)
 	cmd[3] = 0;
 }
 
+int check(t_stack *stack_a, t_stack *stack_b)
+{
+	if (issorted(stack_a) && stack_b && stack_b->size == 0)
+		ft_putendl("OK");
+		else
+		ft_putendl("KO");
+	return 0;
+}
+
 int read_cmds(t_stack *stack_a, t_stack *stack_b)
 {
 	stack_op op;
 	char** cmdLine;
+
 	cmdLine = (char**)malloc(sizeof(char*));
-	
 	while (1)
 	{
 		if(get_next_line(0,cmdLine))
@@ -54,13 +63,7 @@ int read_cmds(t_stack *stack_a, t_stack *stack_b)
 			if (op)
 				op(stack_a, stack_b);
 			else if (!(*cmdLine)[0])
-			{
-				if (issorted(stack_a) && stack_b && stack_b->size == 0)
-					ft_putendl("OK");
-				else
-					ft_putendl("KO");
-				return (0);
-			}
+				return check(stack_a,stack_b);
 			else
 			{
 				ft_putendl("Error");
@@ -68,13 +71,7 @@ int read_cmds(t_stack *stack_a, t_stack *stack_b)
 			}
 		}
 		else
-		{
-			if (issorted(stack_a) && stack_b && stack_b->size == 0)
-				ft_putendl("OK");
-			else
-				ft_putendl("KO");
-			return (0);
-		}
+			return check(stack_a,stack_b);
 	}
 }
 
@@ -106,7 +103,7 @@ int main(int argc, char **argv)
 {
 	t_stack* stack_a;
 	t_stack* stack_b;
-	
+
 	stack_a = (t_stack*)malloc(sizeof(t_stack));
 	stack_b = (t_stack*)malloc(sizeof(t_stack));
 	stack_b->content = NULL;
@@ -116,5 +113,5 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		return (-1);
 	}
-	return(read_cmds(stack_a, stack_b));	
+	return(read_cmds(stack_a, stack_b));
 }

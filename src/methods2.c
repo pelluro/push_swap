@@ -51,59 +51,68 @@ int checktab(int* tab, int s)
 	return (1);
 }
 
-int makestack(t_stack *stack, int argc, char **argv)
+int* handleministack(int* tab, int* s, char* str)
 {
-	int i;
 	int j;
-	int s;
-	int* tab;
 	t_stack* ministack;
 
 	ministack = NULL;
-	tab = (int*)malloc(sizeof(int)*1000);
+	ministack = parsestack(ministack, str);
+	if(ministack)
+	{
+		j = -1;
+		while(++j < ministack->size)
+		{
+			tab[*s] = ministack->content[j];
+			*s = *s + 1;
+		}
+		return tab;
+	}
+	else
+		return NULL;
+}
+
+int* maketab(int* tab, int* s, int argc, char** argv)
+{
+	int i;
+	int j;
+
 	i = 1;
-	s = 0;
+	*s = 0;
 	while (i < argc)
 	{
 		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
-			tab[s++] = 0;
+			tab[(*s)++] = 0;
 		else if(ft_haschar(argv[i],' '))
 		{
-			ministack = parsestack(ministack, argv[i]);
-			if(ministack)
-			{
-				j = -1;
-				while(++j < ministack->size)
-					tab[s++] = ministack->content[j];
-			}
-			else
-				return(0);
+			tab = handleministack(tab, s, argv[i]);
+			if(!tab)
+				return 0;
 		}
 		else
 		{
 			j = ft_atoi(argv[i]);
 			if (j != 0)
-				tab[s++] = j;
+				tab[(*s)++] = j;
 			else
 				return(0);
 		}
 		i++;
 	}
-	if(!checktab(tab,s))
-		return(0);
-	stack = copytabintostack(stack,tab,s);
-	free(tab);
-	return (1);
+	return tab;
 }
 
-void printtab(t_stack* stack)
+int makestack(t_stack *stack, int argc, char **argv)
 {
-	int i;
+	int* s;
+	int* tab;
 
-	i = 0;
-	while (i < stack->size)
-	{
-		ft_putnbr(stack->content[i]);
-		i++;
-	}
+	tab = (int*)malloc(sizeof(int)*1000);
+  s = (int*)malloc(sizeof(int));
+	tab = maketab(tab, s, argc, argv);
+	if(!checktab(tab,*s))
+		return(0);
+	stack = copytabintostack(stack,tab,*s);
+	free(tab);
+	return (1);
 }

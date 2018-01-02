@@ -81,7 +81,6 @@ t_stack* parsestack(t_stack* stack, char * str)
 	stack = (t_stack*)malloc(sizeof(t_stack));
 	stack->content = (int*)malloc(sizeof(int)*1000);
 	tabNb = ft_split_whitespaces(str);
-
 	i = 0;
 	while (tabNb[i])
 	{
@@ -100,4 +99,16 @@ t_stack* parsestack(t_stack* stack, char * str)
 	j = 0;
 	stack->size = i;
 	return stack;
+}
+
+void printtab(t_stack* stack)
+{
+	int i;
+
+	i = 0;
+	while (i < stack->size)
+	{
+		ft_putnbr(stack->content[i]);
+		i++;
+	}
 }
