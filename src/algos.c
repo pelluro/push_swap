@@ -79,6 +79,7 @@ int			smallresolve(t_stack *stack, t_stackops *ops)
 		return (0);
 }
 
+
 t_stackops	*mediumresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 {
 	int	*minvalue;

@@ -28,6 +28,7 @@ void rotate(t_stack *stack)
 			i++;
 		}
 		stack->content[stack->size - 1] = c;
+
 	}
 }
 

@@ -30,7 +30,7 @@ int		main(int argc, char** argv)
 	t_stack		*stack_b;
 	t_stackops	*ops1;
 	t_stackops	*ops2;
-	
+
 	if (!(stack_a = (t_stack*)malloc(sizeof(t_stack))))
 		return (0);
 	if (!(stack_b = (t_stack*)malloc(sizeof(t_stack))))

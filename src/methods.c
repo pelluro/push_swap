@@ -110,7 +110,7 @@ void		printtab(t_stack *stack)
 	i = 0;
 	while (i < stack->size)
 	{
-		ft_putnbr(stack->content[i]);
+		printf("%d\n",stack->content[i]);
 		i++;
 	}
 }
