@@ -24,20 +24,22 @@ void printstackops(t_stackops *ops)
 	}
 }
 
-int main(int argc, char** argv)
+int		main(int argc, char** argv)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
-	t_stackops *ops1;
-	t_stackops *ops2;
-
-	stack_a = (t_stack*)malloc(sizeof(t_stack));
-	stack_b = (t_stack*)malloc(sizeof(t_stack));
+	t_stack		*stack_a;
+	t_stack		*stack_b;
+	t_stackops	*ops1;
+	t_stackops	*ops2;
+	
+	if (!(stack_a = (t_stack*)malloc(sizeof(t_stack))))
+		return (0);
+	if (!(stack_b = (t_stack*)malloc(sizeof(t_stack))))
+		return (0);
 	stack_b->content = NULL;
 	stack_b->size = 0;
 	if (!makestack(stack_a, argc, argv))
 	{
-		ft_putendl("Error");
+		ft_putendl("Error makestack");
 		return (-1);
 	}
 	if (stack_a->size <= 2)
