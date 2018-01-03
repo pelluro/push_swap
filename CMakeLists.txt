@@ -83,6 +83,8 @@ add_executable(push_swap
         include/libft/ft_toupper.c
         include/libft/ft_utoa.c
         include/libft/get_next_line.c
+        include/libft/ft_sort_integer_table.c
+        include/libft/ft_is_sorted.c
         include/libft/ft_aschar.c
         include/libft/libft.h
         include/pushswap.h
