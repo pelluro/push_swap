@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:02:56 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 19:13:57 by mipham           ###   ########.fr       */
+/*   Updated: 2017/12/27 16:02:59 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_stackops	*basicresolve2(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 		return (basicresolve(stack_a, stack_b, ops));
 	}
 	else if (first_elem_a > last_elem_a)
-	{
-		ops = addop(ops, "ra");
-		rotate_a(stack_a, stack_b);
-		return (basicresolve(stack_a, stack_b, ops));
-	}
+		{
+			ops = addop(ops, "ra");
+			rotate_a(stack_a, stack_b);
+			return (basicresolve(stack_a, stack_b, ops));
+		}
 	else
 	{
 		ops = addop(ops, "pb");
@@ -46,16 +46,16 @@ t_stackops	*basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 	if (issorted(stack_a))
 	{
 		if (stack_b->size == 0)
-			return (ops);
+			return ops;
 		else
 		{
 			ops = addop(ops, "pa");
 			push_a(stack_a, stack_b);
-			return (basicresolve(stack_a, stack_b, ops));
+			return basicresolve(stack_a, stack_b, ops);
 		}
 	}
 	if (stack_a->size > 1)
-		return (basicresolve2(stack_a, stack_b, ops));
+			return basicresolve2(stack_a, stack_b, ops);
 	else
 	{
 		ops = addop(ops, "pa");
@@ -66,17 +66,17 @@ t_stackops	*basicresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 
 int			smallresolve(t_stack *stack, t_stackops *ops)
 {
-	if (!stack || !stack->content || stack->size > 2)
+		if (!stack || !stack->content || stack->size > 2)
 		return (-1);
-	if (stack->content[0] > stack->content[1])
-	{
-		if (ops)
-			ops = addop(ops, "sa");
-		else
-			ft_putendl("sa");
-		swap(stack);
-	}
-	return (0);
+		if (stack->content[0] > stack->content[1])
+		{
+			if (ops)
+				ops = addop(ops, "sa");
+			else
+			  ft_putendl("sa");
+			swap(stack);
+		}
+		return (0);
 }
 
 t_stackops	*mediumresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
@@ -84,8 +84,10 @@ t_stackops	*mediumresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 	int	*minvalue;
 	int	*minindex;
 
-	minvalue = (int*)malloc(sizeof(int));
-	minindex = (int*)malloc(sizeof(int));
+	if (!(minvalue = (int*)malloc(sizeof(int))))
+		return (0);
+	if (!(minindex = (int*)malloc(sizeof(int))))
+		return (0);
 	while (!issorted(stack_a) || stack_b->size > 0)
 	{
 		while (stack_a->size > 2)

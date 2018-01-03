@@ -24,7 +24,7 @@ void reverse_rotate(t_stack *stack)
 		c = stack->content[stack->size - 1];
 		while (i >= 0)
 		{
-			stack->content[i + 1] = stack->content[i];
+			stack->content[i+1] = stack->content[i];
 			i--;
 		}
 		stack->content[0] = c;

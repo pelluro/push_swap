@@ -6,18 +6,18 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:02:56 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 21:03:39 by mipham           ###   ########.fr       */
+/*   Updated: 2017/12/27 16:02:59 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pushswap.h"
 
-t_stack		*copytabintostack(t_stack *stack, int *tab, int s)
+t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 {
 	int i;
 
 	i = 0;
-	stack->content = (int*)malloc(sizeof(int) * s);
+	stack->content = (int*)malloc(sizeof(int)*s);
 	while (i < s)
 	{
 		stack->content[i] = tab[i];
@@ -27,13 +27,13 @@ t_stack		*copytabintostack(t_stack *stack, int *tab, int s)
 	return (stack);
 }
 
-int			checktab(int *tab, int s)
+int checktab(int* tab, int s)
 {
-	int		i;
-	int		*tab2;
+	int i;
+	int *tab2;
 
 	i = 0;
-	if (!(tab2 = (int*)malloc(sizeof(int) * s)))
+	if (!(tab2 = (int*)malloc(sizeof(int) *s)))
 		return (0);
 	while (i < s)
 	{
@@ -51,10 +51,10 @@ int			checktab(int *tab, int s)
 	return (1);
 }
 
-int			*handleministack(int *tab, int *s, char *str)
+int* handleministack(int* tab, int* s, char* str)
 {
-	int			j;
-	t_stack		*ministack;
+	int j;
+	t_stack *ministack;
 
 	ministack = NULL;
 	ministack = parsestack(ministack, str);
@@ -66,13 +66,13 @@ int			*handleministack(int *tab, int *s, char *str)
 			tab[*s] = ministack->content[j];
 			*s = *s + 1;
 		}
-		return (tab);
+		return tab;
 	}
 	else
-		return (NULL);
+		return NULL;
 }
 
-int			*maketab(int *tab, int *s, int argc, char **argv)
+int* maketab(int* tab, int* s, int argc, char** argv)
 {
 	int i;
 	int j;
@@ -83,10 +83,11 @@ int			*maketab(int *tab, int *s, int argc, char **argv)
 	{
 		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
 			tab[(*s)++] = 0;
-		else if (ft_haschar(argv[i], ' '))
+		else if (ft_haschar(argv[i],' '))
 		{
-			if (!(tab = handleministack(tab, s, argv[i])))
-				return (0);
+			tab = handleministack(tab, s, argv[i]);
+			if (!tab)
+				return 0;
 		}
 		else
 		{
@@ -98,20 +99,20 @@ int			*maketab(int *tab, int *s, int argc, char **argv)
 		}
 		i++;
 	}
-	return (tab);
+	return tab;
 }
 
-int			makestack(t_stack *stack, int argc, char **argv)
+int makestack(t_stack *stack, int argc, char **argv)
 {
-	int	*s;
-	int	*tab;
+	int* s;
+	int* tab;
 
-	tab = (int*)malloc(sizeof(int) * 1000);
-	s = (int*)malloc(sizeof(int));
+	tab = (int*)malloc(sizeof(int)*1000);
+  s = (int*)malloc(sizeof(int));
 	tab = maketab(tab, s, argc, argv);
-	if (!checktab(tab, *s))
+	if (!checktab(tab,*s))
 		return (0);
-	stack = copytabintostack(stack, tab, *s);
+	stack = copytabintostack(stack,tab,*s);
 	free(tab);
 	return (1);
 }

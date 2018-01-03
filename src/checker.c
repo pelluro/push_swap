@@ -6,7 +6,7 @@
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 16:02:46 by mipham            #+#    #+#             */
-/*   Updated: 2018/01/02 20:44:02 by mipham           ###   ########.fr       */
+/*   Updated: 2017/12/27 16:02:49 by mipham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		read_cmds(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-int		do_cmds(t_stack *stack_a, t_stack *stack_b, char **cmds)
+int		do_cmds(t_stack *stack_a, t_stack *stack_b, char** cmds)
 {
 	int			i;
 	stack_op	op;
@@ -104,8 +104,10 @@ int		main(int argc, char **argv)
 	t_stack *stack_a;
 	t_stack *stack_b;
 
-	stack_a = (t_stack*)malloc(sizeof(t_stack));
-	stack_b = (t_stack*)malloc(sizeof(t_stack));
+	if (!(stack_a = (t_stack*)malloc(sizeof(t_stack))))
+		return (0);
+	if (!(stack_b = (t_stack*)malloc(sizeof(t_stack))))
+		return (0);
 	stack_b->content = NULL;
 	stack_b->size = 0;
 	if (!makestack(stack_a, argc, argv))

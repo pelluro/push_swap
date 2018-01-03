@@ -83,8 +83,17 @@ add_executable(push_swap
         include/libft/ft_toupper.c
         include/libft/ft_utoa.c
         include/libft/get_next_line.c
+        include/libft/ft_aschar.c
         include/libft/libft.h
         include/pushswap.h
         src/checker.c
+        src/algos.c
         src/methods.c
-        src/pushswap.c include/libft/ft_aschar.c)
+        src/methods2.c
+        src/ops1.c
+        src/ops2.c
+        src/ops3.c
+        src/ops4.c
+        src/ops5.c
+        src/pushswap.c
+        )
