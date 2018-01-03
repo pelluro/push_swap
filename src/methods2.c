@@ -27,13 +27,13 @@ t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 	return (stack);
 }
 
-int checktab(int* tab, int s)
+int		checktab(int *tab, int s)
 {
 	int i;
 	int *tab2;
 
 	i = 0;
-	if (!(tab2 = (int*)malloc(sizeof(int) *s)))
+	if (!(tab2 = (int*)malloc(sizeof(int) * s)))
 		return (0);
 	while (i < s)
 	{
@@ -51,7 +51,7 @@ int checktab(int* tab, int s)
 	return (1);
 }
 
-int* handleministack(int* tab, int* s, char* str)
+int		*handleministack(int* tab, int* s, char* str)
 {
 	int j;
 	t_stack *ministack;
@@ -66,16 +66,16 @@ int* handleministack(int* tab, int* s, char* str)
 			tab[*s] = ministack->content[j];
 			*s = *s + 1;
 		}
-		return tab;
+		return (tab);
 	}
 	else
-		return NULL;
+		return (NULL);
 }
 
-int* maketab(int* tab, int* s, int argc, char** argv)
+int		*maketab(int *tab, int *s, int argc, char **argv)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	*s = 0;
@@ -83,7 +83,7 @@ int* maketab(int* tab, int* s, int argc, char** argv)
 	{
 		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
 			tab[(*s)++] = 0;
-		else if (ft_haschar(argv[i],' '))
+		else if (ft_haschar(argv[i], ' '))
 		{
 			tab = handleministack(tab, s, argv[i]);
 			if (!tab)
@@ -99,20 +99,22 @@ int* maketab(int* tab, int* s, int argc, char** argv)
 		}
 		i++;
 	}
-	return tab;
+	return (tab);
 }
 
-int makestack(t_stack *stack, int argc, char **argv)
+int		makestack(t_stack *stack, int argc, char **argv)
 {
 	int* s;
 	int* tab;
 
-	tab = (int*)malloc(sizeof(int)*1000);
-  s = (int*)malloc(sizeof(int));
-	tab = maketab(tab, s, argc, argv);
-	if (!checktab(tab,*s))
+	if (!(tab = (int*)malloc(sizeof(int) * 1000)))
 		return (0);
-	stack = copytabintostack(stack,tab,*s);
+  	if (!(s = (int*)malloc(sizeof(int))))
+		return (0);
+	tab = maketab(tab, s, argc, argv);
+	if (!checktab(tab, *s))
+		return (0);
+	stack = copytabintostack(stack, tab,* s);
 	free(tab);
 	return (1);
 }

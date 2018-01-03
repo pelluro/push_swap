@@ -15,17 +15,17 @@
 
 #include "libft/libft.h"
 
-typedef struct stack
+typedef struct	s_stack
 {
-   int *content;
-   int size;
-} t_stack;
+   int	*content;
+   int	size;
+}				t_stack;
 
-typedef struct stackops
+typedef struct	s_stackops
 {
-   char** content;
-   int size;
-} t_stackops;
+   char	**content;
+   int	size;
+}				t_stackops;
 
 
 typedef void	(*stack_op)(t_stack*, t_stack*);
