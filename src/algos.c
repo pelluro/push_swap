@@ -14,15 +14,15 @@
 
 t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
-	int first_elem_a;
-	int second_elem_a;
-	int last_elem_a;
+	int	first_elem_a;
+	int	second_elem_a;
+	int	last_elem_a;
 
 	first_elem_a = s_a->content[0];
 	second_elem_a = s_a->content[1];
 	last_elem_a = s_a->content[s_a->size - 1];
 	if (ops->size > 10000)
-		return (NULL);
+		return (0);
 	if (first_elem_a > second_elem_a)
 	{
 		ops = addop(ops, "sa");
@@ -46,20 +46,20 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
 	if (ops->size > 10000)
-		return (NULL);
+		return (0);
 	if (issorted(s_a))
 	{
 		if (s_b->size == 0)
-			return ops;
+			return (ops);
 		else
 		{
 			ops = addop(ops, "pa");
 			push_a(s_a, s_b);
-			return basicsolve(s_a, s_b, ops);
+			return (basicsolve(s_a, s_b, ops));
 		}
 	}
 	if (s_a->size > 1)
-			return basicsolve2(s_a, s_b, ops);
+			return (basicsolve2(s_a, s_b, ops));
 	else
 	{
 		ops = addop(ops, "pa");
