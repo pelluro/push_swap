@@ -12,7 +12,7 @@
 
 #include "../include/pushswap.h"
 
-t_stack		*copytabintostack(t_stack *stack, int* tab, int s)
+t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 {
 	int i;
 
@@ -27,7 +27,7 @@ t_stack		*copytabintostack(t_stack *stack, int* tab, int s)
 	return (stack);
 }
 
-int			checktab(int *tab, int s)
+int		checktab(int *tab, int s)
 {
 	int i;
 	int *tab2;
@@ -51,7 +51,7 @@ int			checktab(int *tab, int s)
 	return (1);
 }
 
-int			*handleministack(int* tab, int* s, char* str)
+int		*handleministack(int* tab, int* s, char* str)
 {
 	int j;
 	t_stack *ministack;
@@ -72,7 +72,7 @@ int			*handleministack(int* tab, int* s, char* str)
 		return (NULL);
 }
 
-int			*maketab(int *tab, int *s, int argc, char **argv)
+int		*maketab(int *tab, int *s, int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -101,7 +101,7 @@ int			*maketab(int *tab, int *s, int argc, char **argv)
 	return (tab);
 }
 
-int			makestack(t_stack *stack, int argc, char **argv)
+int		makestack(t_stack *stack, int argc, char **argv)
 {
 	int* s;
 	int* tab;

@@ -103,9 +103,15 @@ t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	if (!(medindex = (int*)malloc(sizeof(int))))
 		return (0);
 	findmed(s_a, medvalue, medindex);
+	printf("findmed ok\n");
 	splitstacks(s_a, s_b, ops, *medvalue);
+	printf("splitmed ok \n");
 	if (!(ops = medsolve2(s_a, s_b, ops)))
+	{
+		printf("medsolve2 return null\n");
 		return (NULL);
+	}
+	
 	while (s_b->size > 0)
 	{
 		ops = addop(ops, "pa");

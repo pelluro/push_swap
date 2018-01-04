@@ -47,21 +47,21 @@ int		read_cmds(t_stack *s_a, t_stack *s_b)
 	}
 }
 
-int		main(int argc, char **argv)
-{
-	t_stack *s_a;
-	t_stack *s_b;
-
-	if (!(s_a = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
-	if (!(s_b = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
-	s_b->content = NULL;
-	s_b->size = 0;
-	if (!makestack(s_a, argc, argv))
-	{
-		ft_putendl("Error");
-		return (-1);
-	}
-	return (read_cmds(s_a, s_b));
-}
+//int		main(int argc, char **argv)
+//{
+//	t_stack *s_a;
+//	t_stack *s_b;
+//
+//	if (!(s_a = (t_stack*)malloc(sizeof(t_stack))))
+//		return (0);
+//	if (!(s_b = (t_stack*)malloc(sizeof(t_stack))))
+//		return (0);
+//	s_b->content = NULL;
+//	s_b->size = 0;
+//	if (!makestack(s_a, argc, argv))
+//	{
+//		ft_putendl("Error");
+//		return (-1);
+//	}
+//	return (read_cmds(s_a, s_b));
+//}

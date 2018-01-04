@@ -55,11 +55,11 @@ t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		{
 			ops = addop(ops, "pa");
 			push_a(s_a, s_b);
-			return (basicsolve(s_a, s_b, ops));
+			return basicsolve(s_a, s_b, ops);
 		}
 	}
 	if (s_a->size > 1)
-			return (basicsolve2(s_a, s_b, ops));
+			return basicsolve2(s_a, s_b, ops);
 	else
 	{
 		ops = addop(ops, "pa");
@@ -119,5 +119,18 @@ t_stackops	*addop(t_stackops *ops, char *op)
 {
 	ops->content[ops->size] = op;
 	ops->size = ops->size + 1;
+//	printf("opssize=%d\n",ops->size);
 	return (ops);
+}
+
+void		printtab(t_stack *stack)
+{
+	int i;
+	
+	i = 0;
+	while (i < stack->size)
+	{
+		printf("%d\n",stack->content[i]);
+		i++;
+	}
 }
