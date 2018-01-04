@@ -12,86 +12,88 @@
 
 #include "../include/pushswap.h"
 
-void		splitstacks(t_stack *stack_a, t_stack *stack_b, t_stackops *ops, int medvalue)
+void		splitstacks(t_stack *s_a, t_stack *s_b, t_stackops *ops, int medvalue)
 {
 	int f;
 
 	f = 0;
-	while (stack_a->content[0] != medvalue || !f)
+	while (s_a->content[0] != medvalue || !f)
 	{
-		if (!f && stack_a->content[0] == medvalue)
+		if (!f && s_a->content[0] == medvalue)
 		{
 			f = 1;
 			ops = addop(ops, "ra");
-			rotate_a(stack_a, stack_b);
+			rotate_a(s_a, s_b);
 		}
-		else if (stack_a->content[0]<=medvalue)
+		else if (s_a->content[0]<=medvalue)
 		{
 			ops = addop(ops, "pb");
-			push_b(stack_a, stack_b);
+			push_b(s_a, s_b);
 		}
 		else
 		{
 			ops = addop(ops, "ra");
-			rotate_a(stack_a, stack_b);
+			rotate_a(s_a, s_b);
 		}
 	}
 }
 
-void		doop(t_stack *stack_a, t_stack *stack_b, t_stackops *ops, int op)
+void		doop(t_stack *s_a, t_stack *s_b, t_stackops *ops, int op)
 {
 	if (op == 1 || op == 21)
 	{
 		ops = addop(ops, "sa");
-		swap_a(stack_a, stack_b);
+		swap_a(s_a, s_b);
 	}
 	else if (op == 2 || op == 12)
 	{
 		ops = addop(ops, "ra");
-		rotate_a(stack_a, stack_b);
+		rotate_a(s_a, s_b);
 	}
 	else if (op == 10)
 	{
 		ops = addop(ops, "sb");
-		swap_b(stack_a, stack_b);
+		swap_b(s_a, s_b);
 	}
 	else if (op == 20)
 	{
 		ops = addop(ops, "rb");
-		rotate_b(stack_a, stack_b);
+		rotate_b(s_a, s_b);
 	}
 }
 
-t_stackops	*medresolve2(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
+t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
 	int op;
 	
-	while (!issorted(stack_a) || !issortedreverse(stack_b))
+	while (!issorted(s_a) || !issortedreverse(s_b))
 	{
+		if (ops->size > 10000)
+			return (NULL);
 		op = 0;
-		if (!issorted(stack_a))
-			op += (stack_a->content[0] > stack_a->content[1] &&
-					stack_a->content[0] < stack_a->content[stack_a->size - 1]) ? 1 : 2;
-		if (!issortedreverse(stack_b))
-			op += (stack_b->content[0] < stack_b->content[1] &&
-					stack_b->content[0] > stack_b->content[stack_b->size - 1]) ? 10 : 20;
+		if (!issorted(s_a))
+			op += (s_a->content[0] > s_a->content[1] &&
+					s_a->content[0] < s_a->content[s_a->size - 1]) ? 1 : 2;
+		if (!issortedreverse(s_b))
+			op += (s_b->content[0] < s_b->content[1] &&
+					s_b->content[0] > s_b->content[s_b->size - 1]) ? 10 : 20;
 		if (op == 11)
 		{
 			ops = addop(ops, "ss");
-			swap_both(stack_a, stack_b);
+			swap_both(s_a, s_b);
 		}
 		else if (op == 22)
 		{
 			ops = addop(ops, "rr");
-			rotate_both(stack_a, stack_b);
+			rotate_both(s_a, s_b);
 		}
 		else
-			doop(stack_a, stack_b, ops, op);
+			doop(s_a, s_b, ops, op);
 	}
 	return (ops);
 }
 
-t_stackops	*medresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
+t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
 	int	*medvalue;
 	int	*medindex;
@@ -100,13 +102,20 @@ t_stackops	*medresolve(t_stack *stack_a, t_stack *stack_b, t_stackops *ops)
 		return (0);
 	if (!(medindex = (int*)malloc(sizeof(int))))
 		return (0);
-	findmed(stack_a, medvalue, medindex);
-	splitstacks(stack_a, stack_b, ops, *medvalue);
-	ops = medresolve2(stack_a, stack_b, ops);
-	while (stack_b->size > 0)
+	findmed(s_a, medvalue, medindex);
+	printf("findmed ok\n");
+	splitstacks(s_a, s_b, ops, *medvalue);
+	printf("splitmed ok \n");
+	if (!(ops = medsolve2(s_a, s_b, ops)))
+	{
+		printf("medsolve2 return null\n");
+		return (NULL);
+	}
+	
+	while (s_b->size > 0)
 	{
 		ops = addop(ops, "pa");
-		push_a(stack_a, stack_b);
+		push_a(s_a, s_b);
 	}
 	return(ops);
 }

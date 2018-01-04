@@ -23,63 +23,77 @@ void printstackops(t_stackops *ops)
 		i++;
 	}
 }
-void init_op(t_stackops *ops)
+
+t_stackops *init_so(t_stackops *ops)
 {
-	ops = NULL;
 	if (!(ops = (t_stackops*)malloc(sizeof(t_stackops))))
-		return ;
+		return (NULL);
 	if (!(ops->content = (char**)malloc(sizeof(char*) * 10000000)))
-		return ;
+		return (NULL);
 	ops->size = 0;
+	return (ops);
 }
 
-int		main(int argc, char** argv)
+t_stack	*init_stack(t_stack *s)
 {
-	t_stack		*stack_a;
-	t_stack		*stack_b;
-	t_stackops	*ops1;
-	t_stackops	*ops2;
-	t_stackops	*ops3;
+	if (!(s = (t_stack*)malloc(sizeof(t_stack))))
+		return (NULL);
+	return (s);
+}
 
-	if (!(stack_a = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
-	if (!(stack_b = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
-	stack_b->content = NULL;
-	stack_b->size = 0;
-	if (!makestack(stack_a, argc, argv))
+void compare(t_stackops *ops1, t_stackops *ops2, t_stackops *ops3)
+{
+	if (!ops1 && !ops2 && !ops3)
+		return ;
+	else if (ops1 && ops2 && ops3)
 	{
-		ft_putendl("Error makestack");
-		return (-1);
-	}
-	if (stack_a->size <= 2)
-			return (smallresolve(stack_a, NULL));
-	else
-	{
-		if (!(ops1 = (t_stackops*)malloc(sizeof(t_stackops))))
-			return 0;
-		if (!(ops2 = (t_stackops*)malloc(sizeof(t_stackops))))
-			return 0;
-		if (!(ops3 = (t_stackops*)malloc(sizeof(t_stackops))))
-			return 0;
-		if (!(ops1->content = (char**)malloc(sizeof(char*) * 10000000)))
-			return 0;
-		if (!(ops2->content = (char**)malloc(sizeof(char*) * 10000000)))
-			return 0;
-		if (!(ops3->content = (char**)malloc(sizeof(char*) * 10000000)))
-			return 0;
-		ops1->size = 0;
-		ops2->size = 0;
-		ops3->size = 0;
-		ops1 = basicresolve(copystack(stack_a), copystack(stack_b), ops1);
-		ops2 = mediumresolve(copystack(stack_a), copystack(stack_b), ops2);
-		ops3 = medresolve(copystack(stack_a), copystack(stack_b), ops3);
 		if (ops1->size > ops2->size && ops3->size > ops2->size)
 			printstackops(ops2);
 		else if (ops3->size > ops1->size)
 			printstackops(ops1);
 		else
 			printstackops(ops3);
+	}
+	if (!ops1)
+		ops3->size > ops2->size ? printstackops(ops2) :printstackops(ops3);
+	if (!ops2)
+		ops3->size > ops1->size ? printstackops(ops1) : printstackops(ops3);
+	if (!ops3)
+		ops1->size > ops2->size ? printstackops(ops2) : printstackops(ops1);
+}
+
+int		main(int argc, char** argv)
+{
+	t_stack		*s_a;
+	t_stack		*s_b;
+	t_stackops	*ops1;
+	t_stackops	*ops2;
+	t_stackops	*ops3;
+	
+	s_a = NULL;
+	s_b = NULL;
+	ops1 = NULL;
+	ops2 = NULL;
+	ops3 = NULL;
+	s_a = init_stack(s_a);
+	s_b = init_stack(s_b);
+	s_b->content = NULL;
+	s_b->size = 0;
+	printtab(s_a);
+	printtab(s_b);
+	if (!makestack(s_a, argc, argv))
+	{
+		ft_putendl("Error makestack");
+		return (-1);
+	}
+	if (s_a->size <= 2)
+			return (smallresolve(s_a, NULL));
+	else
+	{
+		ops1 = basicsolve(copystack(s_a), copystack(s_b), init_so(ops1));
+		ops2 = mediumsolve(copystack(s_a), copystack(s_b), init_so(ops2));
+		ops3 = medsolve(copystack(s_a), copystack(s_b), init_so(ops3));
+		compare(ops1, ops2, ops3);
 	}
 	return (0);
 }

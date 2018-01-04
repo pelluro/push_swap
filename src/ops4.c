@@ -32,20 +32,20 @@ void		reverse_rotate(t_stack *stack)
 	}
 }
 
-void		reverse_rotate_a(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_a(t_stack *s_a, t_stack *s_b)
 {
-	reverse_rotate(stack_a);
-	(void)stack_b;
+	reverse_rotate(s_a);
+	(void)s_b;
 }
 
-void		reverse_rotate_b(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_b(t_stack *s_a, t_stack *s_b)
 {
-	reverse_rotate(stack_b);
-	(void)stack_a;
+	reverse_rotate(s_b);
+	(void)s_a;
 }
 
-void		reverse_rotate_both(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_both(t_stack *s_a, t_stack *s_b)
 {
-	reverse_rotate(stack_a);
-	reverse_rotate(stack_b);
+	reverse_rotate(s_a);
+	reverse_rotate(s_b);
 }

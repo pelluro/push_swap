@@ -22,14 +22,14 @@ void push(t_stack *stackfrom, t_stack *stackto)
 	}
 }
 
-void push_a(t_stack *stack_a, t_stack *stack_b)
+void push_a(t_stack *s_a, t_stack *s_b)
 {
-	push(stack_b, stack_a);
+	push(s_b, s_a);
 }
 
-void push_b(t_stack *stack_a, t_stack *stack_b)
+void push_b(t_stack *s_a, t_stack *s_b)
 {
-	push(stack_a, stack_b);
+	push(s_a, s_b);
 }
 
 t_stack *add_top(t_stack *stack, int c)

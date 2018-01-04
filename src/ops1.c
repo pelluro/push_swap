@@ -22,20 +22,20 @@ void swap(t_stack *stack)
 		stack->content[1] = c;
 	}
 }
-void swap_a(t_stack *stack_a, t_stack *stack_b)
+void swap_a(t_stack *s_a, t_stack *s_b)
 {
-	swap(stack_a);
-	(void)stack_b;
+	swap(s_a);
+	(void)s_b;
 }
 
-void swap_b(t_stack *stack_a, t_stack *stack_b)
+void swap_b(t_stack *s_a, t_stack *s_b)
 {
-	swap(stack_b);
-	(void)stack_a;
+	swap(s_b);
+	(void)s_a;
 }
 
-void swap_both(t_stack *stack_a, t_stack *stack_b)
+void swap_both(t_stack *s_a, t_stack *s_b)
 {
-	swap(stack_a);
-	swap(stack_b);
+	swap(s_a);
+	swap(s_b);
 }
