@@ -61,11 +61,9 @@ t_stack		*parsestack(t_stack *stack, char *str)
 	int		j;
 	char	**tabnb;
 
-	if (!(stack = (t_stack *) malloc(sizeof(t_stack))))
-		return (0);
-	if (!(stack->content = (int *) malloc(sizeof(int) * 1000)))
-		return (0);
-	if (!(tabnb = ft_split_whitespaces(str)))
+	if (!(stack = (t_stack *) malloc(sizeof(t_stack))) ||
+			!(stack->content = (int *) malloc(sizeof(int) * 1000)) ||
+			!(tabnb = ft_split_whitespaces(str)))
 		return (0);
 	i = 0;
 	while (tabnb[i])
@@ -85,16 +83,4 @@ t_stack		*parsestack(t_stack *stack, char *str)
 	j = 0;
 	stack->size = i;
 	return (stack);
-}
-
-void		printtab(t_stack *stack)
-{
-	int i;
-
-	i = 0;
-	while (i < stack->size)
-	{
-		printf("%d\n", stack->content[i]);
-		i++;
-	}
 }

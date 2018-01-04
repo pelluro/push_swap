@@ -13,7 +13,7 @@
 
 #include "../include/pushswap.h"
 
-void reverse_rotate(t_stack *stack)
+void		reverse_rotate(t_stack *stack)
 {
 	int	i;
 	int	c;
@@ -24,7 +24,7 @@ void reverse_rotate(t_stack *stack)
 		c = stack->content[i + 1];
 		while (i >= 0)
 		{
-			stack->content[i+1] = stack->content[i];
+			stack->content[i + 1] = stack->content[i];
 			i--;
 		}
 		stack->content[0] = c;
@@ -32,19 +32,19 @@ void reverse_rotate(t_stack *stack)
 	}
 }
 
-void reverse_rotate_a(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_a(t_stack *stack_a, t_stack *stack_b)
 {
 	reverse_rotate(stack_a);
 	(void)stack_b;
 }
 
-void reverse_rotate_b(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_b(t_stack *stack_a, t_stack *stack_b)
 {
 	reverse_rotate(stack_b);
 	(void)stack_a;
 }
 
-void reverse_rotate_both(t_stack *stack_a, t_stack *stack_b)
+void		reverse_rotate_both(t_stack *stack_a, t_stack *stack_b)
 {
 	reverse_rotate(stack_a);
 	reverse_rotate(stack_b);

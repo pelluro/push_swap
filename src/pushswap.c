@@ -23,6 +23,15 @@ void printstackops(t_stackops *ops)
 		i++;
 	}
 }
+void init_op(t_stackops *ops)
+{
+	ops = NULL;
+	if (!(ops = (t_stackops*)malloc(sizeof(t_stackops))))
+		return ;
+	if (!(ops->content = (char**)malloc(sizeof(char*) * 10000000)))
+		return ;
+	ops->size = 0;
+}
 
 int		main(int argc, char** argv)
 {
@@ -48,17 +57,17 @@ int		main(int argc, char** argv)
 	else
 	{
 		if (!(ops1 = (t_stackops*)malloc(sizeof(t_stackops))))
-			return (0);
+			return 0;
 		if (!(ops2 = (t_stackops*)malloc(sizeof(t_stackops))))
-			return (0);
+			return 0;
 		if (!(ops3 = (t_stackops*)malloc(sizeof(t_stackops))))
-				return (0);
+			return 0;
 		if (!(ops1->content = (char**)malloc(sizeof(char*) * 10000000)))
-			return (0);
+			return 0;
 		if (!(ops2->content = (char**)malloc(sizeof(char*) * 10000000)))
-			return (0);
+			return 0;
 		if (!(ops3->content = (char**)malloc(sizeof(char*) * 10000000)))
-				return (0);
+			return 0;
 		ops1->size = 0;
 		ops2->size = 0;
 		ops3->size = 0;
@@ -71,7 +80,6 @@ int		main(int argc, char** argv)
 			printstackops(ops1);
 		else
 			printstackops(ops3);
-
 	}
 	return (0);
 }

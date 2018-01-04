@@ -85,9 +85,8 @@ int		*maketab(int *tab, int *s, int argc, char **argv)
 			tab[(*s)++] = 0;
 		else if (ft_haschar(argv[i], ' '))
 		{
-			tab = handleministack(tab, s, argv[i]);
-			if (!tab)
-				return 0;
+			if (!(tab = handleministack(tab, s, argv[i])))
+				return (0);
 		}
 		else
 		{

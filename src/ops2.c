@@ -37,7 +37,7 @@ t_stack *add_top(t_stack *stack, int c)
 	int	i;
 	int	*s;
 
-  i = 0;
+  	i = 0;
 	s = (int*)malloc(sizeof(int) * (stack->size));
 	while (i < stack->size)
 	{
@@ -62,25 +62,23 @@ t_stack *add_top(t_stack *stack, int c)
 
 t_stack *remove_elem(t_stack *stack, int index)
 {
-	int i = 0;
-	int j = 0;
-	int*  s;
-
-	s = (int*)malloc(sizeof(int)*(stack->size));
-	while (i < stack->size)
-	{
+	int		i;
+	int		j;
+	int		*s;
+	
+	i = -1;
+	j = 0;
+	if (!(s = (int*)malloc(sizeof(int)*(stack->size))))
+		return (0);
+	while (i++ < stack->size)
 		s[i] = stack->content[i];
-		i++;
-	}
-	stack->content = (int*)malloc(sizeof(int)*((stack->size) - 1));
+	if (!(stack->content = (int*)malloc(sizeof(int)*((stack->size) - 1))))
+		return (0);
 	i = 0;
 	while (i < stack->size)
 	{
 		if (i != index)
-		{
-			stack->content[j] = s[i];
-			j++;
-		}
+			stack->content[j++] = s[i];
 		i++;
 	}
 	stack->size = (stack->size) - 1;
