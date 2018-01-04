@@ -126,7 +126,7 @@ t_stackops	*addop(t_stackops *ops, char *op)
 void		printtab(t_stack *stack)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < stack->size)
 	{

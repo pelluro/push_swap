@@ -78,9 +78,7 @@ int		main(int argc, char** argv)
 	s_a = init_stack(s_a);
 	s_b = init_stack(s_b);
 	s_b->content = NULL;
-	s_b->size = 0;
-	printtab(s_a);
-	printtab(s_b);
+	s_b->size = -1;
 	if (!makestack(s_a, argc, argv))
 	{
 		ft_putendl("Error makestack");

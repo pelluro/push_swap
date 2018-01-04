@@ -37,6 +37,7 @@ t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops);
 int			smallresolve(t_stack *stack, t_stackops *ops);
 t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops);
 t_stackops	*addop(t_stackops *ops, char *op);
+void		printtab(t_stack *stack);
 /*
 ** algos1.c
 */
@@ -69,6 +70,7 @@ int			makestack(t_stack *stack, int argc, char **argv);
  */
 int			issorted(t_stack *stack);
 int			issortedreverse(t_stack *stack);
+void		printtab(t_stack *stack);
  /*
  ** ops1.c
  */
