@@ -90,8 +90,10 @@ add_executable(push_swap
         include/pushswap.h
         src/checker.c
         src/algos.c
+        src/algos1.c
         src/methods.c
         src/methods2.c
+        src/methods3.c
         src/ops1.c
         src/ops2.c
         src/ops3.c

@@ -56,6 +56,16 @@ void		findmax(t_stack *stack, int *value, int *index)
 	*index = idx;
 }
 
+void		findmed(t_stack *stack, int *value, int *index)
+{
+	t_stack *copy;
+
+	copy = copystack(stack);
+	ft_sort_integer_table(copy->content, copy->size - 1);
+	*index = stack->size / 2;
+	*value = copy->content[*index];
+}
+
 void		shift(t_stack *stack, int pivot, t_stackops *ops)
 {
 	if (pivot > stack->size / 2)

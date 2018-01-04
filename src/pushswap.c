@@ -30,6 +30,7 @@ int		main(int argc, char** argv)
 	t_stack		*stack_b;
 	t_stackops	*ops1;
 	t_stackops	*ops2;
+	t_stackops	*ops3;
 
 	if (!(stack_a = (t_stack*)malloc(sizeof(t_stack))))
 		return (0);
@@ -50,18 +51,27 @@ int		main(int argc, char** argv)
 			return (0);
 		if (!(ops2 = (t_stackops*)malloc(sizeof(t_stackops))))
 			return (0);
+		if (!(ops3 = (t_stackops*)malloc(sizeof(t_stackops))))
+				return (0);
 		if (!(ops1->content = (char**)malloc(sizeof(char*) * 10000000)))
 			return (0);
 		if (!(ops2->content = (char**)malloc(sizeof(char*) * 10000000)))
 			return (0);
+		if (!(ops3->content = (char**)malloc(sizeof(char*) * 10000000)))
+				return (0);
 		ops1->size = 0;
 		ops2->size = 0;
+		ops3->size = 0;
 		ops1 = basicresolve(copystack(stack_a), copystack(stack_b), ops1);
 		ops2 = mediumresolve(copystack(stack_a), copystack(stack_b), ops2);
-		if (ops1->size > ops2->size)
+		ops3 = medresolve(copystack(stack_a), copystack(stack_b), ops3);
+		if (ops1->size > ops2->size && ops3->size > ops2->size)
 			printstackops(ops2);
-		else
+		else if (ops3->size > ops1->size)
 			printstackops(ops1);
+		else
+			printstackops(ops3);
+
 	}
 	return (0);
 }

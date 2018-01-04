@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 void	ft_sort_integer_table(int *tab, int size)
 {
 	int i;
 	int tmp;
 
 	i = 0;
+	tmp = 0;
 	while (i < size)
 	{
 		if (tab[i] > tab[i + 1])

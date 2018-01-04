@@ -12,22 +12,6 @@
 
 #include "../include/pushswap.h"
 
-int			issorted(t_stack *stack)
-{
-	int i = 1;
-	if (stack->size == 0)
-		return (0);
-	if (stack->size == 1)
-		return (1);
-	while (i < stack->size)
-	{
-		if (stack->content[i - 1] >= stack->content[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 stack_op	define_hashmap(char *op_name)
 {
 	if (ft_strlen(op_name) < 1 || ft_strlen(op_name) > 3)
@@ -81,7 +65,7 @@ t_stack		*parsestack(t_stack *stack, char *str)
 		return (0);
 	if (!(stack->content = (int *) malloc(sizeof(int) * 1000)))
 		return (0);
-	if(!(tabnb = ft_split_whitespaces(str)))
+	if (!(tabnb = ft_split_whitespaces(str)))
 		return (0);
 	i = 0;
 	while (tabnb[i])
@@ -110,7 +94,7 @@ void		printtab(t_stack *stack)
 	i = 0;
 	while (i < stack->size)
 	{
-		printf("%d\n",stack->content[i]);
+		printf("%d\n", stack->content[i]);
 		i++;
 	}
 }
