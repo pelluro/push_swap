@@ -13,7 +13,7 @@
 #include "../include/pushswap.h"
 
 
-void push(t_stack *stackfrom, t_stack *stackto)
+void		push(t_stack *stackfrom, t_stack *stackto)
 {
 	if (stackfrom && stackfrom->size >= 1)
 	{
@@ -22,17 +22,17 @@ void push(t_stack *stackfrom, t_stack *stackto)
 	}
 }
 
-void push_a(t_stack *s_a, t_stack *s_b)
+void		push_a(t_stack *s_a, t_stack *s_b)
 {
 	push(s_b, s_a);
 }
 
-void push_b(t_stack *s_a, t_stack *s_b)
+void		push_b(t_stack *s_a, t_stack *s_b)
 {
 	push(s_a, s_b);
 }
 
-t_stack *add_top(t_stack *stack, int c)
+t_stack		*add_top(t_stack *stack, int c)
 {
 	int	i;
 	int	*s;
@@ -60,7 +60,7 @@ t_stack *add_top(t_stack *stack, int c)
 	return (stack);
 }
 
-t_stack *remove_elem(t_stack *stack, int index)
+t_stack		*remove_elem(t_stack *stack, int index)
 {
 	int		i;
 	int		j;

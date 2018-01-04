@@ -12,7 +12,7 @@
 
 #include "../include/pushswap.h"
 
-void swap(t_stack *stack)
+void	swap(t_stack *stack)
 {
 	int c;
 	if (stack && stack->content && (stack->size) >= 2)
@@ -22,19 +22,19 @@ void swap(t_stack *stack)
 		stack->content[1] = c;
 	}
 }
-void swap_a(t_stack *s_a, t_stack *s_b)
+void	swap_a(t_stack *s_a, t_stack *s_b)
 {
 	swap(s_a);
 	(void)s_b;
 }
 
-void swap_b(t_stack *s_a, t_stack *s_b)
+void	swap_b(t_stack *s_a, t_stack *s_b)
 {
 	swap(s_b);
 	(void)s_a;
 }
 
-void swap_both(t_stack *s_a, t_stack *s_b)
+void	swap_both(t_stack *s_a, t_stack *s_b)
 {
 	swap(s_a);
 	swap(s_b);
