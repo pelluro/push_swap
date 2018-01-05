@@ -65,7 +65,7 @@ void		doop(t_stack *s_a, t_stack *s_b, t_stackops *ops, int op)
 t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
 	int op;
-	
+
 	while (!issorted(s_a) || !issortedreverse(s_b))
 	{
 		if (ops->size > 10000)
@@ -111,11 +111,8 @@ t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	splitstacks(s_a, s_b, ops, *medvalue);
 //	printf("splitmed ok \n");
 	if (!(ops = medsolve2(s_a, s_b, ops)))
-	{
-		printf("medsolve2 return null\n");
+		//printf("medsolve2 return null\n");
 		return (NULL);
-	}
-	
 	while (s_b->size > 0)
 	{
 		ops = addop(ops, "pa");

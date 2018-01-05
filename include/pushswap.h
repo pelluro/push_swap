@@ -28,7 +28,6 @@ typedef struct	s_stackops
 }				t_stackops;
 
 typedef void	(*stack_op)(t_stack*, t_stack*);
-
 /*
  ** algos.c
  */
