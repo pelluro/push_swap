@@ -18,6 +18,8 @@ int		check(t_stack *s_a, t_stack *s_b)
 		ft_putendl("OK");
 	else
 		ft_putendl("KO");
+	free_stack(s_a);
+	free_stack(s_b);
 	return (0);
 }
 
@@ -37,10 +39,7 @@ int		read_cmds(t_stack *s_a, t_stack *s_b)
 			else if (!(*cmdline)[0])
 				return (check(s_a, s_b));
 			else
-			{
-				ft_putendl("Error");
-				return (-1);
-			}
+				ft_error(1);
 		}
 		else
 			return (check(s_a, s_b));
@@ -52,17 +51,14 @@ int		main(int argc, char **argv)
 	t_stack *s_a;
 	t_stack *s_b;
 	if(argc == 1)
-		return (0);
+		ft_error(0);
 	if (!(s_a = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
+		ft_error(0);
 	if (!(s_b = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
+		ft_error(0);
 	s_b->content = NULL;
 	s_b->size = 0;
 	if (!makestack(s_a, argc, argv))
-	{
-		ft_putendl("Error");
-		return (-1);
-	}
+		ft_error(1);
 	return (read_cmds(s_a, s_b));
 }

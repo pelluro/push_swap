@@ -71,7 +71,7 @@ t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 int			smallresolve(t_stack *stack, t_stackops *ops)
 {
 		if (!stack || !stack->content || stack->size > 2)
-		return (-1);
+			ft_error(0);
 		if (stack->content[0] > stack->content[1])
 		{
 			if (ops)
@@ -90,9 +90,9 @@ t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	int	*minindex;
 
 	if (!(minvalue = (int*)malloc(sizeof(int))))
-		return (0);
+		ft_error(0);
 	if (!(minindex = (int*)malloc(sizeof(int))))
-		return (0);
+		ft_error(0);
 	while (!issorted(s_a) || s_b->size > 0)
 	{
 		while (s_a->size > 2)
@@ -107,7 +107,7 @@ t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		while (s_b->size > 0)
 		{
 			if (ops->size > 10000)
-				return (NULL);
+				ft_error(0);
 			ops = addop(ops, "pa");
 			push_a(s_a, s_b);
 		}

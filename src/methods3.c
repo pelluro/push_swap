@@ -44,36 +44,35 @@ int			issortedreverse(t_stack *stack)
 	}
 	return (1);
 }
-void	exit_func(t_stack *m, t_stackops *n, int error)
+
+void	free_stack(t_stack *m)
+{
+	free(m->content);
+	m->content = NULL;
+	free(m);
+}
+
+void	free_stackops(t_stackops *n)
 {
 	int i;
 
-	free(m->content);
-	free(m->size);
-	free_array(n->content, m, 0);
-		i = -1;
-		while (++i < n->size)
-			free(m->content[i]);
-		free(m->tab);
+	i = 0;
+	while (n->content[i])
+	{
+		free(n->content[i]);
+		i++;
 	}
-	free(m);
+	free(n->content);
+	n->content = NULL;
+	free(n);
+}
+
+void	ft_error(int error)
+{
 	if (error)
 	{
 		ft_putstr_fd("ERROR\n", 2);
 		exit(1);
 	}
 	exit(0);
-}
-
-void	free_array(char **array, t_stac *m, int error)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-		(array[i]) ? free(array[i++]) : 0;
-	free(array);
-	if (error)
-		exit_func(m, 1);
-	array = NULL;
 }

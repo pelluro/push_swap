@@ -69,6 +69,9 @@ int			makestack(t_stack *stack, int argc, char **argv);
  */
 int			issorted(t_stack *stack);
 int			issortedreverse(t_stack *stack);
+void		free_stack(t_stack *m);
+void		free_stackops(t_stackops *n);
+void		ft_error(int error);
  /*
  ** ops1.c
  */

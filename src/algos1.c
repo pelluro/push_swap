@@ -69,12 +69,8 @@ t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	while (!issorted(s_a) || !issortedreverse(s_b))
 	{
 		if (ops->size > 10000)
-			return (NULL);
+			ft_error(0);
 		op = 0;
-//		printf("SA=\n");
-//		printtab(s_a);
-//		printf("SB=\n");
-//		printtab(s_b);
 		if (!issorted(s_a))
 			op += (s_a->content[0] > s_a->content[1] &&
 					s_a->content[0] < s_a->content[s_a->size - 1]) ? 1 : 2;
@@ -103,16 +99,13 @@ t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	int	*medindex;
 
 	if (!(medvalue = (int*)malloc(sizeof(int))))
-		return (0);
+		ft_error(0);
 	if (!(medindex = (int*)malloc(sizeof(int))))
-		return (0);
+		ft_error(0);
 	findmed(s_a, medvalue, medindex);
-//	printf("findmed ok\n");
 	splitstacks(s_a, s_b, ops, *medvalue);
-//	printf("splitmed ok \n");
 	if (!(ops = medsolve2(s_a, s_b, ops)))
-		//printf("medsolve2 return null\n");
-		return (NULL);
+		ft_error(0);
 	while (s_b->size > 0)
 	{
 		ops = addop(ops, "pa");
