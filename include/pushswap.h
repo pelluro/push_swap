@@ -70,7 +70,6 @@ int			makestack(t_stack *stack, int argc, char **argv);
  */
 int			issorted(t_stack *stack);
 int			issortedreverse(t_stack *stack);
-void		printtab(t_stack *stack);
  /*
  ** ops1.c
  */

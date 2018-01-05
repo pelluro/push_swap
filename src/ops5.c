@@ -84,8 +84,11 @@ t_stack		*copystack(t_stack *stack)
 {
 	t_stack	*stack_copy;
 	int		i;
-	stack_copy = (t_stack*) malloc(sizeof(t_stack));
-	stack_copy->content = (int*) malloc(sizeof(int) * stack->size);
+	
+	if (!(stack_copy = (t_stack*) malloc(sizeof(t_stack))))
+		return (0);
+	if (!(stack_copy->content = (int*) malloc(sizeof(int) * stack->size)))
+		return (0);
 	stack_copy->size = stack->size;
 	i = 0;
 	while (i < stack->size)

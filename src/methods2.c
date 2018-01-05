@@ -40,13 +40,15 @@ int		checktab(int *tab, int s)
 		tab2[i] = tab[i];
 		i++;
 	}
+
 	if (!ft_is_sorted(tab2, s))
 		ft_sort_integer_table(tab2, s);
-	i = -1;
-	while (i++ < s)
+	i = 0;
+	while (i < s)
 	{
 		if (tab2[i] == tab2[i + 1])
 			return (0);
+		i++;
 	}
 	return (1);
 }
@@ -60,11 +62,12 @@ int		*handleministack(int* tab, int* s, char* str)
 	ministack = parsestack(ministack, str);
 	if (ministack)
 	{
-		j = -1;
-		while (++j < ministack->size)
+		j = 0;
+		while (j < ministack->size)
 		{
 			tab[*s] = ministack->content[j];
 			*s = *s + 1;
+			j++;
 		}
 		return (tab);
 	}
@@ -111,6 +114,8 @@ int		makestack(t_stack *stack, int argc, char **argv)
   	if (!(s = (int*)malloc(sizeof(int))))
 		return (0);
 	tab = maketab(tab, s, argc, argv);
+	if(!tab)
+		return (0);
 	if (!checktab(tab, *s))
 		return (0);
 	stack = copytabintostack(stack, tab,* s);

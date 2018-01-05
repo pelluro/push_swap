@@ -73,7 +73,7 @@ t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		op = 0;
 //		printf("SA=\n");
 //		printtab(s_a);
-//		printf("Sb=\n");
+//		printf("SB=\n");
 //		printtab(s_b);
 		if (!issorted(s_a))
 			op += (s_a->content[0] > s_a->content[1] &&

@@ -69,7 +69,7 @@ int		main(int argc, char** argv)
 	t_stackops	*ops1;
 	t_stackops	*ops2;
 	t_stackops	*ops3;
-	
+
 	s_a = NULL;
 	s_b = NULL;
 	ops1 = NULL;
@@ -78,14 +78,16 @@ int		main(int argc, char** argv)
 	s_a = init_stack(s_a);
 	s_b = init_stack(s_b);
 	s_b->content = NULL;
-	s_b->size = -1;
+	s_b->size = 0;
 	if (!makestack(s_a, argc, argv))
 	{
 		ft_putendl("Error makestack");
 		return (-1);
 	}
+	if (s_a->size == 1)
+		return (0);
 	if (s_a->size <= 2)
-			return (smallresolve(s_a, NULL));
+		return (smallresolve(s_a, NULL));
 	else
 	{
 		ops1 = basicsolve(copystack(s_a), copystack(s_b), init_so(ops1));

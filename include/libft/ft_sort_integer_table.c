@@ -19,7 +19,7 @@ void	ft_sort_integer_table(int *tab, int size)
 
 	i = 0;
 	tmp = 0;
-	while (i < size)
+	while (i < size - 1)
 	{
 		if (tab[i] > tab[i + 1])
 		{

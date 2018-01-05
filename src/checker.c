@@ -51,7 +51,8 @@ int		main(int argc, char **argv)
 {
 	t_stack *s_a;
 	t_stack *s_b;
-
+	if(argc == 1)
+		return (0);
 	if (!(s_a = (t_stack*)malloc(sizeof(t_stack))))
 		return (0);
 	if (!(s_b = (t_stack*)malloc(sizeof(t_stack))))
