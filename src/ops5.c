@@ -34,28 +34,6 @@ void		findmin(t_stack *stack, int *value, int *index)
 	*index = idx;
 }
 
-void		findmax(t_stack *stack, int *value, int *index)
-{
-	int		i;
-	int		v;
-	int		idx;
-
-	i = 0;
-	v = stack->content[0];
-	idx = 0;
-	while (i < stack->size)
-	{
-		if (stack->content[i] > v)
-		{
-			v = stack->content[i];
-			idx = i;
-		}
-		i++;
-	}
-	*value = v;
-	*index = idx;
-}
-
 void		findmed(t_stack *stack, int *value, int *index)
 {
 	t_stack *copy;

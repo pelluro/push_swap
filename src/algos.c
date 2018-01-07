@@ -21,7 +21,7 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	first_elem_a = s_a->content[0];
 	second_elem_a = s_a->content[1];
 	last_elem_a = s_a->content[s_a->size - 1];
-	if (ops->size > 10000)
+	if (ops->size > 1000)
 		return (NULL);
 	if (first_elem_a > second_elem_a)
 	{
@@ -30,11 +30,11 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		return (basicsolve(s_a, s_b, ops));
 	}
 	else if (first_elem_a > last_elem_a)
-		{
-			ops = addop(ops, "ra");
-			rotate_a(s_a, s_b);
-			return (basicsolve(s_a, s_b, ops));
-		}
+	{
+		ops = addop(ops, "ra");
+		rotate_a(s_a, s_b);
+		return (basicsolve(s_a, s_b, ops));
+	}
 	else
 	{
 		ops = addop(ops, "pb");
@@ -45,27 +45,20 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 
 t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
-	if (ops->size > 10000)
+	if (ops->size > 1000)
 		return (NULL);
 	if (issorted(s_a))
 	{
 		if (s_b->size == 0)
-			return ops;
+			return (ops);
 		else
 		{
 			ops = addop(ops, "pa");
 			push_a(s_a, s_b);
-			return basicsolve(s_a, s_b, ops);
+			return (basicsolve(s_a, s_b, ops));
 		}
 	}
-	if (s_a->size > 1)
-			return basicsolve2(s_a, s_b, ops);
-	else
-	{
-		ops = addop(ops, "pa");
-		push_a(s_a, s_b);
-		return (basicsolve(s_a, s_b, ops));
-	}
+	return (basicsolve2(s_a, s_b, ops));
 }
 
 int			smallresolve(t_stack *stack, t_stackops *ops)
@@ -120,6 +113,7 @@ t_stackops	*addop(t_stackops *ops, char *op)
 	ops->content[ops->size] = op;
 	ops->size = ops->size + 1;
 //	printf("opssize=%d\n",ops->size);
+//	printf("addinops=%s\n",op);
 	return (ops);
 }
 

@@ -18,8 +18,6 @@ int		check(t_stack *s_a, t_stack *s_b)
 		ft_putendl("OK");
 	else
 		ft_putendl("KO");
-	free_stack(s_a);
-	free_stack(s_b);
 	return (0);
 }
 

@@ -17,7 +17,8 @@ t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 	int i;
 
 	i = 0;
-	stack->content = (int*)malloc(sizeof(int)*s);
+	if(!(stack->content = (int*)malloc(sizeof(int)*s)))
+		return(NULL);
 	while (i < s)
 	{
 		stack->content[i] = tab[i];
@@ -106,8 +107,8 @@ int		*maketab(int *tab, int *s, int argc, char **argv)
 
 int		makestack(t_stack *stack, int argc, char **argv)
 {
-	int* s;
-	int* tab;
+	int *s;
+	int *tab;
 
 	if (!(tab = (int*)malloc(sizeof(int) * 1000)))
 		return (0);
@@ -118,7 +119,7 @@ int		makestack(t_stack *stack, int argc, char **argv)
 		return (0);
 	if (!checktab(tab, *s))
 		return (0);
-	stack = copytabintostack(stack, tab,* s);
+	stack = copytabintostack(stack, tab, *s);
 	free(tab);
 	return (1);
 }

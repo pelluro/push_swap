@@ -24,8 +24,14 @@ typedef struct	s_stack
 typedef struct	s_stackops
 {
    char	**content;
-   int	size;
+   long	size;
 }				t_stackops;
+
+//typedef struct	s_flags
+//{
+//    int	flag_v;
+//    int	flag_c;
+//}				t_flags;
 
 typedef void	(*stack_op)(t_stack*, t_stack*);
 /*
