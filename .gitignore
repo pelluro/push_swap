@@ -5,3 +5,5 @@ ARG
 .sh
 .o
 .a
+checker
+push_swap
