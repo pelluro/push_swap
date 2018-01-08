@@ -4,6 +4,6 @@ cmake-build-debug
 ARG
 .sh
 .o
-.a
+libft.a
 checker
 push_swap
