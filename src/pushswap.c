@@ -54,11 +54,11 @@ void compare(t_stackops *ops1, t_stackops *ops2, t_stackops *ops3)
 		else
 			printstackops(ops3);
 	}
-	if(ops1 && !ops2 && !ops3)
+	if (ops1 && !ops2 && !ops3)
 		printstackops(ops1);
-	else if(ops2 && !ops1 && !ops3)
+	else if (ops2 && !ops1 && !ops3)
 		printstackops(ops2);
-	else if(ops3 && !ops2 && !ops3)
+	else if (ops3 && !ops2 && !ops3)
 		printstackops(ops3);
 	else if (!ops1)
 	{
