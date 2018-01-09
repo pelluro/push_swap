@@ -60,27 +60,40 @@ t_stack		*parsestack(t_stack *stack, char *str)
 	int		i;
 	int		j;
 	char	**tabnb;
-
-	if (!(stack = (t_stack *) malloc(sizeof(t_stack))) ||
-			!(stack->content = (int *) malloc(sizeof(int) * 1000)) ||
-			!(tabnb = ft_split_whitespaces(str)))
+	t_stack *current;
+	
+	current = NULL;
+	if (!(tabnb = ft_split_whitespaces(str)))
 		return (0);
 	i = 0;
 	while (tabnb[i])
 	{
 		if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
-			stack->content[i] = 0;
+			current = create_node(current ? current : stack,stack, 0);
 		else
 		{
 			j = ft_atoi(tabnb[i]);
 			if (j != 0)
-				stack->content[i] = j;
+			current = create_node(current ? current : stack,stack, j);
 			else
 				return (0);
 		}
 		i++;
 	}
-	j = 0;
-	stack->size = i;
 	return (stack);
+}
+
+t_stack* create_node(t_stack *previous, t_stack *next, int value)
+{
+	t_stack* newnode;
+	
+	newnode = (t_stack*)malloc(sizeof(t_stack));
+	newnode->previous = previous;
+	previous->next = newnode;
+	newnode->next = next;
+	newnode->content = value;
+	if(next)
+		next->previous = newnode;
+	
+	return newnode;
 }

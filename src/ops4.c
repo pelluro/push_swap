@@ -15,20 +15,18 @@
 
 void		reverse_rotate(t_stack *stack)
 {
-	int	i;
-	int	c;
-
-	if (stack && stack->size > 1)
+	t_stack* first;
+	t_stack* last;
+	
+	first = stack->next;
+	last = stack->previous;
+	if(first && last)
 	{
-		i = stack->size - 2;
-		c = stack->content[i + 1];
-		while (i >= 0)
-		{
-			stack->content[i + 1] = stack->content[i];
-			i--;
-		}
-		stack->content[0] = c;
-
+		stack->next = last;
+		stack->previous = last->previous;
+		first->previous = last;
+		last->next = first;
+		last->previous = stack;
 	}
 }
 

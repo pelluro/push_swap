@@ -15,16 +15,15 @@
 t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 {
 	int i;
-
+	t_stack *current;
+	
+	current = NULL;
 	i = 0;
-	if(!(stack->content = (int*)malloc(sizeof(int)*s)))
-		return(NULL);
 	while (i < s)
 	{
-		stack->content[i] = tab[i];
+		current = create_node(current ? current : stack,stack, tab[i]);
 		i++;
 	}
-	stack->size = s;
 	return (stack);
 }
 
@@ -56,19 +55,20 @@ int		checktab(int *tab, int s)
 
 int		*handleministack(int* tab, int* s, char* str)
 {
-	int j;
 	t_stack *ministack;
+	t_stack *current;
 
-	ministack = NULL;
+	ministack = (t_stack*)malloc(sizeof(t_stack));
+	ministack->isroot=1;
 	ministack = parsestack(ministack, str);
-	if (ministack)
+	if (ministack->next)
 	{
-		j = 0;
-		while (j < ministack->size)
+		current = ministack->next;
+		while (current && !current->isroot)
 		{
-			tab[*s] = ministack->content[j];
+			tab[*s] = current->content;
 			*s = *s + 1;
-			j++;
+			current = current->next;
 		}
 		return (tab);
 	}

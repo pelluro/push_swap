@@ -15,19 +15,18 @@
 
 void		rotate(t_stack *stack)
 {
-	int i;
-	int c;
-
-	if (stack && stack->size > 1)
+	t_stack* first;
+	t_stack* last;
+	
+	first = stack->next;
+	last = stack->previous;
+	if(first && last)
 	{
-		i = 1;
-		c = stack->content[0];
-		while (i <= stack->size - 1)
-		{
-			stack->content[i - 1] = stack->content[i];
-			i++;
-		}
-		stack->content[stack->size - 1] = c;
+		stack->next = first->next;
+		stack->previous = first;
+		first->next = stack;
+		first->previous = last;
+		last->next = first;
 	}
 }
 

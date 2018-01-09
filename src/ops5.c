@@ -14,21 +14,24 @@
 
 void		findmin(t_stack *stack, int *value, int *index)
 {
-	int		i;
+	t_stack		*current;
+	int 	i;
 	int		v;
 	int		idx;
 
 	i = 0;
-	v = stack->content[0];
+	current = stack->next;
+	v = current ? current->content : 2147483647;
 	idx = 0;
-	while (i < stack->size)
+	while (current && !current->isroot)
 	{
-		if (stack->content[i] < v)
+		if (current->content < v)
 		{
-			v = stack->content[i];
+			v = stack->content;
 			idx = i;
 		}
 		i++;
+		current => current->next;
 	}
 	*value = v;
 	*index = idx;
@@ -37,16 +40,29 @@ void		findmin(t_stack *stack, int *value, int *index)
 void		findmed(t_stack *stack, int *value, int *index)
 {
 	t_stack *copy;
-
-	copy = copystack(stack);
-	ft_sort_integer_table(copy->content, copy->size - 1);
-	*index = stack->size / 2;
-	*value = copy->content[*index];
+	int* size;
+	
+	size = (int*)malloc(sizeof(int));
+	copy = copystack(stack, size);
+	ft_sort_integer_table(copy, size - 1);
+	*index = size / 2;
+	*value = copy[*index];
+	free(size);
 }
 
 void		shift(t_stack *stack, int pivot, t_stackops *ops)
 {
-	if (pivot > stack->size / 2)
+	t_stack *current;
+	current = stack->next;
+	int size;
+	
+	size = 0;
+	while (current && !current->isroot)
+	{
+		current = current->next;
+		size++;
+	}
+	if (pivot > size / 2)
 	{
 		ops = addop(ops, "rra");
 		reverse_rotate(stack);
@@ -61,18 +77,38 @@ void		shift(t_stack *stack, int pivot, t_stackops *ops)
 t_stack		*copystack(t_stack *stack)
 {
 	t_stack	*stack_copy;
-	int		i;
+	t_stack	*current;
+	t_stack	*current_copy;
 	
 	if (!(stack_copy = (t_stack*) malloc(sizeof(t_stack))))
 		return (0);
-	if (!(stack_copy->content = (int*) malloc(sizeof(int) * stack->size)))
-		return (0);
-	stack_copy->size = stack->size;
-	i = 0;
-	while (i < stack->size)
+	stack_copy->isroot = 1;
+	current = stack->next;
+	current_copy = NULL;
+	while (current && !current->isroot)
 	{
-		stack_copy->content[i] = stack->content[i];
-		i++;
+		current_copy = create_node(current_copy ? current_copy : stack_copy, stack_copy, current->content);
+		current = current->next;
 	}
 	return (stack_copy);
+}
+
+int* stacktotab(t_stack* stack, int* size)
+{
+	t_stack *current;
+	int* tab;
+	
+	current = stack->next;
+	*size = 0;
+	while (current && !current->isroot)
+	{
+		current = current->next;
+		(*size)++;
+	}
+	tab = (int*)malloc(sizeof(int)*(*size));
+	current = stack->next;
+	*size = 0;
+	while (current && !current->isroot)
+		tab[(*size)++] = current->content;
+	return(tab);
 }

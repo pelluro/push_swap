@@ -14,16 +14,19 @@
 
 int			issorted(t_stack *stack)
 {
-	int i = 1;
-	if (stack->size == 0)
+	t_stack* current;
+
+	if (!stack->next)
 		return (0);
-	if (stack->size == 1)
+	current = stack->next;
+	if (!current->next || current->next->isroot)
 		return (1);
-	while (i < stack->size)
+	current = current->next;
+	while (current && !current->isroot)
 	{
-		if (stack->content[i - 1] >= stack->content[i])
+		if (current->previous->content >= current->content)
 			return (0);
-		i++;
+		current = current->next;
 	}
 	return (1);
 }
@@ -31,39 +34,31 @@ int			issorted(t_stack *stack)
 
 int			issortedreverse(t_stack *stack)
 {
-	int i = 1;
-	if (stack->size == 0)
+	t_stack* current;
+
+	if (!stack->next)
 		return (0);
-	if (stack->size == 1)
+	current = stack->next;
+	if (!current->next || current->next->isroot)
 		return (1);
-	while (i < stack->size)
+	current = current->next;
+	while (current && !current->isroot)
 	{
-		if (stack->content[i - 1] <= stack->content[i])
+		if (current->previous->content <= current->content)
 			return (0);
-		i++;
+		current = current->next;
 	}
 	return (1);
 }
 
 void	free_stack(t_stack *m)
 {
-	free(m->content);
-	m->content = NULL;
 	free(m);
 }
 
 void	free_stackops(t_stackops *n)
 {
-	int i;
-
-	i = 0;
-	while (n->content[i])
-	{
-		free(n->content[i]);
-		i++;
-	}
 	free(n->content);
-	n->content = NULL;
 	free(n);
 }
 

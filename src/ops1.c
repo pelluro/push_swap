@@ -14,21 +14,24 @@
 
 void swap(t_stack *stack)
 {
-	int i;
-	t_stack *current;
+	int c;
+	t_stack *first;
+	t_stack *second;
 
 	i = 0;
-	current = stack;
-	while(current && current->next && i++ < 2)
-			current = current->next;
-	int c;
-	if (stack && stack->content && (stack->size) >= 2)
+	first = stack->next;
+	if(first && !first->isroot)
 	{
-		c = stack->content[0];
-		stack->content[0] = stack->content[1];
-		stack->content[1] = c;
+		second = first->next;
+		if(second && !second->isroot)
+		{
+			c = first->content;
+			first->content = second->content;
+			second->content = c;
+		}
 	}
 }
+
 void swap_a(t_stack *s_a, t_stack *s_b)
 {
 	swap(s_a);

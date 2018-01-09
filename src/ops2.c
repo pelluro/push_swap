@@ -18,7 +18,7 @@ void push(t_stack *stackfrom, t_stack *stackto)
 	if (stackfrom && stackfrom->size >= 1)
 	{
 		stackto = add_top(stackto, stackfrom->content[0]);
-		stackfrom = remove_elem(stackfrom, 0);
+		stackfrom = remove_elem(stackfrom);
 	}
 }
 
@@ -34,56 +34,23 @@ void push_b(t_stack *s_a, t_stack *s_b)
 
 t_stack *add_top(t_stack *stack, int c)
 {
-	int	i;
-	int	*s;
-
-  	i = 0;
-		if(!(s = (int*)malloc(sizeof(int) * (stack->size))))
-		return (NULL);
-	while (i < stack->size)
-	{
-		s[i] = stack->content[i];
-		i++;
-	}
-	if(!(stack->content = (int*)malloc(sizeof(int) * ((stack->size) + 1))))
-		return(NULL);
-	stack->content[0] = c;
-	if (stack->size > 0)
-	{
-		i = 0;
-		while (i < stack->size)
-		{
-			stack->content[1 + i] = s[i];
-			i++;
-		}
-	}
-	stack->size = (stack->size) + 1;
-	free(s);
+	t_stack *current;
+	
+	current = stack->next;
+	create_node(stack, current ? current->next : stack, c);
 	return (stack);
 }
 
-t_stack *remove_elem(t_stack *stack, int index)
+t_stack *remove_elem(t_stack *stack)
 {
-	int		i;
-	int		j;
-	int		*s;
-
-	i = -1;
-	j = 0;
-	if (!(s = (int*)malloc(sizeof(int)*(stack->size))))
-		return (0);
-	while (i++ < stack->size)
-		s[i] = stack->content[i];
-	if (!(stack->content = (int*)malloc(sizeof(int)*((stack->size) - 1))))
-		return (0);
-	i = 0;
-	while (i < stack->size)
+	t_stack *current;
+		
+	current = stack->next;
+	if(current)
 	{
-		if (i != index)
-			stack->content[j++] = s[i];
-		i++;
-	}
-	stack->size = (stack->size) - 1;
-	free(s);
-	return (stack);
+			stack->next = current->next;
+			if(current->next)
+				current->next->previous = stack;
+			free(current);
+	}	return (stack);
 }
