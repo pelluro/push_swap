@@ -2,9 +2,9 @@
 cmake-build-debug
 .idea
 ARG
-.sh
-.o
-libft.a
+*.sh
+*.o
+*.a
 checker
 push_swap
 push_swap.dSYM/contents
