@@ -14,6 +14,13 @@
 
 void swap(t_stack *stack)
 {
+	int i;
+	t_stack *current;
+
+	i = 0;
+	current = stack;
+	while(current && current->next && i++ < 2)
+			current = current->next;
 	int c;
 	if (stack && stack->content && (stack->size) >= 2)
 	{

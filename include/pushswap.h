@@ -17,14 +17,17 @@
 
 typedef struct	s_stack
 {
-   int	*content;
-   int	size;
+   int	content;
+   struct	s_stack*	next;
+   struct	s_stack*	previous;
+   int isroot;
 }				t_stack;
 
 typedef struct	s_stackops
 {
-   char	**content;
-   long	size;
+   char	*content;
+   struct	s_stackops *next;
+   struct	s_stackops *previous;
 }				t_stackops;
 
 //typedef struct	s_flags
@@ -118,7 +121,7 @@ t_stack		*copystack(t_stack *stack);
  /*
  ** pushswap.c
  */
- void		printstackops(t_stackops *ops);
+void		printstackops(t_stackops *ops);
 t_stackops	*init_so(t_stackops *ops);
 t_stack		*init_stack(t_stack *s);
 void		compare(t_stackops *ops1, t_stackops *ops2, t_stackops *ops3);

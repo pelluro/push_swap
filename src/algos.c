@@ -16,7 +16,6 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
 	int first_elem_a;
 	int second_elem_a;
-
 	int last_elem_a;
 
 	first_elem_a = s_a->content[0];
