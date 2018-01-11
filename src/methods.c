@@ -41,7 +41,7 @@ stack_op	define_hashmap(char *op_name)
 	return (NULL);
 }
 
-int			ft_haschar(const char *s, int c)
+static int			ft_haschar(const char *s, int c)
 {
 	char	*src;
 	int		i;
@@ -83,17 +83,18 @@ t_stack		*parsestack(t_stack *stack, char *str)
 	return (stack);
 }
 
-t_stack* create_node(t_stack *previous, t_stack *next, int value)
+t_stack		*create_node(t_stack *prevelem, t_stack *nextelem, int value)
 {
 	t_stack* newnode;
 	
-	newnode = (t_stack*)malloc(sizeof(t_stack));
-	newnode->previous = previous;
-	previous->next = newnode;
-	newnode->next = next;
-	newnode->content = value;
-	if(next)
-		next->previous = newnode;
-	
-	return newnode;
+	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
+	if (newnode)
+	{
+		newnode->content = value;
+		newnode->previous = prevelem;
+		prevelem->next = newnode;
+		newnode->next = nextelem;
+		nextelem->previous = newnode;
+	}
+	return (newnode);
 }

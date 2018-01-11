@@ -65,6 +65,7 @@ int			read_cmds(t_stack *s_a, t_stack *s_b);
 stack_op	define_hashmap(char *op_name);
 int			ft_haschar(const char *s, int c);
 t_stack		*parsestack(t_stack *stack, char *str);
+t_stack* create_node(t_stack *previous, t_stack *next, int value);
  /*
  ** methods2.c
  */

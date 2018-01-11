@@ -88,7 +88,7 @@ t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		ft_error(0);
 	while (!issorted(s_a) || s_b->size > 0)
 	{
-		while (s_a->size > 2)
+		while (s_a->size  > 2)
 		{
 			findmin(s_a, minvalue, minindex);
 			while (s_a->content[0] > *minvalue)

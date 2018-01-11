@@ -21,10 +21,10 @@ t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 	i = 0;
 	while (i < s)
 	{
-		current = create_node(current ? current : stack,stack, tab[i]);
+		current = create_node(current ? current : stack, stack, tab[i]);
 		i++;
 	}
-	return (stack);
+	return (stack); //pourquoi stack mais pas current?
 }
 
 int		checktab(int *tab, int s)
@@ -33,7 +33,7 @@ int		checktab(int *tab, int s)
 	int *tab2;
 
 	i = 0;
-	if (!(tab2 = (int*)malloc(sizeof(int) * s)))
+	if (!(tab2 = (int*)ft_memalloc(sizeof(int) * s)))
 		return (0);
 	while (i < s)
 	{
@@ -58,8 +58,8 @@ int		*handleministack(int* tab, int* s, char* str)
 	t_stack *ministack;
 	t_stack *current;
 
-	ministack = (t_stack*)malloc(sizeof(t_stack));
-	ministack->isroot=1;
+	ministack = (t_stack*)ft_memalloc(sizeof(t_stack));
+	ministack->isroot = 1;
 	ministack = parsestack(ministack, str);
 	if (ministack->next)
 	{
