@@ -18,11 +18,9 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	int second_elem_a;
 	int last_elem_a;
 
-	first_elem_a = s_a->content[0];
-	second_elem_a = s_a->content[1];
-	last_elem_a = s_a->content[s_a->size - 1];
-	if (ops->size > 1000)
-		return (NULL);
+	first_elem_a = s_a->next->content;
+	second_elem_a = s_a->next->next->content;
+	last_elem_a = s_a->previous->content;
 	if (first_elem_a > second_elem_a)
 	{
 		ops = addop(ops, "sa");
@@ -45,11 +43,9 @@ t_stackops	*basicsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 
 t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 {
-	if (ops->size > 1000)
-		return (NULL);
 	if (issorted(s_a))
 	{
-		if (s_b->size == 0)
+		if (!s_b->next)
 			return (ops);
 		else
 		{
@@ -63,17 +59,17 @@ t_stackops	*basicsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 
 int			smallresolve(t_stack *stack, t_stackops *ops)
 {
-		if (!stack || !stack->content || stack->size > 2)
-			ft_error(0);
-		if (stack->content[0] > stack->content[1])
-		{
-			if (ops)
-				ops = addop(ops, "sa");
-			else
-			  ft_putendl("sa");
-			swap(stack);
-		}
-		return (0);
+	if (!stack)
+		ft_error(0);
+	if (stack->next->content > stack->previous->content)
+	{
+		if (ops)
+			ops = addop(ops, "sa");
+		else
+		  ft_putendl("sa");
+		swap(stack);
+	}
+	return (0);
 }
 
 
@@ -86,21 +82,19 @@ t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 		ft_error(0);
 	if (!(minindex = (int*)malloc(sizeof(int))))
 		ft_error(0);
-	while (!issorted(s_a) || s_b->size > 0)
+	while (!issorted(s_a) || s_b->next)
 	{
-		while (s_a->size  > 2)
+		while (s_a->next && s_a->next->next && !s_a->next->next->isroot)
 		{
 			findmin(s_a, minvalue, minindex);
-			while (s_a->content[0] > *minvalue)
+			while (s_a->content > *minvalue)
 				shift(s_a, *minindex, ops);
 			ops = addop(ops, "pb");
 			push_b(s_a, s_b);
 		}
 		smallresolve(s_a, ops);
-		while (s_b->size > 0)
+		while (s_b->next)
 		{
-			if (ops->size > 10000)
-				ft_error(0);
 			ops = addop(ops, "pa");
 			push_a(s_a, s_b);
 		}
@@ -110,21 +104,27 @@ t_stackops	*mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 
 t_stackops	*addop(t_stackops *ops, char *op)
 {
-	ops->content[ops->size] = op;
-	ops->size = ops->size + 1;
-//	printf("opssize=%d\n",ops->size);
-//	printf("addinops=%s\n",op);
+	t_stackops * current;
+	t_stackops * new;
+
+	current = ops;
+	while(current->next)
+		current = current->next;
+	if(!(new = (t_stackops*)malloc(sizeof(t_stackops))))
+		return(NULL);
+	new->content = op;
+	current->next = new;
 	return (ops);
 }
 
 void		printtab(t_stack *stack)
 {
-	int i;
+	t_stack * current;
 	
-	i = 0;
-	while (i < stack->size)
+	current = stack->next;
+	while (current && !current->isroot)
 	{
-		printf("%d\n",stack->content[i]);
-		i++;
+		printf("%d\n",current->content);
+		current = current->next;
 	}
 }

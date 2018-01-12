@@ -18,7 +18,6 @@ void swap(t_stack *stack)
 	t_stack *first;
 	t_stack *second;
 
-	i = 0;
 	first = stack->next;
 	if(first && !first->isroot)
 	{

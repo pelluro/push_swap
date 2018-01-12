@@ -31,7 +31,7 @@ void		findmin(t_stack *stack, int *value, int *index)
 			idx = i;
 		}
 		i++;
-		current => current->next;
+		current = current->next;
 	}
 	*value = v;
 	*index = idx;
@@ -41,12 +41,14 @@ void		findmed(t_stack *stack, int *value, int *index)
 {
 	t_stack *copy;
 	int* size;
+	int* tab;
 	
 	size = (int*)malloc(sizeof(int));
-	copy = copystack(stack, size);
-	ft_sort_integer_table(copy, size - 1);
-	*index = size / 2;
-	*value = copy[*index];
+	copy = copystack(stack);
+	tab = stacktotab(copy,size);
+	ft_sort_integer_table(tab, (*size - 1));
+	*index = *size / 2;
+	*value = tab[(*index)];
 	free(size);
 }
 

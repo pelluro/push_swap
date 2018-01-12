@@ -41,20 +41,6 @@ stack_op	define_hashmap(char *op_name)
 	return (NULL);
 }
 
-static int			ft_haschar(const char *s, int c)
-{
-	char	*src;
-	int		i;
-
-	src = (char *)s;
-	i = 0;
-	while (src[i] && src[i] != (char)c)
-		i++;
-	if (src[i] == (char)c)
-		return (1);
-	return (0);
-}
-
 t_stack		*parsestack(t_stack *stack, char *str)
 {
 	int		i;

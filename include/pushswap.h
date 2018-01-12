@@ -27,7 +27,6 @@ typedef struct	s_stackops
 {
    char	*content;
    struct	s_stackops *next;
-   struct	s_stackops *previous;
 }				t_stackops;
 
 //typedef struct	s_flags
@@ -63,7 +62,6 @@ int			read_cmds(t_stack *s_a, t_stack *s_b);
  ** methods.c
  */
 stack_op	define_hashmap(char *op_name);
-int			ft_haschar(const char *s, int c);
 t_stack		*parsestack(t_stack *stack, char *str);
 t_stack* create_node(t_stack *previous, t_stack *next, int value);
  /*
@@ -96,7 +94,7 @@ void		push(t_stack *stackfrom, t_stack *stackto);
 void		push_a(t_stack *s_a, t_stack *s_b);
 void		push_b(t_stack *s_a, t_stack *s_b);
 t_stack		*add_top(t_stack *stack, int c);
-t_stack		*remove_elem(t_stack *stack, int index);
+t_stack		*remove_elem(t_stack *stack);
  /*
  ** ops3.c
  */
@@ -119,6 +117,7 @@ void		findmax(t_stack *stack, int *value, int *index);
 void		findmed(t_stack *stack, int *value, int *index);
 void		shift(t_stack *stack, int pivot, t_stackops *ops);
 t_stack		*copystack(t_stack *stack);
+int* stacktotab(t_stack* stack, int* size);
  /*
  ** pushswap.c
  */
@@ -126,4 +125,18 @@ void		printstackops(t_stackops *ops);
 t_stackops	*init_so(t_stackops *ops);
 t_stack		*init_stack(t_stack *s);
 void		compare(t_stackops *ops1, t_stackops *ops2, t_stackops *ops3);
+/*
+** listops1.c
+*/
+void erase_elem_list(t_list *list);
+void erase_list(t_list **list);
+void erase_elem (t_list *elem);
+/*
+** listops2.c
+*/
+void ft_show_list(t_list *elem);
+t_list create_list_double(void);
+void add_after_elem(t_list *elem, int val);
+void add_before_elem(t_list *elem, int val);
+
 #endif

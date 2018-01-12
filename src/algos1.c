@@ -15,17 +15,19 @@
 void		splitstacks(t_stack *s_a, t_stack *s_b, t_stackops *ops, int medvalue)
 {
 	int f;
-
+	t_stack *current;
+	
+	current = s_a->next;
 	f = 0;
-	while (s_a->content[0] != medvalue || !f)
+	while (current && !current->isroot && (current->content != medvalue || !f))
 	{
-		if (!f && s_a->content[0] == medvalue)
+		if (!f && current->content == medvalue)
 		{
 			f = 1;
 			ops = addop(ops, "ra");
 			rotate_a(s_a, s_b);
 		}
-		else if (s_a->content[0]<=medvalue)
+		else if (current->content<=medvalue)
 		{
 			ops = addop(ops, "pb");
 			push_b(s_a, s_b);
@@ -35,6 +37,7 @@ void		splitstacks(t_stack *s_a, t_stack *s_b, t_stackops *ops, int medvalue)
 			ops = addop(ops, "ra");
 			rotate_a(s_a, s_b);
 		}
+		current = current->next;
 	}
 }
 
@@ -68,15 +71,13 @@ t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 
 	while (!issorted(s_a) || !issortedreverse(s_b))
 	{
-		if (ops->size > 10000)
-			return (NULL);
 		op = 0;
 		if (!issorted(s_a))
-			op += (s_a->content[0] > s_a->content[1] &&
-					s_a->content[0] < s_a->content[s_a->size - 1]) ? 1 : 2;
+			op += (s_a->content > s_a->next->content &&
+					s_a->content < s_a->previous->content) ? 1 : 2;
 		if (!issortedreverse(s_b))
-			op += (s_b->content[0] < s_b->content[1] &&
-					s_b->content[0] > s_b->content[s_b->size - 1]) ? 10 : 20;
+			op += (s_b->content < s_b->next->content &&
+					s_b->content > s_b->previous->content) ? 10 : 20;
 		if (op == 11)
 		{
 			ops = addop(ops, "ss");
@@ -106,7 +107,7 @@ t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
 	splitstacks(s_a, s_b, ops, *medvalue);
 	if (!(ops = medsolve2(s_a, s_b, ops)))
 		return (0);
-	while (s_b->size > 0)
+	while (s_b->next)
 	{
 		ops = addop(ops, "pa");
 		push_a(s_a, s_b);

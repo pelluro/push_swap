@@ -15,9 +15,10 @@
 
 void push(t_stack *stackfrom, t_stack *stackto)
 {
-	if (stackfrom && stackfrom->size >= 1)
+	if (stackfrom && stackfrom->next && stackfrom->next->next 
+	&& !stackfrom->next->next->isroot)
 	{
-		stackto = add_top(stackto, stackfrom->content[0]);
+		stackto = add_top(stackto, stackfrom->next->content);
 		stackfrom = remove_elem(stackfrom);
 	}
 }
