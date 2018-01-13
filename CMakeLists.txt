@@ -4,7 +4,7 @@ project(gitpushswap)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(gitpushswap
-    include/libft/ft_aschar.c
+    include/libft/ft_haschar.c
     include/libft/ft_atoi.c
     include/libft/ft_atoi_base.c
     include/libft/ft_bzero.c

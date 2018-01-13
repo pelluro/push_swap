@@ -15,8 +15,8 @@
 
 void push(t_stack *stackfrom, t_stack *stackto)
 {
-	if (stackfrom && stackfrom->next && stackfrom->next->next 
-	&& !stackfrom->next->next->isroot)
+	if (stackfrom && stackfrom->next && stackfrom->next
+	&& !stackfrom->next->isroot)
 	{
 		stackto = add_top(stackto, stackfrom->next->content);
 		stackfrom = remove_elem(stackfrom);
@@ -53,5 +53,6 @@ t_stack *remove_elem(t_stack *stack)
 			if(current->next)
 				current->next->previous = stack;
 			free(current);
-	}	return (stack);
+	}
+	return (stack);
 }

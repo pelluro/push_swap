@@ -23,11 +23,11 @@ void		findmin(t_stack *stack, int *value, int *index)
 	current = stack->next;
 	v = current ? current->content : 2147483647;
 	idx = 0;
-	while (current && !current->isroot)
+	while (!current->isroot)
 	{
 		if (current->content < v)
 		{
-			v = stack->content;
+			v = current->content;
 			idx = i;
 		}
 		i++;

@@ -24,7 +24,7 @@ t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 		current = create_node(current ? current : stack, stack, tab[i]);
 		i++;
 	}
-	return (stack); //pourquoi stack mais pas current?
+	return (stack);
 }
 
 int		checktab(int *tab, int s)
