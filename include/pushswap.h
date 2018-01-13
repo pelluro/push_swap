@@ -139,4 +139,6 @@ t_list create_list_double(void);
 void add_after_elem(t_list *elem, int val);
 void add_before_elem(t_list *elem, int val);
 
+void	print_list(t_list *a, t_list *b);
+
 #endif

@@ -99,4 +99,4 @@ add_executable(gitpushswap
     src/ops3.c
     src/ops4.c
     src/ops5.c
-    src/pushswap.c)
+    src/pushswap.c src/print_list.c)
