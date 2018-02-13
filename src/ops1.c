@@ -12,23 +12,21 @@
 
 #include "../include/pushswap.h"
 
-void swap(t_stack *stack)
+t_stack *swap(t_stack *first)
 {
-	int c;
-	t_stack *first;
 	t_stack *second;
 
 	first = stack->next;
-	if(first && !first->isroot)
+	if(first)
 	{
 		second = first->next;
-		if(second && !second->isroot)
+		if(second)
 		{
-			c = first->content;
-			first->content = second->content;
-			second->content = c;
+			first->next = second->next;
+			second->next = first;
 		}
 	}
+	return (second);
 }
 
 void swap_a(t_stack *s_a, t_stack *s_b)

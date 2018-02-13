@@ -13,21 +13,22 @@
 
 #include "../include/pushswap.h"
 
-void		reverse_rotate(t_stack *stack)
+t_stack		*reverse_rotate(t_stack *first)
 {
-	t_stack* first;
+	t_stack* current;
 	t_stack* last;
-	
-	first = stack->next;
-	last = stack->previous;
-	if(first && last)
-	{
-		stack->next = last;
-		stack->previous = last->previous;
-		first->previous = last;
-		last->next = first;
-		last->previous = stack;
-	}
+
+	current = first;
+	if (!first->next)
+		return (first);
+	if (!first->next->next)
+		return (swap(first));
+	while (current->next->next)
+		current = current->next;
+	last = current->next;
+	current->next = NULL;
+	last->next = first;
+	return (last);
 }
 
 void		reverse_rotate_a(t_stack *s_a, t_stack *s_b)

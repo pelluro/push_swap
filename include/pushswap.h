@@ -19,13 +19,24 @@ typedef struct	s_stack
 {
    int	content;
    struct	s_stack*	next;
-   struct	s_stack*	previous;
-   int isroot;
 }				t_stack;
 
 typedef struct	s_stackops
 {
-   char	*content;
+  enum {
+        none,
+        sa,
+        sb,
+        ss,
+        ra,
+        rb,
+        rr,
+        rra,
+        rrb,
+        rrr,
+        pa,
+        pb,
+    }                 op;
    struct	s_stackops *next;
 }				t_stackops;
 

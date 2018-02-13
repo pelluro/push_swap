@@ -12,75 +12,114 @@
 
 #include "../include/pushswap.h"
 
-stack_op	define_hashmap(char *op_name)
+t_stack *copytabintostack(t_stack *stack, int* tab, int s)
 {
-	if (ft_strlen(op_name) < 1 || ft_strlen(op_name) > 3)
-		return (NULL);
-	if (!ft_strcmp(op_name, "sa"))
-		return (&swap_a);
-	if (!ft_strcmp(op_name, "sb"))
-		return (&swap_b);
-	if (!ft_strcmp(op_name, "ss"))
-		return (&swap_both);
-	if (!ft_strcmp(op_name, "pa"))
-		return (&push_a);
-	if (!ft_strcmp(op_name, "pb"))
-		return (&push_b);
-	if (!ft_strcmp(op_name, "ra"))
-		return (&rotate_a);
-	if (!ft_strcmp(op_name, "rb"))
-		return (&rotate_b);
-	if (!ft_strcmp(op_name, "rr"))
-		return (&rotate_both);
-	if (!ft_strcmp(op_name, "rra"))
-		return (&reverse_rotate_a);
-	if (!ft_strcmp(op_name, "rrb"))
-		return (&reverse_rotate_b);
-	if (!ft_strcmp(op_name, "rrr"))
-		return (&reverse_rotate_both);
-	return (NULL);
-}
-
-t_stack		*parsestack(t_stack *stack, char *str)
-{
-	int		i;
-	int		j;
-	char	**tabnb;
+	int i;
 	t_stack *current;
-	
+
 	current = NULL;
-	if (!(tabnb = ft_split_whitespaces(str)))
-		return (0);
 	i = 0;
-	while (tabnb[i])
+	while (i < s)
 	{
-		if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
-			current = create_node(current ? current : stack,stack, 0);
-		else
-		{
-			j = ft_atoi(tabnb[i]);
-			if (j != 0)
-			current = create_node(current ? current : stack,stack, j);
-			else
-				return (0);
-		}
+		current = create_node(current ? current : stack, stack, tab[i]);
 		i++;
 	}
 	return (stack);
 }
 
-t_stack		*create_node(t_stack *prevelem, t_stack *nextelem, int value)
+int		checktab(int *tab, int s)
 {
-	t_stack* newnode;
-	
-	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
-	if (newnode)
+	int i;
+	int *tab2;
+
+	i = 0;
+	if (!(tab2 = (int*)ft_memalloc(sizeof(int) * s)))
+		return (0);
+	while (i < s)
 	{
-		newnode->content = value;
-		newnode->previous = prevelem;
-		prevelem->next = newnode;
-		newnode->next = nextelem;
-		nextelem->previous = newnode;
+		tab2[i] = tab[i];
+		i++;
 	}
-	return (newnode);
+
+	if (!ft_is_sorted(tab2, s))
+		ft_sort_integer_table(tab2, s);
+	i = 0;
+	while (i < s)
+	{
+		if (tab2[i] == tab2[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		*handleministack(int* tab, int* s, char* str)
+{
+	t_stack *ministack;
+	t_stack *current;
+
+	ministack = (t_stack*)ft_memalloc(sizeof(t_stack));
+	ministack->isroot = 1;
+	ministack = parsestack(ministack, str);
+	if (ministack->next)
+	{
+		current = ministack->next;
+		while (current && !current->isroot)
+		{
+			tab[*s] = current->content;
+			*s = *s + 1;
+			current = current->next;
+		}
+		return (tab);
+	}
+	else
+		return (NULL);
+}
+
+int		*maketab(int *tab, int *s, int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	*s = 0;
+	while (i < argc)
+	{
+		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
+			tab[(*s)++] = 0;
+		else if (ft_haschar(argv[i], ' '))
+		{
+			if (!(tab = handleministack(tab, s, argv[i])))
+				return (0);
+		}
+		else
+		{
+			j = ft_atoi(argv[i]);
+			if (j != 0)
+				tab[(*s)++] = j;
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (tab);
+}
+
+int		makestack(t_stack *stack, int argc, char **argv)
+{
+	int *s;
+	int *tab;
+
+	if (!(tab = (int*)malloc(sizeof(int) * 1000)))
+		return (NULL);
+  	if (!(s = (int*)malloc(sizeof(int))))
+		return (NULL);
+	tab = maketab(tab, s, argc, argv);
+	if(!tab)
+		return (0);
+	if (!checktab(tab, *s))
+		return (0);
+	stack = copytabintostack(stack, tab, *s);
+	free(tab);
+	return (1);
 }

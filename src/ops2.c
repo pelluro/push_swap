@@ -15,11 +15,14 @@
 
 void push(t_stack *stackfrom, t_stack *stackto)
 {
-	if (stackfrom && stackfrom->next && stackfrom->next
-	&& !stackfrom->next->isroot)
+	t_stack *stackmove;
+
+	if (stackfrom && stackto)
 	{
-		stackto = add_top(stackto, stackfrom->next->content);
-		stackfrom = remove_elem(stackfrom);
+			stackmove = stackfrom;
+			stackfrom = stackfrom->next;
+			stackmove->next = stackto;
+			stackto = stackmove;
 	}
 }
 
@@ -31,28 +34,4 @@ void push_a(t_stack *s_a, t_stack *s_b)
 void push_b(t_stack *s_a, t_stack *s_b)
 {
 	push(s_a, s_b);
-}
-
-t_stack *add_top(t_stack *stack, int c)
-{
-	t_stack *current;
-	
-	current = stack->next;
-	create_node(stack, current ? current->next : stack, c);
-	return (stack);
-}
-
-t_stack *remove_elem(t_stack *stack)
-{
-	t_stack *current;
-		
-	current = stack->next;
-	if(current)
-	{
-			stack->next = current->next;
-			if(current->next)
-				current->next->previous = stack;
-			free(current);
-	}
-	return (stack);
 }
