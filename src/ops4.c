@@ -31,20 +31,20 @@ t_stack		*reverse_rotate(t_stack *first)
 	return (last);
 }
 
-void		reverse_rotate_a(t_stack *s_a, t_stack *s_b)
+void		reverse_rotate_a(t_stack **s_a, t_stack **s_b)
 {
-	reverse_rotate(s_a);
+	*s_a = reverse_rotate(*s_a);
 	(void)s_b;
 }
 
-void		reverse_rotate_b(t_stack *s_a, t_stack *s_b)
+void		reverse_rotate_b(t_stack **s_a, t_stack **s_b)
 {
-	reverse_rotate(s_b);
+	*s_b = reverse_rotate(*s_b);
 	(void)s_a;
 }
 
-void		reverse_rotate_both(t_stack *s_a, t_stack *s_b)
+void		reverse_rotate_both(t_stack **s_a, t_stack **s_b)
 {
-	reverse_rotate(s_a);
-	reverse_rotate(s_b);
+	*s_a = reverse_rotate(*s_a);
+	*s_b = reverse_rotate(*s_b);
 }

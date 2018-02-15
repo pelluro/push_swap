@@ -12,39 +12,27 @@
 
 #include "../include/pushswap.h"
 
-t_stack *copytabintostack(t_stack *stack, int* tab, int s)
+int		checktab(t_stack *stack)
 {
-	int i;
+	size_t i;
+	size_t size;
 	t_stack *current;
-
-	current = NULL;
-	i = 0;
-	while (i < s)
-	{
-		current = create_node(current ? current : stack, stack, tab[i]);
-		i++;
-	}
-	return (stack);
-}
-
-int		checktab(int *tab, int s)
-{
-	int i;
 	int *tab2;
 
 	i = 0;
-	if (!(tab2 = (int*)ft_memalloc(sizeof(int) * s)))
+	current = stack;
+	size = ft_count_list(stack);
+	if (!(tab2 = (int*)ft_memalloc(sizeof(int) * size)))
 		return (0);
-	while (i < s)
+	while (i < size)
 	{
-		tab2[i] = tab[i];
-		i++;
+		tab2[i++] = current->value;
+		current = current->next;
 	}
-
-	if (!ft_is_sorted(tab2, s))
-		ft_sort_integer_table(tab2, s);
+	if (!ft_is_sorted(tab2, size))
+		ft_sort_integer_table(tab2, size);
 	i = 0;
-	while (i < s)
+	while (i < size)
 	{
 		if (tab2[i] == tab2[i + 1])
 			return (0);
@@ -53,73 +41,61 @@ int		checktab(int *tab, int s)
 	return (1);
 }
 
-int		*handleministack(int* tab, int* s, char* str)
+int		handleministack(t_stack *current, t_stack *stack, char* str)
 {
-	t_stack *ministack;
-	t_stack *current;
+		int		i;
+		int		j;
+		char	**tabnb;
 
-	ministack = (t_stack*)ft_memalloc(sizeof(t_stack));
-	ministack->isroot = 1;
-	ministack = parsestack(ministack, str);
-	if (ministack->next)
-	{
-		current = ministack->next;
-		while (current && !current->isroot)
+		if (!(tabnb = ft_split_whitespaces(str)))
+			return (0);
+		i = 0;
+		while (tabnb[i])
 		{
-			tab[*s] = current->content;
-			*s = *s + 1;
-			current = current->next;
+			if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
+				current = create_node(current ? current : stack, 0);
+			else
+			{
+				j = ft_atoi(tabnb[i]);
+				if (j != 0)
+				current = create_node(current ? current : stack, j);
+				else
+					return (0);
+			}
+			i++;
 		}
-		return (tab);
-	}
-	else
-		return (NULL);
+		return (1);
 }
 
-int		*maketab(int *tab, int *s, int argc, char **argv)
+int		makestack(t_stack *stack, int argc, char **argv)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_stack *current;
 
 	i = 1;
-	*s = 0;
-	while (i < argc)
+	current = NULL;
+  while (i < argc)
 	{
 		if (ft_strlen(argv[i]) == 1 && argv[i][0] == '0')
-			tab[(*s)++] = 0;
+			current = create_node(current ? current : stack, 0);
 		else if (ft_haschar(argv[i], ' '))
 		{
-			if (!(tab = handleministack(tab, s, argv[i])))
+			if (!(handleministack(current, stack, argv[i])))
 				return (0);
 		}
 		else
 		{
 			j = ft_atoi(argv[i]);
 			if (j != 0)
-				tab[(*s)++] = j;
+				current = create_node(current ? current : stack, j);
 			else
 				return (0);
 		}
 		i++;
 	}
-	return (tab);
-}
-
-int		makestack(t_stack *stack, int argc, char **argv)
-{
-	int *s;
-	int *tab;
-
-	if (!(tab = (int*)malloc(sizeof(int) * 1000)))
-		return (NULL);
-  	if (!(s = (int*)malloc(sizeof(int))))
-		return (NULL);
-	tab = maketab(tab, s, argc, argv);
-	if(!tab)
+	stack = stack->next;
+	if (!checktab(stack))
 		return (0);
-	if (!checktab(tab, *s))
-		return (0);
-	stack = copytabintostack(stack, tab, *s);
-	free(tab);
 	return (1);
 }

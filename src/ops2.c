@@ -13,25 +13,25 @@
 #include "../include/pushswap.h"
 
 
-void push(t_stack *stackfrom, t_stack *stackto)
+void push(t_stack **stackfrom, t_stack **stackto)
 {
 	t_stack *stackmove;
 
-	if (stackfrom && stackto)
+	if (stackfrom && stackto && *stackfrom && *stackto)
 	{
-			stackmove = stackfrom;
-			stackfrom = stackfrom->next;
-			stackmove->next = stackto;
-			stackto = stackmove;
+			stackmove = *stackfrom;
+			*stackfrom = *stackfrom->next;
+			stackmove->next = *stackto;
+			*stackto = stackmove;
 	}
 }
 
-void push_a(t_stack *s_a, t_stack *s_b)
+void push_a(t_stack **s_a, t_stack **s_b)
 {
 	push(s_b, s_a);
 }
 
-void push_b(t_stack *s_a, t_stack *s_b)
+void push_b(t_stack **s_a, t_stack **s_b)
 {
 	push(s_a, s_b);
 }

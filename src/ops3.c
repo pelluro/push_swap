@@ -26,22 +26,23 @@ t_stack		*rotate(t_stack *first)
 		current = current->next;
 	first->next = NULL;
 	current->next = first;
+	return (current);
 }
 
-void		rotate_a(t_stack *s_a, t_stack *s_b)
+void		rotate_a(t_stack **s_a, t_stack **s_b)
 {
-	rotate(s_a);
+	*s_a = rotate(*s_a);
 	(void)s_b;
 }
 
-void		rotate_b(t_stack *s_a, t_stack *s_b)
+void		rotate_b(t_stack **s_a, t_stack **s_b)
 {
-	rotate(s_b);
+	*s_b = rotate(*s_b);
 	(void)s_a;
 }
 
-void		rotate_both(t_stack *s_a, t_stack *s_b)
+void		rotate_both(t_stack **s_a, t_stack **s_b)
 {
-	rotate(s_a);
-	rotate(s_b);
+	*s_a = rotate(*s_a);
+	*s_b = rotate(*s_b);
 }
