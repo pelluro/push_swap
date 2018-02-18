@@ -12,6 +12,16 @@
 
 #include "../include/pushswap.h"
 
+void	ft_error(int error)
+{
+	if (error)
+	{
+		ft_putstr_fd("ERROR\n", 2);
+		exit(1);
+	}
+	exit(0);
+}
+
 int		checktab(t_stack *stack)
 {
 	size_t i;

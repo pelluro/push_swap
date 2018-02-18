@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,17 +12,23 @@
 
 #include "../include/pushswap.h"
 
-int		main(int argc, char **argv)
+
+int main (int ac, char **av)
 {
-	t_stack *s_a;
-	t_stack *s_b;
-	if(argc == 1)
-		ft_error(0);
-	if (!(s_a = (t_stack*)malloc(sizeof(t_stack))))
-		return (0);
-	s_b = NULL;
-	if (!makestack(s_a, argc, argv))
-		ft_error (1);
-	s_a = s_a->next;
-	return (read_cmds(s_a, s_b));
+  t_stack *stack_a;
+  t_stack *stack_b;
+
+  if (!(stack_a = (t_stack*)ft_memalloc(sizeof(t_stack))))
+  return (0);
+  stack_b = NULL;
+  if(makestack(stack_a, ac, av))
+  {
+	  stack_a = stack_a->next;
+	  print_list(stack_a, stack_b);
+  }
+  else
+  {
+    ft_putendl("error");
+  }
+  return (0);
 }

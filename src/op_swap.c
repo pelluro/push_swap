@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods.c                                          :+:      :+:    :+:   */
+/*   ops1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,37 @@
 
 #include "../include/pushswap.h"
 
-
-
-t_stack		*parsestack(t_stack *stack, char *str)
+t_stack *swap(t_stack *first)
 {
-	int		i;
-	int		j;
-	char	**tabnb;
-	t_stack *current;
+	t_stack *second;
 
-	current = NULL;
-	if (!(tabnb = ft_split_whitespaces(str)))
-		return (0);
-	i = 0;
-	while (tabnb[i])
+	if(first)
 	{
-		if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
-			current = create_node(current ? current : stack, 0);
-		else
+		second = first->next;
+		if(second)
 		{
-			j = ft_atoi(tabnb[i]);
-			if (j != 0)
-			current = create_node(current ? current : stack, j);
-			else
-				return (0);
+			first->next = second->next;
+			second->next = first;
+			return (second);
 		}
-		i++;
 	}
-	return (stack);
+	return (first);
 }
 
-t_stack		*create_node(t_stack *prevelem, int value)
+void swap_a(t_stack **s_a, t_stack **s_b)
 {
-	t_stack* newnode;
+	*s_a = swap(*s_a);
+	(void)s_b;
+}
 
-	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
-	if (newnode)
-	{
-		newnode->value = value;
-		prevelem->next = newnode;
-		newnode->next = NULL;
-	}
-	return (newnode);
+void swap_b(t_stack **s_a, t_stack **s_b)
+{
+	*s_b = swap(*s_b);
+	(void)s_a;
+}
+
+void swap_both(t_stack **s_a, t_stack **s_b)
+{
+	*s_a = swap(*s_a);
+	*s_b = swap(*s_b);
 }

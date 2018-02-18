@@ -22,16 +22,17 @@ _BLUE = $'\x1b[34m
 
 LIB = include/libft
 
-#SRCCHECKER = src/checker.c src/methods.c src/methods2.c src/methods3.c\
-						src/algos.c src/algos1.c\
-						src/ops1.c src/ops2.c src/ops3.c src/ops4.c src/ops5.c
-SRCPUSH = src/methods.c src/methods2.c\
-						src/ops1.c src/ops2.c src/ops3.c src/ops4.c\
+SRCCHECKER = src/checker.c src/methods.c src/methods2.c\
+						src/op_push.c src/op_rotate.c src/op_reverserotate.c src/op_swap.c\
 						src/ft_count_list.c\
-
+						src/methods_checker.c
+SRCPUSH = src/push_swap.c src/methods.c src/methods2.c\
+						src/op_push.c src/op_rotate.c src/op_reverserotate.c src/op_swap.c\
+						src/ft_count_list.c\
+						src/methods_pushswap.c
 INC = -I includes
 
-#OBJCHECKER = $(SRCCHECKER:.c=.o)
+OBJCHECKER = $(SRCCHECKER:.c=.o)
 OBJPUSH = $(SRCPUSH:.c=.o)
 
 CC = gcc
@@ -40,12 +41,12 @@ LIBPATH =	include/libft/libft.a
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAMEPUSHSWAP)
+all: $(NAMEPUSHSWAP) $(NAMECHECKER)
 
-#$(NAMECHECKER): $(OBJCHECKER)
-#	make -C $(LIB)
-#	$(CC) -o $(NAMECHECKER) $(OBJCHECKER) $(LIBPATH)
-#	@echo "${_YELLOW}pushswap generate${_END} ${_BLUE}[!${_END}]"
+$(NAMECHECKER): $(OBJCHECKER)
+	make -C $(LIB)
+	$(CC) -o $(NAMECHECKER) $(OBJCHECKER) $(LIBPATH)
+	@echo "${_YELLOW}pushswap generate${_END} ${_BLUE}[!${_END}]"
 
 $(NAMEPUSHSWAP): $(OBJPUSH)
 	make -C $(LIB)
@@ -54,13 +55,13 @@ $(NAMEPUSHSWAP): $(OBJPUSH)
 
 
 clean:
-		#rm -f $(OBJCHECKER)
+		rm -f $(OBJCHECKER)
 		rm -f $(OBJPUSH)
 			make clean -C ./include/libft/
 			@echo "${_CYAN}cleaning objects files${_END} ${_PURPLE}[!${_END}]"
 
 fclean: clean
-		#rm -f $(NAMECHECKER)
+		rm -f $(NAMECHECKER)
 		rm -f $(NAMEPUSHSWAP)
 			make fclean -C ./include/libft/
 			@echo "${_RED}delete $(NAMECHECKER) $(NAMEPUSHSWAP) ${_END}${_GREEN}[!${_END}]"

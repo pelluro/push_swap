@@ -24,20 +24,7 @@ typedef struct	s_stack
 
 typedef struct	s_stackops
 {
-  enum {
-        none,
-        sa,
-        sb,
-        ss,
-        ra,
-        rb,
-        rr,
-        rra,
-        rrb,
-        rrr,
-        pa,
-        pb,
-    }                 op;
+   char *op;
    struct	s_stackops *next;
 }				t_stackops;
 
@@ -47,7 +34,7 @@ typedef struct	s_stackops
 //    int	flag_c;
 //}				t_flags;
 //
-// typedef void	(*stack_op)(t_stack*, t_stack*);
+typedef void	(*stack_op)(t_stack**, t_stack**);
 // /*
 //  ** algos.c
 //  */
@@ -70,7 +57,7 @@ typedef struct	s_stackops
 // int			check(t_stack *s_a, t_stack *s_b);
 // int			read_cmds(t_stack *s_a, t_stack *s_b);
 
-
+void	ft_error(int error);
 
 // stack_op	define_hashmap(char *op_name);
 // int			issorted(t_stack *stack);
@@ -115,9 +102,9 @@ void		rotate_both(t_stack **s_a, t_stack **s_b);
  ** ops4.c
  */
 t_stack *reverse_rotate(t_stack *stack);
-void		reverse_rotate_a(t_stack *s_a, t_stack *s_b);
-void		reverse_rotate_b(t_stack *s_a, t_stack *s_b);
-void		reverse_rotate_both(t_stack *s_a, t_stack *s_b);
+void		reverse_rotate_a(t_stack **s_a, t_stack **s_b);
+void		reverse_rotate_b(t_stack **s_a, t_stack **s_b);
+void		reverse_rotate_both(t_stack **s_a, t_stack **s_b);
 
 // void		findmin(t_stack *stack, int *value, int *index);
 // void		findmax(t_stack *stack, int *value, int *index);
@@ -141,8 +128,13 @@ void		reverse_rotate_both(t_stack *s_a, t_stack *s_b);
 // void add_after_elem(t_list *elem, int val);
 // void add_before_elem(t_list *elem, int val);
 //
-// void	print_list(t_list *a, t_list *b);
-
+void	print_list(t_stack *a, t_stack *b);
 size_t  ft_count_list(t_stack *stack);
+
+int		read_cmds(t_stack *s_a, t_stack *s_b);
+int	  check(t_stack *s_a, t_stack *s_b);
+stack_op	define_hashmap(char *op_name);
+int			issorted(t_stack *stack);
+
 
 #endif

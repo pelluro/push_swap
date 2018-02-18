@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods.c                                          :+:      :+:    :+:   */
+/*   ops3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,48 +10,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../include/pushswap.h"
 
-
-
-t_stack		*parsestack(t_stack *stack, char *str)
+t_stack		*rotate(t_stack *first)
 {
-	int		i;
-	int		j;
-	char	**tabnb;
 	t_stack *current;
+	t_stack *second;
 
-	current = NULL;
-	if (!(tabnb = ft_split_whitespaces(str)))
-		return (0);
-	i = 0;
-	while (tabnb[i])
-	{
-		if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
-			current = create_node(current ? current : stack, 0);
-		else
-		{
-			j = ft_atoi(tabnb[i]);
-			if (j != 0)
-			current = create_node(current ? current : stack, j);
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (stack);
+	current = first;
+	second = first->next;
+	if (!second)
+		return (first);
+	while (current->next)
+		current = current->next;
+	first->next = NULL;
+	current->next = first;
+	return (second);
 }
 
-t_stack		*create_node(t_stack *prevelem, int value)
+void		rotate_a(t_stack **s_a, t_stack **s_b)
 {
-	t_stack* newnode;
+	*s_a = rotate(*s_a);
+	(void)s_b;
+}
 
-	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
-	if (newnode)
-	{
-		newnode->value = value;
-		prevelem->next = newnode;
-		newnode->next = NULL;
-	}
-	return (newnode);
+void		rotate_b(t_stack **s_a, t_stack **s_b)
+{
+	*s_b = rotate(*s_b);
+	(void)s_a;
+}
+
+void		rotate_both(t_stack **s_a, t_stack **s_b)
+{
+	*s_a = rotate(*s_a);
+	*s_b = rotate(*s_b);
 }

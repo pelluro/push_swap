@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods.c                                          :+:      :+:    :+:   */
+/*   methods_pushswap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipham <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,23 @@
 
 #include "../include/pushswap.h"
 
-
-
-t_stack		*parsestack(t_stack *stack, char *str)
+t_stackops	*addop(t_stackops *ops, char *op)
 {
-	int		i;
-	int		j;
-	char	**tabnb;
-	t_stack *current;
+	t_stackops * current;
+	t_stackops * new;
 
-	current = NULL;
-	if (!(tabnb = ft_split_whitespaces(str)))
-		return (0);
-	i = 0;
-	while (tabnb[i])
+	if(ops->op)
 	{
-		if (ft_strlen(tabnb[i]) == 1 && tabnb[i][0] == '0')
-			current = create_node(current ? current : stack, 0);
-		else
-		{
-			j = ft_atoi(tabnb[i]);
-			if (j != 0)
-			current = create_node(current ? current : stack, j);
-			else
-				return (0);
-		}
-		i++;
+		current = ops;
+		while(current->next)
+			current = current->next;
+		if (!(new = (t_stackops*)malloc(sizeof(t_stackops))))
+			return(NULL);
+		new->op = op;
+		new->next = NULL;
+		current->next = new;
 	}
-	return (stack);
-}
-
-t_stack		*create_node(t_stack *prevelem, int value)
-{
-	t_stack* newnode;
-
-	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
-	if (newnode)
-	{
-		newnode->value = value;
-		prevelem->next = newnode;
-		newnode->next = NULL;
-	}
-	return (newnode);
+	else
+		ops->op = op;
+	return (ops);
 }
