@@ -130,11 +130,15 @@ void		reverse_rotate_both(t_stack **s_a, t_stack **s_b);
 //
 void	print_list(t_stack *a, t_stack *b);
 size_t  ft_count_list(t_stack *stack);
+void	print_stackops(t_stackops *op);
 
 int		read_cmds(t_stack *s_a, t_stack *s_b);
 int	  check(t_stack *s_a, t_stack *s_b);
 stack_op	define_hashmap(char *op_name);
 int			issorted(t_stack *stack);
 
+void mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
+void basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops);
+void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops);
 
 #endif

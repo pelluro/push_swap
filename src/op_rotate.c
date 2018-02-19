@@ -18,10 +18,10 @@ t_stack		*rotate(t_stack *first)
 	t_stack *current;
 	t_stack *second;
 
+	if (!first || !first->next)
+		return (first);
 	current = first;
 	second = first->next;
-	if (!second)
-		return (first);
 	while (current->next)
 		current = current->next;
 	first->next = NULL;

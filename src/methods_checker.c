@@ -11,20 +11,6 @@
 /* ************************************************************************** */
 #include "../include/pushswap.h"
 
-int			issorted(t_stack *stack)
-{
-	t_stack* current;
-
-	current = stack;
-	while (current && current->next)
-	{
-		if (current->next->value <= current->value)
-			return (0);
-		current = current->next;
-	}
-	return (1);
-}
-
 stack_op	define_hashmap(char *op_name)
 {
 	if (ft_strlen(op_name) < 1 || ft_strlen(op_name) > 3)

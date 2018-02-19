@@ -19,7 +19,7 @@ t_stack		*reverse_rotate(t_stack *first)
 	t_stack* last;
 
 	current = first;
-	if (!first->next)
+	if (!first || !first->next)
 		return (first);
 	if (!first->next->next)
 		return (swap(first));

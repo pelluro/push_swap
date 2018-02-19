@@ -12,7 +12,19 @@
 
 #include "../include/pushswap.h"
 
+int			issorted(t_stack *stack)
+{
+	t_stack* current;
 
+	current = stack;
+	while (current && current->next)
+	{
+		if (current->next->value <= current->value)
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}
 
 t_stack		*parsestack(t_stack *stack, char *str)
 {

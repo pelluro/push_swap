@@ -89,9 +89,13 @@ add_executable(push_swap_reborn
         include/libft/libft.h
         include/pushswap.h
         src/ft_count_list.c
+        src/checker.c
         src/methods.c
+        src/methods_pushswap.c
+        src/methods_checker.c
         src/methods2.c
-        src/ops1.c
-        src/ops2.c
-        src/ops3.c
-        src/ops4.c)
+        src/op_push.c
+        src/op_reverserotate.c
+        src/op_rotate.c
+        src/op_swap.c
+        src/push_swap.c)

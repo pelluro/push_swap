@@ -37,3 +37,16 @@ void	print_list(t_stack *a, t_stack *b)
 	}
   ft_putendl("------------------\t\t------------------");
 }
+
+void	print_stackops(t_stackops *ops)
+{
+	t_stackops *current;
+
+	current = ops;
+	while (current)
+	{
+		ft_putstr(current->op);
+		ft_putstr("\n");
+		current = current->next;
+	}
+}
