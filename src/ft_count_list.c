@@ -1,9 +1,9 @@
 #include "../include/pushswap.h"
 
-size_t  ft_count_list(t_stack *stack)
+size_t		ft_count_list(t_stack *stack)
 {
-  size_t i;
-  t_stack *current;
+  size_t	i;
+  t_stack	*current;
 
   i = 0;
   current = stack;
@@ -15,7 +15,7 @@ size_t  ft_count_list(t_stack *stack)
   return (i);
 }
 
-void	print_list(t_stack *a, t_stack *b)
+void		print_list(t_stack *a, t_stack *b)
 {
 	ft_putendl("     PILE A\t\t\t      PILE B");
 	ft_putendl("------------------\t\t------------------");
@@ -38,9 +38,9 @@ void	print_list(t_stack *a, t_stack *b)
   ft_putendl("------------------\t\t------------------");
 }
 
-void	print_stackops(t_stackops *ops)
+void		print_stackops(t_stackops *ops)
 {
-	t_stackops *current;
+	t_stackops	*current;
 
 	current = ops;
 	while (current)

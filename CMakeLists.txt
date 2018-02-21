@@ -92,6 +92,7 @@ add_executable(push_swap_reborn
         src/checker.c
         src/methods.c
         src/methods_pushswap.c
+        src/methods_pushswap2.c
         src/methods_checker.c
         src/methods2.c
         src/op_push.c

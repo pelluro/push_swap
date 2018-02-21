@@ -12,7 +12,7 @@
 
 #include "../include/pushswap.h"
 
-void	ft_error(int error)
+void			ft_error(int error)
 {
 	if (error)
 	{
@@ -22,12 +22,28 @@ void	ft_error(int error)
 	exit(0);
 }
 
-int		checktab(t_stack *stack)
+static int		ft_check_doublon(int *tab, int size)
 {
-	size_t i;
-	size_t size;
-	t_stack *current;
-	int *tab2;
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (tab[i] == tab[i + 1])
+		{
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int				checktab(t_stack *stack)
+{
+	size_t	i;
+	size_t	size;
+	t_stack	*current;
+	int		*tab2;
 
 	i = 0;
 	current = stack;
@@ -41,17 +57,14 @@ int		checktab(t_stack *stack)
 	}
 	if (!ft_is_sorted(tab2, size))
 		ft_sort_integer_table(tab2, size);
-	i = 0;
-	while (i < size)
-	{
-		if (tab2[i] == tab2[i + 1])
-			return (0);
-		i++;
-	}
+	if (!ft_check_doublon(tab2, size))
+		return (0);
+	free(tab2);
 	return (1);
 }
 
-int		handleministack(t_stack *current, t_stack *stack, char* str)
+
+int				handleministack(t_stack *current, t_stack *stack, char* str)
 {
 		int		i;
 		int		j;
@@ -77,7 +90,7 @@ int		handleministack(t_stack *current, t_stack *stack, char* str)
 		return (1);
 }
 
-int		makestack(t_stack *stack, int argc, char **argv)
+int				makestack(t_stack *stack, int argc, char **argv, int *f)
 {
 	int		i;
 	int		j;
@@ -100,7 +113,12 @@ int		makestack(t_stack *stack, int argc, char **argv)
 			if (j != 0)
 				current = create_node(current ? current : stack, j);
 			else
-				return (0);
+			{
+				if (!ft_strcmp(argv[i], "-v"))
+					*f = 1;
+				else
+					return (0);
+			}
 		}
 		i++;
 	}

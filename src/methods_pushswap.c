@@ -12,18 +12,19 @@
 
 #include "../include/pushswap.h"
 
-t_stackops	*addop(t_stackops *ops, char *op)
+t_stackops		*addop(t_stackops *ops, char *op)
 {
-	t_stackops * current;
-	t_stackops * new;
-  if(!ops)
+	t_stackops	*current;
+	t_stackops	*new;
+
+	if(!ops)
 		ops = (t_stackops*)ft_memalloc(sizeof(t_stackops));
 	if(ops->op)
 	{
 		current = ops;
-		while(current->next)
+		while (current->next)
 			current = current->next;
-		if (!(new = (t_stackops*)malloc(sizeof(t_stackops))))
+		if (!(new = (t_stackops*)ft_memalloc(sizeof(t_stackops))))
 			return(NULL);
 		new->op = op;
 		new->next = NULL;
@@ -34,7 +35,7 @@ t_stackops	*addop(t_stackops *ops, char *op)
 	return (ops);
 }
 
-void		findmin(t_stack *stack, int *value, int *index)
+static void		findmin(t_stack *stack, int *value, int *index)
 {
 	t_stack		*current;
 	int 	i;
@@ -60,7 +61,7 @@ void		findmin(t_stack *stack, int *value, int *index)
 }
 
 
-void		shift(t_stack **stack, int pivot, t_stackops **ops)
+static void		shift(t_stack **stack, int pivot, t_stackops **ops)
 {
 	int size;
 
@@ -75,55 +76,6 @@ void		shift(t_stack **stack, int pivot, t_stackops **ops)
 		*ops = addop(*ops, "ra");
 		*stack = rotate(*stack);
 	}
-}
-
-void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops)
-{
-	int first_elem_a;
-	int second_elem_a;
-	int last_elem_a;
-	t_stack *current;
-
-	current = *s_a;
-	first_elem_a = (*s_a)->value;
-	second_elem_a = (*s_a)->next->value;
-
-	while (current->next)
-		current = current->next;
-	last_elem_a = current->value;
-	if (first_elem_a > second_elem_a)
-	{
-		*ops = addop(*ops, "sa");
-		swap_a(s_a, s_b);
-		basicsolve(s_a, s_b, ops);
-	}
-	else if (first_elem_a > last_elem_a)
-	{
-		*ops = addop(*ops, "ra");
-		rotate_a(s_a, s_b);
-		basicsolve(s_a, s_b, ops);
-	}
-	else
-	{
-		*ops = addop(*ops, "pb");
-		push_b(s_a, s_b);
-		basicsolve(s_a, s_b, ops);
-	}
-}
-
-void basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops)
-{
-	if (issorted(*s_a))
-	{
-		if ((*s_b))
-		{
-			*ops = addop(*ops, "pa");
-			push_a(s_a, s_b);
-			basicsolve(s_a, s_b, ops);
-		}
-	}
-	else
-		basicsolve2(s_a, s_b, ops);
 }
 
 int			smallresolve(t_stack **stack, t_stackops **ops)
@@ -147,9 +99,9 @@ void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	int	*minvalue;
 	int	*minindex;
 
-	if (!(minvalue = (int*)malloc(sizeof(int))))
+	if (!(minvalue = (int*)ft_memalloc(sizeof(int))))
 		ft_error(0);
-	if (!(minindex = (int*)malloc(sizeof(int))))
+	if (!(minindex = (int*)ft_memalloc(sizeof(int))))
 		ft_error(0);
 	while (!issorted(s_a) || s_b)
 	{
@@ -168,4 +120,6 @@ void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 			push_a(&s_a, &s_b);
 		}
 	}
+	free (minvalue);
+	free (minindex);
 }

@@ -40,9 +40,9 @@ stack_op	define_hashmap(char *op_name)
 	return (NULL);
 }
 
-int	  check(t_stack *s_a, t_stack *s_b)
+int		check(t_stack *s_a, t_stack *s_b)
 {
-	print_list(s_a, s_b);
+	// print_list(s_a, s_b);
 	if (issorted(s_a) && !s_b)
 		ft_putendl("OK");
 	else
@@ -50,20 +50,27 @@ int	  check(t_stack *s_a, t_stack *s_b)
 	return (0);
 }
 
-int		read_cmds(t_stack *s_a, t_stack *s_b)
+int		read_cmds(t_stack *s_a, t_stack *s_b, int f)
 {
 	stack_op	op;
 	char		**cmdline;
 
-	cmdline = (char**)malloc(sizeof(char*));
+	if (!(cmdline = (char**)ft_memalloc(sizeof(char*))))
+		return (0);
+	if (f)
+		print_list(s_a, s_b);
 	while (1)
 	{
-		print_list(s_a, s_b);
+
 		if (get_next_line(0, cmdline))
 		{
 			op = define_hashmap(*cmdline);
 			if (op)
+			{
 				op(&s_a, &s_b);
+				if (f)
+					print_list(s_a, s_b);
+			}
 			else if (!(*cmdline)[0])
 				return (check(s_a, s_b));
 			else
