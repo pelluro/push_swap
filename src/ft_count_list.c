@@ -15,6 +15,33 @@ size_t		ft_count_list(t_stack *stack)
   return (i);
 }
 
+void		ft_del_stack(t_stack **stack)
+{
+	t_stack	*current;
+
+	current = *stack;
+	while (current)
+	{
+		current = current->next;
+		free (current);
+	}
+	*stack = NULL;
+}
+
+void		ft_del_stackops(t_stackops **ops)
+{
+	t_stackops	*current;
+
+	current = *ops;
+	while (current)
+	{
+		free(current->op);
+		current = current->next;
+		free (current);
+	}
+	*ops = NULL;
+}
+
 void		print_list(t_stack *a, t_stack *b)
 {
 	ft_putendl("     PILE A\t\t\t      PILE B");

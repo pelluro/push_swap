@@ -33,6 +33,8 @@ typedef void	(*stack_op)(t_stack**, t_stack**);
 ** ft_count_list.c
 */
 size_t		ft_count_list(t_stack *stack);
+void		ft_del_stack(t_stack **stack);
+void		ft_del_stackops(t_stackops **ops);
 void		print_list(t_stack *a, t_stack *b);
 void		print_stackops(t_stackops *ops);
 /*
@@ -59,6 +61,8 @@ int			read_cmds(t_stack *s_a, t_stack *s_b, int f);
 t_stackops	*addop(t_stackops *ops, char *op);
 int			smallresolve(t_stack **stack, t_stackops **ops);
 void		mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
+void		basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops);
+void		basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops);
 /*
 ** methods_pushswap2.c
 */
