@@ -12,105 +12,226 @@
 
 #include "../include/pushswap.h"
 
-void		splitstacks(t_stack *s_a, t_stack *s_b, t_stackops *ops, int medvalue)
+void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue)
 {
-	int f;
 	t_stack *current;
+	int i;
+	int size;
 
-	current = s_a->next;
-	f = 0;
-	while (current && !current->isroot && (current->content != medvalue || !f))
+	i =  0;
+	size = ft_count_list(*s_a);
+	current = (*s_a);
+	while (i < size + 1)
 	{
-		if (!f && current->content == medvalue)
+		if (current->value == medvalue)
 		{
-			f = 1;
-			ops = addop(ops, "ra");
+			*ops = addop(*ops, "ra");
 			rotate_a(s_a, s_b);
 		}
-		else if (current->content<=medvalue)
+		else if (current->value <= medvalue)
 		{
-			ops = addop(ops, "pb");
+			*ops = addop(*ops, "pb");
 			push_b(s_a, s_b);
 		}
 		else
 		{
-			ops = addop(ops, "ra");
+			*ops = addop(*ops, "ra");
 			rotate_a(s_a, s_b);
 		}
-		current = current->next;
+		current = (*s_a);
+		i++;
 	}
 }
 
-void		doop(t_stack *s_a, t_stack *s_b, t_stackops *ops, int op)
+void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
 {
-	if (op == 1 || op == 21)
-	{
-		ops = addop(ops, "sa");
-		swap_a(s_a, s_b);
-	}
-	else if (op == 2 || op == 12)
-	{
-		ops = addop(ops, "ra");
-		rotate_a(s_a, s_b);
-	}
-	else if (op == 10)
-	{
-		ops = addop(ops, "sb");
-		swap_b(s_a, s_b);
-	}
-	else if (op == 20)
-	{
-		ops = addop(ops, "rb");
-		rotate_b(s_a, s_b);
-	}
-}
+	  t_stack * current;
 
-t_stackops	*medsolve2(t_stack *s_a, t_stack *s_b, t_stackops *ops)
-{
-	int op;
-
-	while (!issorted(s_a) || !issortedreverse(s_b))
+	while (!issorted(*stack))
 	{
-		op = 0;
-		if (!issorted(s_a))
-			op += (s_a->content > s_a->next->content &&
-					s_a->content < s_a->previous->content) ? 1 : 2;
-		if (!issortedreverse(s_b))
-			op += (s_b->content < s_b->next->content &&
-					s_b->content > s_b->previous->content) ? 10 : 20;
-		if (op == 11)
+		current = *stack;
+		while(current->next)
+			current = current->next;
+		if(((*stack)->value > (*stack)->next->value && (*stack)->value < current->value) ||
+		   ((*stack)->value > (*stack)->next->value && (*stack)->value > current->value
+			&& (*stack)->next->value > current->value))
 		{
-			ops = addop(ops, "ss");
-			swap_both(s_a, s_b);
-		}
-		else if (op == 22)
-		{
-			ops = addop(ops, "rr");
-			rotate_both(s_a, s_b);
+			*ops = addop(*ops, "sa");
+			swap_a(stack, otherstack);
 		}
 		else
-			doop(s_a, s_b, ops, op);
+		{
+			*ops = addop(*ops, "ra");
+			rotate_a(stack, otherstack);
+		}
 	}
-	return (ops);
 }
 
-t_stackops	*medsolve(t_stack *s_a, t_stack *s_b, t_stackops *ops)
+ void	medsolve_b(t_stack **otherstack, t_stack **stack, t_stackops **ops)
+ {
+	 int *maxindex;
+	 int *maxvalue;
+	 int i;
+	 int size;
+
+	 i = 0;
+	 if (!(maxvalue = (int*)ft_memalloc(sizeof(int))))
+		 return;
+	 if (!(maxindex = (int*)ft_memalloc(sizeof(int))))
+		 return;
+ 	while (*stack)
+ 	{
+		size = ft_count_list(*stack);
+		findmax(*stack, maxvalue, maxindex);
+		if (*maxindex == 0)
+		{
+			*ops = addop(*ops, "pa");
+			push_a(otherstack, stack);
+		}
+		else if (*maxindex < size / 2)
+		{
+			i = *maxindex;
+			while (i >= 0)
+			{
+				*ops = addop(*ops, "rb");
+				rotate_b(otherstack, stack);
+				i--;
+			}
+			*ops = addop(*ops, "pa");
+			push_a(otherstack, stack);
+		}
+		else
+		{
+			i = *maxindex;
+			while (i < size)
+			{
+				*ops = addop(*ops, "rrb");
+				reverse_rotate_b(otherstack, stack);
+				i++;
+			}
+			*ops = addop(*ops, "pa");
+			push_a(otherstack, stack);
+ 		}
+ 	}
+ }
+void ft_merge_pivot(t_stackops **ops, t_stackops **ops1, t_stackops **ops2)
+{
+	t_stackops *c_a;
+	t_stackops *c_b;
+	t_stackops *c_final;
+
+	c_a = *ops1;
+	c_b = *ops2;
+	c_final = *ops;
+	while (c_a && c_a->op)
+	{
+		if (c_b && c_b->op && !ft_strcmp(c_a->op, "sa") && !ft_strcmp(c_b->op, "sb"))
+		{
+			c_final = addop(c_final, "ss");
+			c_b = c_b->next;
+		}
+		else if (c_b && c_b->op && !ft_strcmp(c_a->op, "ra") && !ft_strcmp(c_b->op, "rb"))
+			{
+				c_final = addop(c_final, "rr");
+				c_b = c_b->next;
+			}
+		else if (c_b && c_b->op && !ft_strcmp(c_a->op, "rra") && !ft_strcmp(c_b->op, "rrb"))
+		{
+			c_final = addop(c_final, "rrr");
+			c_b = c_b->next;
+		}
+		else
+			c_final = addop(c_final, c_a->op);
+		c_a = c_a->next;
+	}
+	while (c_b &&  c_b->op)
+	{
+		c_final = addop(c_final, c_b->op);
+		c_b = c_b->next;
+	}
+}
+
+void ft_merge_main(t_stackops **ops, t_stackops **ops_selec)
+{
+	t_stackops *cur_ops;
+	t_stackops *cur_ops_selec;
+
+	cur_ops = *ops;
+	cur_ops_selec = *ops_selec;
+	while (cur_ops->next)
+		cur_ops = cur_ops->next;
+	while (cur_ops_selec)
+	{
+		cur_ops = addop(cur_ops,cur_ops_selec->op);
+		cur_ops_selec = cur_ops_selec->next;
+	}
+}
+
+void ft_merge_ops(t_stackops **ops, t_stackops **ops1, t_stackops **ops2)
+{
+	t_stackops *ops_f1;
+	t_stackops *ops_f2;
+
+	if (!(ops_f1 = (t_stackops*)ft_memalloc(sizeof(t_stackops))))
+		return;
+	if (!(ops_f2 = (t_stackops*)ft_memalloc(sizeof(t_stackops))))
+		return;
+	ft_merge_pivot(&ops_f1, ops1, ops2);
+	ft_merge_pivot(&ops_f2, ops2, ops1);
+	if (ft_count_ops(&ops_f1) > ft_count_ops(&ops_f2))
+		ft_merge_main(ops, &ops_f2);
+	else
+		ft_merge_main (ops, &ops_f1);
+}
+
+void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 {
 	int	*medvalue;
 	int	*medindex;
+	t_stack *medians;
+	t_stack *currentmed;
+	int f;
 
+	f = 0;
 	if (!(medvalue = (int*)ft_memalloc(sizeof(int))))
-		return (0);
+		return;
 	if (!(medindex = (int*)ft_memalloc(sizeof(int))))
-		return (0);
-	findmed(s_a, medvalue, medindex);
-	splitstacks(s_a, s_b, ops, *medvalue);
-	if (!(ops = medsolve2(s_a, s_b, ops)))
-		return (0);
-	while (s_b->next)
+		return;
+	medians = NULL;
+	while (ft_count_list(s_a) > 3)
 	{
-		ops = addop(ops, "pa");
-		push_a(s_a, s_b);
+		findmed(s_a, medvalue, medindex);
+		splitstacks(&s_a, &s_b, ops, *medvalue);
+		currentmed = create_node(NULL,*medvalue);
+		if(medians)
+			currentmed->next = medians;
+		medians = currentmed;
 	}
-	return(ops);
+	medians = medians->next;
+	while (medians || !f)
+	{
+		medsolve_a(&s_a, &s_b, ops);
+		if (medians)
+		{
+			callback(&s_a, &s_b, ops, medians->value);
+			medians = medians->next;
+		}
+		f = 1;
+	}
+	medsolve_b(&s_a, &s_b, ops);
+	print_list(s_a,s_b);
+}
+
+
+void callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
+{
+	t_stack *current;
+
+	current = *s_b;
+	while (current && current->value > med_val)
+	{
+		*ops = addop(*ops, "pa");
+		push_a(s_a, s_b);
+		current = current->next;
+	}
 }

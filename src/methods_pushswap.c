@@ -35,6 +35,31 @@ t_stackops		*addop(t_stackops *ops, char *op)
 	return (ops);
 }
 
+void		findmax(t_stack *stack, int *value_max, int *index_max)
+{
+	t_stack		*current;
+	int 	i;
+	int		v;
+	int		idx;
+
+	i = 0;
+	current = stack;
+	v = -2147483648;
+	idx = 0;
+	while (current)
+	{
+		if (current->value > v)
+		{
+			v = current->value;
+			idx = i;
+		}
+		i++;
+		current = current->next;
+	}
+	*value_max = v;
+	*index_max = idx;
+}
+
 static void		findmin(t_stack *stack, int *value, int *index)
 {
 	t_stack		*current;
@@ -78,54 +103,54 @@ static void		shift(t_stack **stack, int pivot, t_stackops **ops)
 	}
 }
 
-//void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops)
-//{
-//	int first_elem_a;
-//	int second_elem_a;
-//	int last_elem_a;
-//	t_stack *current;
-//
-//	current = *s_a;
-//	first_elem_a = (*s_a)->value;
-//	second_elem_a = (*s_a)->next->value;
-//
-//	while (current->next)
-//		current = current->next;
-//	last_elem_a = current->value;
-//	if (first_elem_a > second_elem_a)
-//	{
-//		*ops = addop(*ops, "sa");
-//		swap_a(s_a, s_b);
-//		basicsolve(s_a, s_b, ops);
-//	}
-//	else if (first_elem_a > last_elem_a)
-//	{
-//		*ops = addop(*ops, "ra");
-//		rotate_a(s_a, s_b);
-//		basicsolve(s_a, s_b, ops);
-//	}
-//	else
-//	{
-//		*ops = addop(*ops, "pb");
-//		push_b(s_a, s_b);
-//		basicsolve(s_a, s_b, ops);
-//	}
-//}
-//
-//void basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops)
-//{
-//	if (issorted(*s_a))
-//	{
-//		if ((*s_b))
-//		{
-//			*ops = addop(*ops, "pa");
-//			push_a(s_a, s_b);
-//			basicsolve(s_a, s_b, ops);
-//		}
-//	}
-//	else
-//		basicsolve2(s_a, s_b, ops);
-//}
+void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops)
+{
+	int first_elem_a;
+	int second_elem_a;
+	int last_elem_a;
+	t_stack *current;
+
+	current = *s_a;
+	first_elem_a = (*s_a)->value;
+	second_elem_a = (*s_a)->next->value;
+
+	while (current->next)
+		current = current->next;
+	last_elem_a = current->value;
+	if (first_elem_a > second_elem_a)
+	{
+		*ops = addop(*ops, "sa");
+		swap_a(s_a, s_b);
+		basicsolve(s_a, s_b, ops);
+	}
+	else if (first_elem_a > last_elem_a)
+	{
+		*ops = addop(*ops, "ra");
+		rotate_a(s_a, s_b);
+		basicsolve(s_a, s_b, ops);
+	}
+	else
+	{
+		*ops = addop(*ops, "pb");
+		push_b(s_a, s_b);
+		basicsolve(s_a, s_b, ops);
+	}
+}
+
+void basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops)
+{
+	if (issorted(*s_a))
+	{
+		if ((*s_b))
+		{
+			*ops = addop(*ops, "pa");
+			push_a(s_a, s_b);
+			basicsolve(s_a, s_b, ops);
+		}
+	}
+	else
+		basicsolve2(s_a, s_b, ops);
+}
 
 
 int			smallresolve(t_stack **stack, t_stackops **ops)

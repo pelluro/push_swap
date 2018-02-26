@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pushswap.h"
-
+//#include "../include/pushswap.h"
 //int		main(int argc, char **argv)
 //{
 //	t_stack *s_a;
@@ -29,3 +28,6 @@
 //	s_a = s_a->next;
 //	return (read_cmds(s_a, s_b, f));
 //}
+//
+
+

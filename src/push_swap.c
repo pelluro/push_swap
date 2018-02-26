@@ -27,7 +27,7 @@ int main (int ac, char **av)
 	if (makestack(stack_a, ac, av, &f))
 	{
 		stack_a = stack_a->next;
-		mediumsolve(stack_a, stack_b, &ops);
+		medsolve(copystack(stack_a), stack_b, &ops);
 		clean_ops(&ops);
 		print_stackops(ops);
 	}
@@ -35,8 +35,8 @@ int main (int ac, char **av)
 	{
 		ft_putendl("error");
 	}
-	ft_del_stack(&stack_a);
-	ft_del_stack(&stack_b);
-	ft_del_stackops(&ops);
+	// ft_del_stack(&stack_a);
+	// ft_del_stack(&stack_b);
+	// ft_del_stackops(&ops);
 	return (0);
 }

@@ -14,6 +14,20 @@ size_t		ft_count_list(t_stack *stack)
   }
   return (i);
 }
+size_t		ft_count_ops(t_stackops **stack)
+{
+  size_t	i;
+  t_stackops	*current;
+
+  i = 0;
+  current = *stack;
+  while (current)
+  {
+    current = current->next;
+    i++;
+  }
+  return (i);
+}
 
 void		ft_del_stack(t_stack **stack)
 {

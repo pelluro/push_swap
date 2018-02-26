@@ -26,6 +26,20 @@ int			issorted(t_stack *stack)
 	return (1);
 }
 
+int			issorted_reverse(t_stack *stack)
+{
+	t_stack	*current;
+
+	current = stack;
+	while (current && current->next)
+	{
+		if (current->next->value >= current->value)
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}
+
 t_stack		*create_node(t_stack *prevelem, int value)
 {
 	t_stack	*newnode;
@@ -34,8 +48,9 @@ t_stack		*create_node(t_stack *prevelem, int value)
 	if (newnode)
 	{
 		newnode->value = value;
-		prevelem->next = newnode;
 		newnode->next = NULL;
+		if(prevelem)
+			prevelem->next = newnode;
 	}
 	return (newnode);
 }
