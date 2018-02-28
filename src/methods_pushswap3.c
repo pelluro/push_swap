@@ -47,6 +47,7 @@ void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
 {
 	  t_stack * current;
 
+print_list(*stack, *otherstack);
 	while (!issorted(*stack))
 	{
 		current = *stack;

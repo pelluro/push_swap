@@ -6,7 +6,7 @@
 #    By: mipham <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/27 15:48:09 by mipham            #+#    #+#              #
-#    Updated: 2017/12/27 15:48:24 by mipham           ###   ########.fr        #
+#    Updated: 2018/02/28 18:00:52 by mipham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCCHECKER = src/checker.c src/methods.c src/methods2.c\
 SRCPUSH = src/push_swap.c src/methods.c src/methods2.c\
 						src/op_push.c src/op_rotate.c src/op_reverserotate.c src/op_swap.c\
 						src/ft_count_list.c\
-						src/methods_pushswap.c src/methods_pushswap2.c
+						src/methods_pushswap.c src/methods_pushswap2.c src/methods_pushswap3.c
 INC = -I includes
 
 OBJCHECKER = $(SRCCHECKER:.c=.o)

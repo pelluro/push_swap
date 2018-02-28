@@ -171,20 +171,20 @@ int			smallresolve(t_stack **stack, t_stackops **ops)
 
 void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 {
-	int	*minvalue;
-	int	*minindex;
+	int	minvalue;
+	int	minindex;
 
-	if (!(minvalue = (int*)ft_memalloc(sizeof(int))))
-		ft_error(0);
-	if (!(minindex = (int*)ft_memalloc(sizeof(int))))
-		ft_error(0);
+	// if (!(minvalue = (int*)ft_memalloc(sizeof(int))))
+	// 	ft_error(0);
+	// if (!(minindex = (int*)ft_memalloc(sizeof(int))))
+	// 	ft_error(0);
 	while (!issorted(s_a) || s_b)
 	{
 		while (s_a && s_a->next && s_a->next->next)
 		{
-			findmin(s_a, minvalue, minindex);
-			while (s_a->value > *minvalue)
-				shift(&s_a, *minindex, ops);
+			findmin(s_a, &minvalue, &minindex);
+			while (s_a->value > minvalue)
+				shift(&s_a, minindex, ops);
 			*ops = addop(*ops, "pb");
 			push_b(&s_a, &s_b);
 		}
@@ -195,6 +195,6 @@ void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 			push_a(&s_a, &s_b);
 		}
 	}
-	free (minvalue);
-	free (minindex);
+	// free (minvalue);
+	// free (minindex);
 }

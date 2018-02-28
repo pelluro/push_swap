@@ -120,16 +120,17 @@ void clean_ops(t_stackops **ops)
 void		findmed(t_stack *stack, int *value, int *index)
 {
 	t_stack *copy;
-	int* size;
+	int size;
 	int* tab;
 
-	size = (int*)ft_memalloc(sizeof(int));
+	//size = (int*)ft_memalloc(sizeof(int));
 	copy = copystack(stack);
-	tab = stacktotab(copy,size);
-	ft_sort_integer_table(tab, (*size - 1));
-	*index = *size / 2;
+	tab = stacktotab(copy,&size);
+	ft_sort_integer_table(tab, (size));
+	*index = size / 2;
 	*value = tab[(*index)];
-	free(size);
+	printf("med: %d\n", *value);
+	//free(size);
 }
 
 t_stack		*copystack(t_stack *stack)
