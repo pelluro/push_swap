@@ -24,6 +24,7 @@ int main (int ac, char **av)
 		return (0);
 	stack_b = NULL;
 	ops = NULL;
+	printf("av=%s\n",av[1]);
 	if (makestack(stack_a, ac, av, &f))
 	{
 		stack_a = stack_a->next;

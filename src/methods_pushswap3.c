@@ -91,7 +91,7 @@ void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
 		else if (*maxindex < size / 2)
 		{
 			i = *maxindex;
-			while (i >= 0)
+			while (i > 0)
 			{
 				*ops = addop(*ops, "rb");
 				rotate_b(otherstack, stack);
@@ -198,6 +198,7 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	if (!(medindex = (int*)ft_memalloc(sizeof(int))))
 		return;
 	medians = NULL;
+	print_list(s_a, s_b);
 	while (ft_count_list(s_a) > 3)
 	{
 		findmed(s_a, medvalue, medindex);
@@ -211,27 +212,40 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	while (medians || !f)
 	{
 		medsolve_a(&s_a, &s_b, ops);
+		print_list(s_a, s_b);
 		if (medians)
 		{
 			callback(&s_a, &s_b, ops, medians->value);
 			medians = medians->next;
+			medsolve_a(&s_a, &s_b, ops);
 		}
 		f = 1;
 	}
 	medsolve_b(&s_a, &s_b, ops);
-	print_list(s_a,s_b);
+	print_list(s_a, s_b);
 }
 
 
 void callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
 {
-	t_stack *current;
+	int i;
+	int size;
 
-	current = *s_b;
-	while (current && current->value > med_val)
+
+	size = ft_count_list(*s_b);
+	i = 0;
+	while (i < size)
 	{
-		*ops = addop(*ops, "pa");
-		push_a(s_a, s_b);
-		current = current->next;
+		if((*s_b)->value > med_val)
+		{
+			*ops = addop(*ops, "pa");
+			push_a(s_a, s_b);
+		}
+		else
+		{
+			*ops = addop(*ops, "rb");
+			rotate_b(s_a, s_b);
+		}
+		i++;
 	}
 }
