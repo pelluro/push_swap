@@ -14,12 +14,12 @@
 
 int		main(int argc, char **argv)
 {
-	t_stack *s_a;
-	t_stack *s_b;
-	int	f;
+	t_stack	*s_a;
+	t_stack	*s_b;
+	int		f;
 
 	f = 0;
-	if(argc == 1)
+	if (argc == 1)
 		ft_error(0);
 	if (!(s_a = (t_stack*)ft_memalloc(sizeof(t_stack))))
 		return (0);

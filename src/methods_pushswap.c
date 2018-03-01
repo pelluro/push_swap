@@ -174,10 +174,6 @@ void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	int	minvalue;
 	int	minindex;
 
-	// if (!(minvalue = (int*)ft_memalloc(sizeof(int))))
-	// 	ft_error(0);
-	// if (!(minindex = (int*)ft_memalloc(sizeof(int))))
-	// 	ft_error(0);
 	while (!issorted(s_a) || s_b)
 	{
 		while (s_a && s_a->next && s_a->next->next)

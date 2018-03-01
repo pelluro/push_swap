@@ -14,9 +14,9 @@
 
 void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue)
 {
-	t_stack *current;
-	int i;
-	int size;
+	t_stack		*current;
+	int			i;
+	int			size;
 
 	i =  0;
 	size = ft_count_list(*s_a);
@@ -43,9 +43,9 @@ void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue)
 	}
 }
 
-void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
+void	medsolve_a(t_stack **stack, t_stack **otherstack, t_stackops **ops)
 {
-//	  t_stack * current;
+	  t_stack * current;
 	int	max_val;
 	int	max_id;
 	int	min_val;
@@ -57,13 +57,20 @@ void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
 	findmin(*stack, &min_val, &min_id);
 	while (!issorted(*stack))
 	{
-//		current = *stack;
-//		while(current->next)
-//			current = current->next;
+		current = *stack;
+		while(current->next)
+			current = current->next;
 //		if(((*stack)->value > (*stack)->next->value && (*stack)->value < current->value) ||
 //		   ((*stack)->value > (*stack)->next->value && (*stack)->value > current->value
 //			&& (*stack)->next->value > current->value))
-		if ((*stack)->value > (*stack)->next->value && (*stack)->value != max_val)
+		if ((*stack)->value == min_val && (*stack)->next->value > current->value)
+		{
+			*ops = addop(*ops, "rra");
+			reverse_rotate_a(stack, otherstack);
+			*ops = addop(*ops, "sa");
+			swap_a(stack, otherstack);
+		}
+		else if ((*stack)->value > (*stack)->next->value && (*stack)->value != max_val)
 		{
 			*ops = addop(*ops, "sa");
 			swap_a(stack, otherstack);
@@ -121,9 +128,9 @@ void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
  }
 void ft_merge_pivot(t_stackops **ops, t_stackops **ops1, t_stackops **ops2)
 {
-	t_stackops *c_a;
-	t_stackops *c_b;
-	t_stackops *c_final;
+	t_stackops	*c_a;
+	t_stackops	*c_b;
+	t_stackops	*c_final;
 
 	c_a = *ops1;
 	c_b = *ops2;
@@ -199,7 +206,6 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 
 	f = 0;
 	medians = NULL;
-//	print_list(s_a, s_b);
 	while (ft_count_list(s_a) > 3)
 	{
 		findmed(s_a, &medvalue, &medindex);
@@ -213,7 +219,6 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	while (medians || !f)
 	{
 		medsolve_a(&s_a, &s_b, ops);
-//		print_list(s_a, s_b);
 		if (medians)
 		{
 			callback(&s_a, &s_b, ops, medians->value);
@@ -223,7 +228,6 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 		f = 1;
 	}
 	medsolve_b(&s_a, &s_b, ops);
-//	print_list(s_a, s_b);
 }
 
 

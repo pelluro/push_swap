@@ -94,7 +94,7 @@ int				makestack(t_stack *stack, int argc, char **argv, int *f)
 {
 	int		i;
 	int		j;
-	t_stack *current;
+	t_stack	*current;
 
 	i = 1;
 	current = NULL;
