@@ -60,7 +60,7 @@ void		findmax(t_stack *stack, int *value_max, int *index_max)
 	*index_max = idx;
 }
 
-static void		findmin(t_stack *stack, int *value, int *index)
+void		findmin(t_stack *stack, int *value, int *index)
 {
 	t_stack		*current;
 	int 	i;

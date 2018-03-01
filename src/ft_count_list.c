@@ -14,6 +14,7 @@ size_t		ft_count_list(t_stack *stack)
   }
   return (i);
 }
+
 size_t		ft_count_ops(t_stackops **stack)
 {
   size_t	i;

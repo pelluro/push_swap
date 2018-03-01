@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/pushswap.h"
+
 int		main(int argc, char **argv)
 {
 	t_stack *s_a;

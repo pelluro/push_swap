@@ -12,10 +12,10 @@
 
 #include "../include/pushswap.h"
 
-static void	clean_push(t_stackops **ops)
+static void		clean_push(t_stackops **ops)
 {
-	t_stackops *current;
-	t_stackops *previous;
+	t_stackops	*current;
+	t_stackops	*previous;
 
 	previous = NULL;
 	current = *ops;
@@ -44,10 +44,10 @@ static void	clean_push(t_stackops **ops)
 	}
 }
 
-static void clean_rotate(t_stackops **ops)
+static void		clean_rotate(t_stackops **ops)
 {
-		t_stackops *current;
-		t_stackops *previous;
+		t_stackops	*current;
+		t_stackops	*previous;
 
 		previous = NULL;
 		current = *ops;
@@ -78,10 +78,10 @@ static void clean_rotate(t_stackops **ops)
 		}
 }
 
-static void clean_reverserotate(t_stackops **ops)
+static void		clean_reverserotate(t_stackops **ops)
 {
-	t_stackops *current;
-	t_stackops *previous;
+	t_stackops	*current;
+	t_stackops	*previous;
 
 	previous = NULL;
 	current = *ops;
@@ -119,18 +119,15 @@ void clean_ops(t_stackops **ops)
 
 void		findmed(t_stack *stack, int *value, int *index)
 {
-	t_stack *copy;
-	int size;
-	int* tab;
+	t_stack		*copy;
+	int			size;
+	int			*tab;
 
-	//size = (int*)ft_memalloc(sizeof(int));
 	copy = copystack(stack);
 	tab = stacktotab(copy,&size);
-	ft_sort_integer_table(tab, (size));
+	ft_sort_integer_table(tab, size);
 	*index = size / 2;
 	*value = tab[(*index)];
-	printf("med: %d\n", *value);
-	//free(size);
 }
 
 t_stack		*copystack(t_stack *stack)
@@ -141,8 +138,8 @@ t_stack		*copystack(t_stack *stack)
 
 	current = stack;
 	current_copy = NULL;
-	if(!(stack_copy = (t_stack*)ft_memalloc(sizeof(t_stack))))
-		return(NULL);
+	if (!(stack_copy = (t_stack*)ft_memalloc(sizeof(t_stack))))
+		return (NULL);
 	while (current)
 	{
 		current_copy = create_node(current_copy ? current_copy : stack_copy, current->value);
@@ -151,11 +148,11 @@ t_stack		*copystack(t_stack *stack)
 	return (stack_copy->next);
 }
 
-int* stacktotab(t_stack* stack, int* size)
+int			*stacktotab(t_stack *stack, int *size)
 {
-	t_stack *current;
-	int* tab;
-	int i;
+	t_stack	*current;
+	int		*tab;
+	int		i;
 
 	current = stack;
 	*size = 0;
@@ -173,5 +170,5 @@ int* stacktotab(t_stack* stack, int* size)
 		current = current->next;
 		i++;
 	}
-	return(tab);
+	return (tab);
 }

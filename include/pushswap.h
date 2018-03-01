@@ -66,6 +66,7 @@ void		mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
 void		basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops);
 void		basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops);
 void		findmax(t_stack *stack, int *value_max, int *index_max);
+void		findmin(t_stack *stack, int *value, int *index);
 /*
 ** methods_pushswap2.c
 */

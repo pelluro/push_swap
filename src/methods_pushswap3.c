@@ -45,17 +45,25 @@ void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue)
 
 void	medsolve_a(t_stack **stack, t_stack** otherstack, t_stackops **ops)
 {
-	  t_stack * current;
+//	  t_stack * current;
+	int	max_val;
+	int	max_id;
+	int	min_val;
+	int min_id;
 
-print_list(*stack, *otherstack);
+
+//	print_list(*stack, *otherstack);
+	findmax(*stack, &max_val, &max_id);
+	findmin(*stack, &min_val, &min_id);
 	while (!issorted(*stack))
 	{
-		current = *stack;
-		while(current->next)
-			current = current->next;
-		if(((*stack)->value > (*stack)->next->value && (*stack)->value < current->value) ||
-		   ((*stack)->value > (*stack)->next->value && (*stack)->value > current->value
-			&& (*stack)->next->value > current->value))
+//		current = *stack;
+//		while(current->next)
+//			current = current->next;
+//		if(((*stack)->value > (*stack)->next->value && (*stack)->value < current->value) ||
+//		   ((*stack)->value > (*stack)->next->value && (*stack)->value > current->value
+//			&& (*stack)->next->value > current->value))
+		if ((*stack)->value > (*stack)->next->value && (*stack)->value != max_val)
 		{
 			*ops = addop(*ops, "sa");
 			swap_a(stack, otherstack);
@@ -70,28 +78,24 @@ print_list(*stack, *otherstack);
 
  void	medsolve_b(t_stack **otherstack, t_stack **stack, t_stackops **ops)
  {
-	 int *maxindex;
-	 int *maxvalue;
-	 int i;
-	 int size;
+	 int	maxindex;
+	 int	maxvalue;
+	 int	i;
+	 int	size;
 
-	 i = 0;
-	 if (!(maxvalue = (int*)ft_memalloc(sizeof(int))))
-		 return;
-	 if (!(maxindex = (int*)ft_memalloc(sizeof(int))))
-		 return;
+	i = 0;
  	while (*stack)
  	{
 		size = ft_count_list(*stack);
-		findmax(*stack, maxvalue, maxindex);
-		if (*maxindex == 0)
+		findmax(*stack, &maxvalue, &maxindex);
+		if (maxindex == 0)
 		{
 			*ops = addop(*ops, "pa");
 			push_a(otherstack, stack);
 		}
-		else if (*maxindex < size / 2)
+		else if (maxindex < size / 2)
 		{
-			i = *maxindex;
+			i = maxindex;
 			while (i > 0)
 			{
 				*ops = addop(*ops, "rb");
@@ -103,7 +107,7 @@ print_list(*stack, *otherstack);
 		}
 		else
 		{
-			i = *maxindex;
+			i = maxindex;
 			while (i < size)
 			{
 				*ops = addop(*ops, "rrb");
@@ -187,24 +191,20 @@ void ft_merge_ops(t_stackops **ops, t_stackops **ops1, t_stackops **ops2)
 
 void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 {
-	int	*medvalue;
-	int	*medindex;
+	int	medvalue;
+	int	medindex;
 	t_stack *medians;
 	t_stack *currentmed;
 	int f;
 
 	f = 0;
-	if (!(medvalue = (int*)ft_memalloc(sizeof(int))))
-		return;
-	if (!(medindex = (int*)ft_memalloc(sizeof(int))))
-		return;
 	medians = NULL;
-	print_list(s_a, s_b);
+//	print_list(s_a, s_b);
 	while (ft_count_list(s_a) > 3)
 	{
-		findmed(s_a, medvalue, medindex);
-		splitstacks(&s_a, &s_b, ops, *medvalue);
-		currentmed = create_node(NULL,*medvalue);
+		findmed(s_a, &medvalue, &medindex);
+		splitstacks(&s_a, &s_b, ops, medvalue);
+		currentmed = create_node(NULL, medvalue);
 		if(medians)
 			currentmed->next = medians;
 		medians = currentmed;
@@ -213,7 +213,7 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 	while (medians || !f)
 	{
 		medsolve_a(&s_a, &s_b, ops);
-		print_list(s_a, s_b);
+//		print_list(s_a, s_b);
 		if (medians)
 		{
 			callback(&s_a, &s_b, ops, medians->value);
@@ -223,11 +223,11 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 		f = 1;
 	}
 	medsolve_b(&s_a, &s_b, ops);
-	print_list(s_a, s_b);
+//	print_list(s_a, s_b);
 }
 
 
-void callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
+void	callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
 {
 	int i;
 	int size;
