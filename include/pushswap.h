@@ -24,8 +24,10 @@ typedef struct	s_stack
 
 typedef struct	s_stackops
 {
-   char *op;
-   struct	s_stackops *next;
+	char *op;
+	int sizestack_a;
+	int sizestack_b;
+	struct	s_stackops *next;
 }				t_stackops;
 
 typedef void	(*stack_op)(t_stack**, t_stack**);
@@ -60,7 +62,7 @@ int			read_cmds(t_stack *s_a, t_stack *s_b, int f);
 /*
 ** methods_pushswap.c
 */
-t_stackops	*addop(t_stackops *ops, char *op);
+t_stackops		*addop(t_stackops *ops, char *op, int size_sa, int size_sb);
 int			smallresolve(t_stack **stack, t_stackops **ops);
 void		mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
 void		basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops);

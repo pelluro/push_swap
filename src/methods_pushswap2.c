@@ -110,9 +110,54 @@ static void		clean_reverserotate(t_stackops **ops)
 	}
 }
 
-void clean_ops(t_stackops **ops)
+static void	clean_smart(t_stackops **ops)
+{
+	t_stackops	*current;
+	t_stackops	*first;
+	int 		c;
+	int 		i;
+
+	current = *ops;
+	first = NULL;
+	while (current)
+	{
+		if (ft_strcmp(current->op, "ra"))
+		{
+			if (!first)
+			{
+				first = current;
+				c = 1;
+			}
+			else
+				c++;
+		}
+		else
+		{
+			if (first)
+			{
+				if (c > first->sizestack_a / 2)
+				{
+					first->op = "rra";
+					first->next = NULL;
+					i = 1;
+					while (i <= (first->sizestack_a - c))
+					{
+						first = addop(first, "rra", first->sizestack_a, first->sizestack_b);
+						i++;
+					}
+					first->next = current;
+				}
+				first = NULL;
+			}
+		}
+		current = current->next;
+	}
+}
+
+void		clean_ops(t_stackops **ops)
 {
 	clean_push(ops);
+	clean_smart(ops);
 	clean_rotate(ops);
 	clean_reverserotate(ops);
 }
