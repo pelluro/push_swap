@@ -27,21 +27,11 @@ int main (int ac, char **av)
 		return (0);
 	stack_b = NULL;
 	ops = NULL;
-<<<<<<< HEAD
 	// printf("%s\n",av[1]);
 	if (makestack(stack_a, ac, av, &f))
 	{
 		stack_a = stack_a->next;
 		medsolve(stack_a, stack_b, &ops);
-=======
-	printf("%s\n",av[1]);
-	if (makestack(stack_a, ac, av, &f))
-	{
-		stack_a = stack_a->next;
-		medsolve(copystack(stack_a), stack_b, &ops);
-//		print_stackops(ops);
-//		printf("\n\n\n\n\n");
->>>>>>> ce3e2b88ea344c1b94d94b1eb12e866ad896ac16
 		clean_ops(&ops);
 		print_stackops(ops);
 //		mediumsolve(stack_a,stack_b, &ops1);
