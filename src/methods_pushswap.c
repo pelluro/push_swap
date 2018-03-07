@@ -17,9 +17,9 @@ t_stackops		*addop(t_stackops *ops, char *op)
 	t_stackops	*current;
 	t_stackops	*new;
 
-	if(!ops)
+	if (!ops)
 		ops = (t_stackops*)ft_memalloc(sizeof(t_stackops));
-	if(ops->op)
+	if (ops->op)
 	{
 		current = ops;
 		while (current->next)
@@ -63,9 +63,9 @@ void		findmax(t_stack *stack, int *value_max, int *index_max)
 void		findmin(t_stack *stack, int *value, int *index)
 {
 	t_stack		*current;
-	int 	i;
-	int		v;
-	int		idx;
+	int 		i;
+	int			v;
+	int			idx;
 
 	i = 0;
 	current = stack;
@@ -88,7 +88,7 @@ void		findmin(t_stack *stack, int *value, int *index)
 
 static void		shift(t_stack **stack, int pivot, t_stackops **ops)
 {
-	int size;
+	int	size;
 
 	size = ft_count_list(*stack);
 	if (pivot > size / 2)
@@ -105,7 +105,7 @@ static void		shift(t_stack **stack, int pivot, t_stackops **ops)
 
 void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops)
 {
-	int first_elem_a;
+	int	first_elem_a;
 	int second_elem_a;
 	int last_elem_a;
 	t_stack *current;
@@ -162,7 +162,7 @@ int			smallresolve(t_stack **stack, t_stackops **ops)
 		if (*ops)
 			*ops = addop(*ops, "sa");
 		else
-		  ft_putendl("sa");
+			ft_putendl("sa");
 		*stack = swap(*stack);
 	}
 	return (0);
@@ -191,6 +191,4 @@ void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 			push_a(&s_a, &s_b);
 		}
 	}
-	// free (minvalue);
-	// free (minindex);
 }

@@ -110,6 +110,12 @@ static void		clean_reverserotate(t_stackops **ops)
 	}
 }
 
+//static void		clean_smart(t_stackops **ops)
+//{
+//
+//
+//}
+
 void clean_ops(t_stackops **ops)
 {
 	clean_push(ops);
@@ -124,7 +130,7 @@ void		findmed(t_stack *stack, int *value, int *index)
 	int			*tab;
 
 	copy = copystack(stack);
-	tab = stacktotab(copy,&size);
+	tab = stacktotab(copy,  &size);
 	ft_sort_integer_table(tab, size);
 	*index = size / 2;
 	*value = tab[(*index)];

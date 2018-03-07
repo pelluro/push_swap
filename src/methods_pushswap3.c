@@ -51,8 +51,6 @@ void	medsolve_a(t_stack **stack, t_stack **otherstack, t_stackops **ops)
 	int	min_val;
 	int min_id;
 
-
-//	print_list(*stack, *otherstack);
 	findmax(*stack, &max_val, &max_id);
 	findmin(*stack, &min_val, &min_id);
 	while (!issorted(*stack))
@@ -60,9 +58,6 @@ void	medsolve_a(t_stack **stack, t_stack **otherstack, t_stackops **ops)
 		current = *stack;
 		while(current->next)
 			current = current->next;
-//		if(((*stack)->value > (*stack)->next->value && (*stack)->value < current->value) ||
-//		   ((*stack)->value > (*stack)->next->value && (*stack)->value > current->value
-//			&& (*stack)->next->value > current->value))
 		if ((*stack)->value == min_val && (*stack)->next->value > current->value)
 		{
 			*ops = addop(*ops, "rra");
@@ -126,6 +121,7 @@ void	medsolve_a(t_stack **stack, t_stack **otherstack, t_stackops **ops)
  		}
  	}
  }
+
 void ft_merge_pivot(t_stackops **ops, t_stackops **ops1, t_stackops **ops2)
 {
 	t_stackops	*c_a;
@@ -206,28 +202,35 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 
 	f = 0;
 	medians = NULL;
+
+	// print_list(s_a, s_b);
 	while (ft_count_list(s_a) > 3)
 	{
 		findmed(s_a, &medvalue, &medindex);
 		splitstacks(&s_a, &s_b, ops, medvalue);
 		currentmed = create_node(NULL, medvalue);
-		if(medians)
+		if (medians)
 			currentmed->next = medians;
 		medians = currentmed;
+		// print_list(s_a, s_b);
 	}
 	medians = medians->next;
 	while (medians || !f)
 	{
 		medsolve_a(&s_a, &s_b, ops);
+		medsolve_b(&s_a, &s_b, ops);
 		if (medians)
 		{
 			callback(&s_a, &s_b, ops, medians->value);
 			medians = medians->next;
-			medsolve_a(&s_a, &s_b, ops);
+			// medsolve_a(&s_a, &s_b, ops);
+			// print_list(s_a, s_b);
 		}
 		f = 1;
+
 	}
-	medsolve_b(&s_a, &s_b, ops);
+
+	// print_list(s_a, s_b);
 }
 
 
@@ -241,7 +244,7 @@ void	callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
 	i = 0;
 	while (i < size)
 	{
-		if((*s_b)->value > med_val)
+		if ((*s_b)->value > med_val)
 		{
 			*ops = addop(*ops, "pa");
 			push_a(s_a, s_b);
