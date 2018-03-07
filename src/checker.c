@@ -29,6 +29,3 @@ int		main(int argc, char **argv)
 	s_a = s_a->next;
 	return (read_cmds(s_a, s_b, f));
 }
-
-
-
