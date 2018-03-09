@@ -18,8 +18,6 @@ int main (int ac, char **av)
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_stackops	*ops;
-	//	t_stackops	*ops1;
-//	t_stackops	*ops2;
 	int f;
 
 	f = 0;
@@ -27,19 +25,14 @@ int main (int ac, char **av)
 		return (0);
 	stack_b = NULL;
 	ops = NULL;
-	// printf("%s\n",av[1]);
 	if (makestack(stack_a, ac, av, &f))
 	{
 		stack_a = stack_a->next;
-		medsolve(stack_a, stack_b, &ops);
+		medsolve(copystack(stack_a), stack_b, &ops);
+//		print_stackops(ops);
+//		printf("\n\n\n\n\n");
 		clean_ops(&ops);
 		print_stackops(ops);
-//		mediumsolve(stack_a,stack_b, &ops1);
-//		clean_ops(&ops1);
-//		print_stackops(ops1);
-//		basicsolve(&stack_a, stack_b, &ops2);
-//		clean_ops(&ops2);
-//		print_stackops(ops2);
 	}
 	else
 	{
