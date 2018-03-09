@@ -18,7 +18,7 @@
 
 typedef struct	s_stack
 {
-   int	value;
+   int	val;
    struct	s_stack*	next;
 }				t_stack;
 
@@ -32,9 +32,9 @@ typedef struct	s_stackops
 
 typedef void	(*stack_op)(t_stack**, t_stack**);
 /*
-** ft_count_list.c
+** count_list.c
 */
-size_t		ft_count_list(t_stack *stack);
+size_t		count_list(t_stack *stack);
 size_t		ft_count_ops(t_stackops **stack);
 void		ft_del_stack(t_stack **stack);
 void		ft_del_stackops(t_stackops **ops);
@@ -52,7 +52,7 @@ int			makestack(t_stack *stack, int argc, char **argv, int *f);
 */
 int			issorted(t_stack *stack);
 int			issorted_reverse(t_stack *stack);
-t_stack		*create_node(t_stack *prevelem, int value);
+t_stack		*create_node(t_stack *prevelem, int val);
 /*
 ** methods_checker.c
 */
@@ -67,21 +67,21 @@ int			smallresolve(t_stack **stack, t_stackops **ops);
 void		mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
 void		basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops);
 void		basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops);
-void		findmax(t_stack *stack, int *value_max, int *index_max);
-void		findmin(t_stack *stack, int *value, int *index);
+void		findmax(t_stack *stack, int *val_max, int *index_max);
+void		findmin(t_stack *stack, int *val, int *index);
 /*
 ** methods_pushswap2.c
 */
 void		clean_ops(t_stackops **ops);
-void		findmed(t_stack *stack, int *value, int *index);
+void		findmed(t_stack *stack, int *val, int *index);
 t_stack		*copystack(t_stack *stack);
 int			* stacktotab(t_stack* stack, int* size);
 /*
 ** methods_pushswap3.c
 */
-void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue);
-void		medsolve_a(t_stack** stack, t_stack **otherstack, t_stackops **ops);
-void		medsolve_b(t_stack **otherstack, t_stack **stack, t_stackops **ops);
+void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medval);
+void		medsolve_a(t_stack** stack, t_stack **o_stack, t_stackops **ops);
+void		medsolve_b(t_stack **o_stack, t_stack **stack, t_stackops **ops);
 void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops);
 void ft_merge_pivot(t_stackops **ops, t_stackops **ops1, t_stackops **ops2);
 void ft_merge_main(t_stackops **ops, t_stackops **ops_selec);

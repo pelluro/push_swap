@@ -24,11 +24,11 @@ static char		*ft_verif (int nbr)
 static char		*ft_itoa_core(int nbr, int puissance, int signe)
 {
 	int		r;
-	int		value;
+	int		val;
 	char	*res;
 
 	r = 0;
-	value = nbr;
+	val = nbr;
 	while (nbr > 9)
 	{
 		nbr = nbr / 10;
@@ -39,8 +39,8 @@ static char		*ft_itoa_core(int nbr, int puissance, int signe)
 	res[puissance] = '\0';
 	while (puissance >= signe)
 	{
-		r = value % 10;
-		value = value / 10;
+		r = val % 10;
+		val = val / 10;
 		res[puissance--] = r + 48;
 	}
 	if (signe == 1)

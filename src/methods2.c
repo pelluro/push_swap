@@ -19,7 +19,7 @@ int			issorted(t_stack *stack)
 	current = stack;
 	while (current && current->next)
 	{
-		if (current->next->value <= current->value)
+		if (current->next->val <= current->val)
 			return (0);
 		current = current->next;
 	}
@@ -33,21 +33,21 @@ int			issorted_reverse(t_stack *stack)
 	current = stack;
 	while (current && current->next)
 	{
-		if (current->next->value >= current->value)
+		if (current->next->val >= current->val)
 			return (0);
 		current = current->next;
 	}
 	return (1);
 }
 
-t_stack		*create_node(t_stack *prevelem, int value)
+t_stack		*create_node(t_stack *prevelem, int val)
 {
 	t_stack	*newnode;
 
 	newnode = (t_stack*)ft_memalloc(sizeof(t_stack));
 	if (newnode)
 	{
-		newnode->value = value;
+		newnode->val = val;
 		newnode->next = NULL;
 		if(prevelem)
 			prevelem->next = newnode;

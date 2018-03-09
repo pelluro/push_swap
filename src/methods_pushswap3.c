@@ -12,121 +12,120 @@
 
 #include "../include/pushswap.h"
 
-void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medvalue)
+void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medval)
 {
 	t_stack		*current;
 	int			i;
 	int			size;
 
-	i =  0;
-	size = ft_count_list(*s_a);
+	i =  -1;
+	size = count_list(*s_a);
 	current = (*s_a);
-	while (i < size + 1)
+	while (++i < size + 1)
 	{
-		if (current->value == medvalue)
+		if (current->val == medval)
 		{
-			*ops = addop(*ops, "ra", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "ra", count_list(*s_a), count_list(*s_b));
 			rotate_a(s_a, s_b);
 		}
-		else if (current->value <= medvalue)
+		else if (current->val <= medval)
 		{
-			*ops = addop(*ops, "pb", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "pb", count_list(*s_a), count_list(*s_b));
 			push_b(s_a, s_b);
 		}
 		else
 		{
-			*ops = addop(*ops, "ra", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "ra", count_list(*s_a), count_list(*s_b));
 			rotate_a(s_a, s_b);
 		}
 		current = (*s_a);
-		i++;
 	}
 }
 
-void	medsolve_a(t_stack **stack, t_stack **otherstack, t_stackops **ops)
+void	medsolve_a(t_stack **stack, t_stack **o_stack, t_stackops **ops)
 {
 	  t_stack * current;
-	int	max_val;
+	int	maxval;
 	int	max_id;
 	int	min_val;
 	int min_id;
 
 
-//	print_list(*stack, *otherstack);
-	findmax(*stack, &max_val, &max_id);
+//	print_list(*stack, *o_stack);
+	findmax(*stack, &maxval, &max_id);
 	findmin(*stack, &min_val, &min_id);
 	while (!issorted(*stack))
 	{
 		current = *stack;
 		while(current->next)
 			current = current->next;
-		if ((*stack)->value == min_val && (*stack)->next->value > current->value)
+		if ((*stack)->val == min_val && (*stack)->next->val > current->val)
 		{
-			*ops = addop(*ops, "rra", ft_count_list(*stack), ft_count_list(*otherstack));
-			reverse_rotate_a(stack, otherstack);
-			*ops = addop(*ops, "sa", ft_count_list(*stack), ft_count_list(*otherstack));
-			swap_a(stack, otherstack);
+			*ops = addop(*ops, "rra", count_list(*stack), count_list(*o_stack));
+			reverse_rotate_a(stack, o_stack);
+			*ops = addop(*ops, "sa", count_list(*stack), count_list(*o_stack));
+			swap_a(stack, o_stack);
 		}
-		else if ((*stack)->value > (*stack)->next->value && (*stack)->value != max_val)
+		else if ((*stack)->val > (*stack)->next->val && (*stack)->val != maxval)
 		{
-			*ops = addop(*ops, "sa", ft_count_list(*stack), ft_count_list(*otherstack));
-			swap_a(stack, otherstack);
+			*ops = addop(*ops, "sa", count_list(*stack), count_list(*o_stack));
+			swap_a(stack, o_stack);
 		}
 		else
 		{
-			*ops = addop(*ops, "ra", ft_count_list(*stack), ft_count_list(*otherstack));
-			rotate_a(stack, otherstack);
+			*ops = addop(*ops, "ra", count_list(*stack), count_list(*o_stack));
+			rotate_a(stack, o_stack);
 		}
 	}
 }
 
- void	medsolve_b(t_stack **otherstack, t_stack **stack, t_stackops **ops)
+ void	medsolve_b(t_stack **o_stack, t_stack **stack, t_stackops **ops)
  {
 	 int	maxindex;
-	 int	maxvalue;
+	 int	maxval;
 	 int	i;
 	 int	size;
 
 	i = 0;
  	while (*stack)
  	{
-		size = ft_count_list(*stack);
-		findmax(*stack, &maxvalue, &maxindex);
+		size = count_list(*stack);
+		findmax(*stack, &maxval, &maxindex);
 		if (maxindex == 0)
 		{
-			*ops = addop(*ops, "pa", ft_count_list(*otherstack), ft_count_list(*stack));
-			push_a(otherstack, stack);
+			*ops = addop(*ops, "pa", count_list(*o_stack), count_list(*stack));
+			push_a(o_stack, stack);
 		}
 		else if (maxindex < size / 2)
 		{
 			i = maxindex;
 			while (i > 0)
 			{
-				*ops = addop(*ops, "rb", ft_count_list(*otherstack), ft_count_list(*stack));
-				rotate_b(otherstack, stack);
+				*ops = addop(*ops, "rb", count_list(*o_stack), count_list(*stack));
+				rotate_b(o_stack, stack);
 				i--;
 			}
-			*ops = addop(*ops, "pa", ft_count_list(*otherstack), ft_count_list(*stack));
-			push_a(otherstack, stack);
+			*ops = addop(*ops, "pa", count_list(*o_stack), count_list(*stack));
+			push_a(o_stack, stack);
 		}
 		else
 		{
 			i = maxindex;
 			while (i < size)
 			{
-				*ops = addop(*ops, "rrb", ft_count_list(*otherstack), ft_count_list(*stack));
-				reverse_rotate_b(otherstack, stack);
+				*ops = addop(*ops, "rrb", count_list(*o_stack), count_list(*stack));
+				reverse_rotate_b(o_stack, stack);
 				i++;
 			}
-			*ops = addop(*ops, "pa", ft_count_list(*otherstack), ft_count_list(*stack));
-			push_a(otherstack, stack);
+			*ops = addop(*ops, "pa", count_list(*o_stack), count_list(*stack));
+			push_a(o_stack, stack);
  		}
  	}
  }
 
 void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 {
-	int	medvalue;
+	int	medval;
 	int	medindex;
 	t_stack *medians;
 	t_stack *currentmed;
@@ -134,14 +133,17 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 
 	f = 0;
 	medians = NULL;
-	while (ft_count_list(s_a) > 3)
+
+//	 print_list(s_a, s_b);
+	while (count_list(s_a) > 3)
 	{
-		findmed(s_a, &medvalue, &medindex);
-		splitstacks(&s_a, &s_b, ops, medvalue);
-		currentmed = create_node(NULL, medvalue);
-		if(medians)
+		findmed(s_a, &medval, &medindex);
+		splitstacks(&s_a, &s_b, ops, medval);
+		currentmed = create_node(NULL, medval);
+		if (medians)
 			currentmed->next = medians;
 		medians = currentmed;
+//		 print_list(s_a, s_b);
 	}
 	medians = medians->next;
 	while (medians || !f)
@@ -150,13 +152,13 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 		medsolve_b(&s_a, &s_b, ops);
 		if (medians)
 		{
-			callback(&s_a, &s_b, ops, medians->value);
+			callback(&s_a, &s_b, ops, medians->val);
 			medians = medians->next;
 //			medsolve_a(&s_a, &s_b, ops);
 		}
 		f = 1;
 	}
-//	print_list(s_a, s_b);
+//	 print_list(s_a, s_b);
 }
 
 
@@ -166,18 +168,18 @@ void	callback(t_stack **s_a, t_stack **s_b, t_stackops **ops, int med_val)
 	int size;
 
 
-	size = ft_count_list(*s_b);
+	size = count_list(*s_b);
 	i = 0;
 	while (i < size)
 	{
-		if((*s_b)->value > med_val)
+		if((*s_b)->val > med_val)
 		{
-			*ops = addop(*ops, "pa", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "pa", count_list(*s_a), count_list(*s_b));
 			push_a(s_a, s_b);
 		}
 		else
 		{
-			*ops = addop(*ops, "rb", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "rb", count_list(*s_a), count_list(*s_b));
 			rotate_b(s_a, s_b);
 		}
 		i++;

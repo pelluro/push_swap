@@ -37,7 +37,7 @@ t_stackops		*addop(t_stackops *ops, char *op, int size_sa, int size_sb)
 	return (ops);
 }
 
-void		findmax(t_stack *stack, int *value_max, int *index_max)
+void		findmax(t_stack *stack, int *val_max, int *index_max)
 {
 	t_stack		*current;
 	int 	i;
@@ -50,19 +50,19 @@ void		findmax(t_stack *stack, int *value_max, int *index_max)
 	idx = 0;
 	while (current)
 	{
-		if (current->value > v)
+		if (current->val > v)
 		{
-			v = current->value;
+			v = current->val;
 			idx = i;
 		}
 		i++;
 		current = current->next;
 	}
-	*value_max = v;
+	*val_max = v;
 	*index_max = idx;
 }
 
-void		findmin(t_stack *stack, int *value, int *index)
+void		findmin(t_stack *stack, int *val, int *index)
 {
 	t_stack		*current;
 	int 	i;
@@ -75,15 +75,15 @@ void		findmin(t_stack *stack, int *value, int *index)
 	idx = 0;
 	while (current)
 	{
-		if (current->value < v)
+		if (current->val < v)
 		{
-			v = current->value;
+			v = current->val;
 			idx = i;
 		}
 		i++;
 		current = current->next;
 	}
-	*value = v;
+	*val = v;
 	*index = idx;
 }
 
@@ -92,7 +92,7 @@ static void		shift(t_stack **stack, int pivot, t_stackops **ops)
 {
 	int size;
 
-	size = ft_count_list(*stack);
+	size = count_list(*stack);
 	if (pivot > size / 2)
 	{
 		*ops = addop(*ops, "rra", size, -1);
@@ -113,27 +113,27 @@ void basicsolve2(t_stack **s_a, t_stack **s_b, t_stackops **ops)
 	t_stack *current;
 
 	current = *s_a;
-	first_elem_a = (*s_a)->value;
-	second_elem_a = (*s_a)->next->value;
+	first_elem_a = (*s_a)->val;
+	second_elem_a = (*s_a)->next->val;
 
 	while (current->next)
 		current = current->next;
-	last_elem_a = current->value;
+	last_elem_a = current->val;
 	if (first_elem_a > second_elem_a)
 	{
-		*ops = addop(*ops, "sa", ft_count_list(*s_a), ft_count_list(*s_b));
+		*ops = addop(*ops, "sa", count_list(*s_a), count_list(*s_b));
 		swap_a(s_a, s_b);
 		basicsolve(s_a, s_b, ops);
 	}
 	else if (first_elem_a > last_elem_a)
 	{
-		*ops = addop(*ops, "ra", ft_count_list(*s_a), ft_count_list(*s_b));
+		*ops = addop(*ops, "ra", count_list(*s_a), count_list(*s_b));
 		rotate_a(s_a, s_b);
 		basicsolve(s_a, s_b, ops);
 	}
 	else
 	{
-		*ops = addop(*ops, "pb", ft_count_list(*s_a), ft_count_list(*s_b));
+		*ops = addop(*ops, "pb", count_list(*s_a), count_list(*s_b));
 		push_b(s_a, s_b);
 		basicsolve(s_a, s_b, ops);
 	}
@@ -145,7 +145,7 @@ void basicsolve(t_stack **s_a, t_stack **s_b, t_stackops **ops)
 	{
 		if ((*s_b))
 		{
-			*ops = addop(*ops, "pa", ft_count_list(*s_a), ft_count_list(*s_b));
+			*ops = addop(*ops, "pa", count_list(*s_a), count_list(*s_b));
 			push_a(s_a, s_b);
 			basicsolve(s_a, s_b, ops);
 		}
@@ -159,10 +159,10 @@ int			smallresolve(t_stack **stack, t_stackops **ops)
 {
 	if (!(*stack) || !(*stack)->next)
 		return (0);
-	if ((*stack)->value > (*stack)->next->value)
+	if ((*stack)->val > (*stack)->next->val)
 	{
 		if (*ops)
-			*ops = addop(*ops, "sa", ft_count_list(*stack), -1);
+			*ops = addop(*ops, "sa", count_list(*stack), -1);
 		else
 		  ft_putendl("sa");
 		*stack = swap(*stack);
@@ -173,26 +173,26 @@ int			smallresolve(t_stack **stack, t_stackops **ops)
 
 void	mediumsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 {
-	int	minvalue;
+	int	minval;
 	int	minindex;
 
 	while (!issorted(s_a) || s_b)
 	{
 		while (s_a && s_a->next && s_a->next->next)
 		{
-			findmin(s_a, &minvalue, &minindex);
-			while (s_a->value > minvalue)
+			findmin(s_a, &minval, &minindex);
+			while (s_a->val > minval)
 				shift(&s_a, minindex, ops);
-			*ops = addop(*ops, "pb", ft_count_list(s_a), ft_count_list(s_b));
+			*ops = addop(*ops, "pb", count_list(s_a), count_list(s_b));
 			push_b(&s_a, &s_b);
 		}
 		smallresolve(&s_a, ops);
 		while (s_b)
 		{
-			*ops = addop(*ops, "pa", ft_count_list(s_a), ft_count_list(s_b));
+			*ops = addop(*ops, "pa", count_list(s_a), count_list(s_b));
 			push_a(&s_a, &s_b);
 		}
 	}
-	// free (minvalue);
+	// free (minval);
 	// free (minindex);
 }

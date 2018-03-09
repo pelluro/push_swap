@@ -110,59 +110,59 @@ static void		clean_reverserotate(t_stackops **ops)
 	}
 }
 
-static void	clean_smart(t_stackops **ops)
-{
-	t_stackops	*current;
-	t_stackops	*first;
-	int 		c;
-	int 		i;
-
-	current = *ops;
-	first = NULL;
-	while (current)
-	{
-		if (ft_strcmp(current->op, "ra"))
-		{
-			if (!first)
-			{
-				first = current;
-				c = 1;
-			}
-			else
-				c++;
-		}
-		else
-		{
-			if (first)
-			{
-				if (c > first->sizestack_a / 2)
-				{
-					first->op = "rra";
-					first->next = NULL;
-					i = 1;
-					while (i <= (first->sizestack_a - c))
-					{
-						first = addop(first, "rra", first->sizestack_a, first->sizestack_b);
-						i++;
-					}
-					first->next = current;
-				}
-				first = NULL;
-			}
-		}
-		current = current->next;
-	}
-}
+//static void	clean_smart(t_stackops **ops)
+//{
+//	t_stackops	*current;
+//	t_stackops	*first;
+//	int 		c;
+//	int 		i;
+//
+//	current = *ops;
+//	first = NULL;
+//	while (current)
+//	{
+//		if (ft_strcmp(current->op, "ra"))
+//		{
+//			if (!first)
+//			{
+//				first = current;
+//				c = 1;
+//			}
+//			else
+//				c++;
+//		}
+//		else
+//		{
+//			if (first)
+//			{
+//				if (c > first->sizestack_a / 2)
+//				{
+//					first->op = "rra";
+//					first->next = NULL;
+//					i = 1;
+//					while (i <= (first->sizestack_a - c))
+//					{
+//						first = addop(first, "rra", first->sizestack_a, first->sizestack_b);
+//						i++;
+//					}
+//					first->next = current;
+//				}
+//				first = NULL;
+//			}
+//		}
+//		current = current->next;
+//	}
+//}
 
 void		clean_ops(t_stackops **ops)
 {
+//	clean_smart(ops);
 	clean_push(ops);
-	clean_smart(ops);
 	clean_rotate(ops);
 	clean_reverserotate(ops);
 }
 
-void		findmed(t_stack *stack, int *value, int *index)
+void		findmed(t_stack *stack, int *val, int *index)
 {
 	t_stack		*copy;
 	int			size;
@@ -172,7 +172,7 @@ void		findmed(t_stack *stack, int *value, int *index)
 	tab = stacktotab(copy,&size);
 	ft_sort_integer_table(tab, size);
 	*index = size / 2;
-	*value = tab[(*index)];
+	*val = tab[(*index)];
 }
 
 t_stack		*copystack(t_stack *stack)
@@ -187,7 +187,7 @@ t_stack		*copystack(t_stack *stack)
 		return (NULL);
 	while (current)
 	{
-		current_copy = create_node(current_copy ? current_copy : stack_copy, current->value);
+		current_copy = create_node(current_copy ? current_copy : stack_copy, current->val);
 		current = current->next;
 	}
 	return (stack_copy->next);
@@ -211,7 +211,7 @@ int			*stacktotab(t_stack *stack, int *size)
 	i = 0;
 	while (current)
 	{
-		tab[i] = current->value;
+		tab[i] = current->val;
 		current = current->next;
 		i++;
 	}

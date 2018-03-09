@@ -47,12 +47,12 @@ int				checktab(t_stack *stack)
 
 	i = 0;
 	current = stack;
-	size = ft_count_list(stack);
+	size = count_list(stack);
 	if (!(tab2 = (int*)ft_memalloc(sizeof(int) * size)))
 		return (0);
 	while (i < size)
 	{
-		tab2[i++] = current->value;
+		tab2[i++] = current->val;
 		current = current->next;
 	}
 	if (!ft_is_sorted(tab2, size))

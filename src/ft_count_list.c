@@ -1,6 +1,6 @@
 #include "../include/pushswap.h"
 
-size_t		ft_count_list(t_stack *stack)
+size_t		count_list(t_stack *stack)
 {
   size_t	i;
   t_stack	*current;
@@ -65,11 +65,11 @@ void		print_list(t_stack *a, t_stack *b)
 	{
 		ft_putstr("|\t");
 		if (a)
-			ft_putnbr(a->value);
+			ft_putnbr(a->val);
 		ft_putstr("\t|");
 		ft_putstr("\t\t|\t ");
 		if (b)
-			ft_putnbr(b->value);
+			ft_putnbr(b->val);
 		ft_putstr("\t|");
 		ft_putendl(" ");
 		if (a)
