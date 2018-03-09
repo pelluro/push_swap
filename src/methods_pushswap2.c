@@ -169,7 +169,7 @@ void		findmed(t_stack *stack, int *val, int *index)
 	int			*tab;
 
 	copy = copystack(stack);
-	tab = stacktotab(copy,&size);
+	tab = stacktotab(copy, &size);
 	ft_sort_integer_table(tab, size);
 	*index = size / 2;
 	*val = tab[(*index)];
