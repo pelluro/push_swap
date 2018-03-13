@@ -154,7 +154,7 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 		{
 			callback(&s_a, &s_b, ops, medians->val);
 			medians = medians->next;
-//			medsolve_a(&s_a, &s_b, ops);
+			medsolve_b(&s_a, &s_b, ops);
 		}
 		f = 1;
 	}
