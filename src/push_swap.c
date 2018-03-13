@@ -31,7 +31,7 @@ int main (int ac, char **av)
 		medsolve(copystack(stack_a), stack_b, &ops);
 //		print_stackops(ops);
 //		printf("\n\n\n\n\n");
-//		clean_ops(&ops);
+		clean_ops(&ops);
 		print_stackops(ops);
 	}
 	else
