@@ -24,11 +24,11 @@ LIB = include/libft
 
 SRCCHECKER = src/checker.c src/methods.c src/methods2.c\
 						src/op_push.c src/op_rotate.c src/op_reverserotate.c src/op_swap.c\
-						src/count_list.c\
+						src/ft_count_list.c\
 						src/methods_checker.c
 SRCPUSH = src/push_swap.c src/methods.c src/methods2.c\
 						src/op_push.c src/op_rotate.c src/op_reverserotate.c src/op_swap.c\
-						src/count_list.c\
+						src/ft_count_list.c\
 						src/methods_pushswap.c src/methods_pushswap2.c src/methods_pushswap3.c
 INC = -I includes
 
