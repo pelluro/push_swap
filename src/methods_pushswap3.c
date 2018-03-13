@@ -28,7 +28,7 @@ void		splitstacks(t_stack **s_a, t_stack **s_b, t_stackops **ops, int medval)
 			*ops = addop(*ops, "ra", count_list(*s_a), count_list(*s_b));
 			rotate_a(s_a, s_b);
 		}
-		else if (current->val <= medval)
+		else if (current->val < medval)
 		{
 			*ops = addop(*ops, "pb", count_list(*s_a), count_list(*s_b));
 			push_b(s_a, s_b);
@@ -154,7 +154,7 @@ void		medsolve(t_stack *s_a, t_stack *s_b, t_stackops **ops)
 		{
 			callback(&s_a, &s_b, ops, medians->val);
 			medians = medians->next;
-			medsolve_b(&s_a, &s_b, ops);
+//			medsolve_b(&s_a, &s_b, ops);
 		}
 		f = 1;
 	}

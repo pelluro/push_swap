@@ -17,12 +17,14 @@ int main (int ac, char **av)
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
+	t_stack		*tmp;
 	t_stackops	*ops;
 	int f;
 
 	f = 0;
-	if (!(stack_a = (t_stack*)ft_memalloc(sizeof(t_stack))))
+	if (!(tmp = (t_stack*)ft_memalloc(sizeof(t_stack))))
 		return (0);
+	stack_a = tmp;
 	stack_b = NULL;
 	ops = NULL;
 	if (makestack(stack_a, ac, av, &f))
@@ -41,5 +43,6 @@ int main (int ac, char **av)
 	// ft_del_stack(&stack_a);
 	// ft_del_stack(&stack_b);
 	// ft_del_stackops(&ops);
+	free(tmp);
 	return (0);
 }
